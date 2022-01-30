@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import Organizer from '../components/Organizer';
+import EdgyCarousel from '../components/carousel/edgy';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
@@ -12,7 +13,7 @@ function Home(props) {
   // let featuredCollections = props.products.features.tripleBannerFeatures
   return (
     <>
-      
+      <EdgyCarousel/>
     </>
   )
   

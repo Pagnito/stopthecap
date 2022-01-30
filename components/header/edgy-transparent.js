@@ -9,7 +9,7 @@ export default function EdgyTransparentHeader() {
           <div className="">ENG</div>
           <div className="ml-2 font-super-bold -rotate-90 font-xs">{"<"}</div>
         </div>
-        <div className="white-text ml-12 mt-10">
+        <div className="text-white ml-12 mt-10">
           <div className="mt-3 cursor-pointer hover:text-red-500 transition-colors">
             03. Home
           </div>

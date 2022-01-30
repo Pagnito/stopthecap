@@ -12,9 +12,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Frank' !important;
-  background-image: url('/images/landing.jpg');
-  background-size: cover;
-  background-position: center;
+
 }
 
 a {
@@ -25,9 +23,29 @@ a {
 * {
   box-sizing: border-box;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-.white-text {
-  color: white;
+/* Track */
+::-webkit-scrollbar-track {
+  background:white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #E84748;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #281C49
+}
+
+.landing {
+  background-image: url('/images/landing.jpg');
+  background-size: cover;
+  background-position: center;
 }
 .font-super-bold {
   font-weight: 1000;
