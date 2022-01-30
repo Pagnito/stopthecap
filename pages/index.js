@@ -2,22 +2,20 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
+import Organizer from '../components/Organizer';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-
 function Home(props) {
-
 
   // let topProducts = props.products.features.topProducts.products.edges;
   // let featuredCollections = props.products.features.tripleBannerFeatures
   return (
     <>
-      <div>
-     
-      </div>
+      
     </>
   )
+  
 }
 // function stateToProps(state) {
 //   return {

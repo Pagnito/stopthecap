@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
+import Footer from './footer/classic';
+import Header from './header/edgy-transparent';
 
 const Layout = ({ children }) => {
   return (
@@ -11,11 +13,12 @@ const Layout = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header/>
       <div>
         <main>
           {children}
         </main>
-        <div className={styles.footer}></div>
+        <Footer />
       </div>
   
     </div>
