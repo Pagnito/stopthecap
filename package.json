@@ -16,6 +16,7 @@
     "react-dom": "^18.0.0-rc.0",
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
+    "react-responsive-carousel": "^3.2.22",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "v18": "^1.0.2"

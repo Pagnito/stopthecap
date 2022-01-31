@@ -4,7 +4,7 @@ module.exports = {
       landing: [
         { type: "header", style: "edgy-transparent" },
         {
-          type: "carousel",
+          type: "landing-carousel",
           style: "edgy",
           width: "100%",
           height: "70vh",
@@ -58,17 +58,21 @@ module.exports = {
           slides: [
             {
               img_url: "",
-              text_one: "Stopping Caps",
-              text_two: "One Cap At A Time",
-              text_three: "Free Shipping On All Orders",
+              text_one: "CAP FREE PRODUCTS",
+              text_two: "Stopping The Caps",
+              text_three: "One Cap At A Time",
+              text_four: "FREE SHIPPING ON ALL ORDERS",
               button: "Shop Now",
+              type: 'one',
             },
             {
               img_url: "",
-              text_one: "UP TO 20% OFF",
-              text_two: "BECAUSE I'M NOT LYING ABOUT 50%",
-              text_three: "Free Shipping On All Orders",
+              text_one: "3 MONTHS SUBSCRIBED?",
+              text_two: "YOU CAN GET UP TO",
+              text_three: "UP TO 30% OFF ON NEW PRODUCTS",
+              text_four: 'FREE SHIPPING ON ALL ORDERS',
               button: "Shop Now",
+              type: 'two'
             },
           ],
         },

@@ -1,19 +1,18 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import Organizer from '../components/Organizer';
-import EdgyCarousel from '../components/carousel/edgy';
+import Home from './home/home';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-function Home(props) {
+function Body(props) {
 
   // let topProducts = props.products.features.topProducts.products.edges;
   // let featuredCollections = props.products.features.tripleBannerFeatures
   return (
     <>
-      <EdgyCarousel/>
+      <Home/>
     </>
   )
   
@@ -36,4 +35,4 @@ function Home(props) {
 //     console.log(err)
 //   }
 // });
-export default Home;
+export default Body;

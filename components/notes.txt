@@ -1,0 +1,1 @@
+Change to owl carousel for dynamic imports

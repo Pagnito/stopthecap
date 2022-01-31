@@ -7,6 +7,18 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "DMSerif";
+  src: url("/fonts/DMSerif.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TheFarmer";
+  src: url("/fonts/TheFarmer.ttf");
+  font-style: normal;
+  font-display: swap;
+}
 html,
 body {
   padding: 0;
@@ -66,3 +78,88 @@ a {
   fill: #E84748;
   color: #E84748;
 }
+/*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
+.animate-link-one {
+  animation: animate-link .6s ease-in-out .5s forwards;
+}
+.animate-link-two {
+  animation: animate-link .6s ease-in-out .6s forwards;
+}
+.animate-link-three {
+  animation: animate-link .6s ease-in-out .7s forwards;
+}
+.animate-link-four {
+  animation: animate-link .6s ease-in-out .8s forwards;
+}
+.animate-down {
+  animation: animate-down .7s ease-in-out 1s forwards;
+}
+.stamp-animate {
+  animation: stamp-animate .4s ease-in 1.5s forwards;
+}
+
+
+
+@keyframes animate-link {
+  0%{
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+}
+@keyframes animate-down {
+  100% {
+    opacity: 1;
+    transform:translateY(0rem);
+  }
+}
+@keyframes stamp-animate {
+  0% {
+    opacity: 0;
+    transform: scale(4);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1)
+  }
+  90% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
+
+
+
+/*///////////////////////////// CAROUSEL STYLES //////////////////////////////////////*/
+.animate-text-one {
+  animation: animate-text .6s ease-in-out .0s forwards;
+}
+.animate-text-two {
+  animation: animate-text .6s ease-in-out .1s forwards;
+}
+.animate-text-three {
+  animation: animate-text .6s ease-in-out .2s forwards;
+}
+.animate-text-four {
+  animation: animate-text .6s ease-in-out .3s forwards;
+}
+.animate-button {
+  animation: animate-text .6s ease-in-out .4s forwards;
+}
+
+@keyframes animate-text {
+  0%{
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+}
+/*///////////////////////////// CAROUSEL STYLES //////////////////////////////////////*/
+
