@@ -32,7 +32,7 @@ export default function EdgyCarousel() {
   };
 
   return (
-    <div className="absolute top-0">
+    <div className="relative top-0">
       <Carousel
         autoPlay
         renderIndicator={couraselIndicator}

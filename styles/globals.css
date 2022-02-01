@@ -78,6 +78,22 @@ a {
   fill: #E84748;
   color: #E84748;
 }
+.mt-screen {
+  margin-top: 100vh;
+}
+.mt-screen-1\/2 {
+  margin-top: 50vh;
+}
+.mt-screen-1\/3 {
+  margin-top: 33.33vh;
+}
+.h-screen-1\/5 {
+  height: 20vh;
+}
+.h-screen-1\/4 {
+  height: 25vh;
+}
+
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
 .animate-link-one {
   animation: animate-link .6s ease-in-out .5s forwards;

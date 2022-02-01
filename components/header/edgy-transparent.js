@@ -4,7 +4,7 @@ import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
 export default function EdgyTransparentHeader() {
 
   return (
-    <header className="z-10 w-full bg-gray-dark flex justify-between relative">
+    <header className="z-10 w-full bg-gray-dark flex justify-between absolute">
       <div className="flex flex-col w-1/3">
         <div className="animate-down opacity-0 -translate-y-3 xs:w-1/3 sm:w-1/5 transition-colors  cursor-pointer flex border-l-2  border-solid border-red-500 hover:text-white text-red-500 p-2 m-4">
           <div className="">ENG</div>

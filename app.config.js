@@ -63,20 +63,41 @@ module.exports = {
               text_three: "One Cap At A Time",
               text_four: "FREE SHIPPING ON ALL ORDERS",
               button: "Shop Now",
-              type: 'one',
+              type: "one",
             },
             {
               img_url: "",
               text_one: "3 MONTHS SUBSCRIBED?",
               text_two: "YOU CAN GET UP TO",
               text_three: "UP TO 30% OFF ON NEW PRODUCTS",
-              text_four: 'FREE SHIPPING ON ALL ORDERS',
+              text_four: "FREE SHIPPING ON ALL ORDERS",
               button: "Shop Now",
-              type: 'two'
+              type: "two",
             },
           ],
         },
-        banners: {},
+        incentives: {
+          active_incentives: [
+            {
+              img_url: "",
+              text_one: "VETTED SUPPLIERS",
+              text_two: "Every product I sell, I held in my hands, from the same supplier I use",
+              button: "LEARN MORE"
+            },
+            {
+              img_url: "",
+              text_one: "FREE SHIPPING",
+              text_two: "Almost all of the products get delivered within 7 days",
+              button: "LEARN MORE"
+            },
+            {
+              img_url: "",
+              text_one: "VETTED PRODUCTS",
+              text_two: "You can find reviews and tests of these products on my social media",
+              button: "LEARN MORE"
+            }
+          ],
+        },
         featured_product: {
           id: "1234",
         },

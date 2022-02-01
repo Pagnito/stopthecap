@@ -4,7 +4,7 @@ export default function SlideOne({data}) {
   
   return (
     <div className={`top-0 w-full bg-landing-slider-one bg-center bg-cover h-screen flex items-center justify-end pr-10 pl-10`}>
-      <div className="p-5 mt-10  text-white font-sans mr-20 flex flex-col justify-start items-start">
+      <div className="p-5 mt-10 text-left text-white font-sans mr-20 flex flex-col justify-start items-start">
         <div className="animate-text-one opacity-0 -translate-x-8 text-2xl">{data.text_one}</div>
         <div className="animate-text-two opacity-0 -translate-x-8 font-serif text-5xl mt-4">{data.text_two}</div>
         <div className="animate-text-three opacity-0 -translate-x-8  font-serif text-5xl">{data.text_three}</div>
