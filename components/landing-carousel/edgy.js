@@ -1,5 +1,6 @@
 import React from "react";
 import SlideOne from "./slides/slide-one";
+import VideoSlide from "./slides/video-slide";
 import { app } from "../../app.config";
 import dynamic from "next/dynamic";
 import { Carousel } from "react-responsive-carousel";
@@ -12,7 +13,7 @@ export default function EdgyCarousel() {
       return obj.type === "one" ? (
         <SlideOne key={obj.type} data={obj} />
       ) : (
-        <SlideTwo key={obj.type} data={obj} />
+        <VideoSlide url={'/videos/video-two.mp4'} key={obj.type} data={obj} />
       );
     });
   };
@@ -41,6 +42,7 @@ export default function EdgyCarousel() {
         showThumbs={false}
         animationHandler={""}
         infiniteLoop={true}
+        interval={10000}
       >
         {slides()}
       </Carousel>

@@ -1,49 +1,50 @@
 module.exports = {
   app: {
     layout: {
-      landing: [
-        { type: "header", style: "edgy-transparent" },
-        {
-          type: "landing-carousel",
-          style: "edgy",
-          width: "100%",
-          height: "70vh",
-          margin: "0 0 0 0",
-        },
-        {
-          type: "banner-row",
-          style: "service-quality",
-          width: "100%",
-          height: "30vh",
-          margin: "0 0 0 0",
-        },
-        {
-          type: "featured-product",
-          style: "hero",
-          width: "100%",
-          height: "100vh",
-          margin: "0 0 0 0",
-        },
-        {
-          type: "featured-collection",
-          style: "edgy",
-          width: "100%",
-          height: "",
-        },
-        {
-          type: "video-hero",
-          style: "auto-play",
-          width: "100%",
-          height: "60vh",
-          margin: "0 0 0 0",
-        },
-        {
-          type: "newsletter",
-          style: "edgy",
-          width: "100%",
-          height: "20vh",
-          margin: "0 0 0 0",
-        },
+      // landing: [
+      //   { type: "header", style: "edgy-transparent" },
+      //   {
+      //     type: "landing-carousel",
+      //     style: "edgy",
+      //     width: "100%",
+      //     height: "70vh",
+      //     margin: "0 0 0 0",
+      //   },
+      //   {
+      //     type: "banner-row",
+      //     style: "service-quality",
+      //     width: "100%",
+      //     height: "30vh",
+      //     margin: "0 0 0 0",
+      //   },
+      //   {
+      //     type: "featured-product",
+      //     style: "hero",
+      //     width: "100%",
+      //     height: "100vh",
+      //     margin: "0 0 0 0",
+      //   },
+      //   {
+      //     type: "featured-collection",
+      //     style: "edgy",
+      //     width: "100%",
+      //     height: "",
+
+      //   },
+      //   {
+      //     type: "video-hero",
+      //     style: "auto-play",
+      //     width: "100%",
+      //     height: "60vh",
+      //     margin: "0 0 0 0",
+      //   },
+      //   {
+      //     type: "newsletter",
+      //     style: "edgy",
+      //     width: "100%",
+      //     height: "20vh",
+      //     margin: "0 0 0 0",
+      //   },
         // {
         //   type: "footer",
         //   style: "classic",
@@ -51,10 +52,9 @@ module.exports = {
         //   height: "unset",
         //   margin: "0 0 0 0",
         // },
-      ],
+      //],
       data: {
         carousel: {
-          arrow: "",
           slides: [
             {
               img_url: "",
@@ -69,7 +69,7 @@ module.exports = {
               img_url: "",
               text_one: "3 MONTHS SUBSCRIBED?",
               text_two: "YOU CAN GET UP TO",
-              text_three: "UP TO 30% OFF ON NEW PRODUCTS",
+              text_three: "30% OFF ON NEW PRODUCTS",
               text_four: "FREE SHIPPING ON ALL ORDERS",
               button: "Shop Now",
               type: "two",
@@ -97,6 +97,10 @@ module.exports = {
               button: "LEARN MORE"
             }
           ],
+        },
+        featured_collection: {
+          number_of_rows: 2,
+          number_of_columns: 4
         },
         featured_product: {
           id: "1234",
