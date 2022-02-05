@@ -11,14 +11,14 @@ export default function FeaturedProduct(props) {
     featuure_three: "Bluetooth Connectivity",
   };
   return (
-    <div className="xs:flex-col-reverse lg:flex-row flex xs:items-center xs:p-5 md:p-20 z-20 relative w-full -mt-3 clip-path-one bg-white">
-      <div className="flex text-left flex-col items-center xs:w-full md:w-1/2 md:ml-10">
+    <div className="xxs:flex-col-reverse lg:flex-row flex xxs:items-center xxs:p-5 md:p-20 z-20 relative w-full -mt-3 clip-path-one bg-white">
+      <div className="flex text-left flex-col items-center xxs:w-full md:w-1/2 md:ml-10">
         <div className="flex flex-col justify-start">
-          <div className="xs:text-3xl lg:text-4xl">{props.text_one}</div>
-          <div className="xs:text-6xl lg:text-8xl text-red-500">
+          <div className="xxs:text-3xl lg:text-4xl">{props.text_one}</div>
+          <div className="xxs:text-6xl lg:text-8xl text-red-500">
             {props.text_two}
           </div>
-          <div className="xs:text-xl lg:text-2xl">{props.text_three}</div>
+          <div className="xxs:text-xl lg:text-2xl">{props.text_three}</div>
           <ul className="pl-5">
             <li className="mt-5 flex">
               <RiCheckFill color="EF4444" size="20px" className="mr-1 mt-0.5" />
@@ -38,7 +38,7 @@ export default function FeaturedProduct(props) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center xs:mt-20 md:mt-0 md:w-1/2">
+      <div className="flex justify-center items-center xxs:mt-20 md:mt-0 md:w-1/2">
         <img src="/images/backpack.jpg" className="" />
       </div>
     </div>

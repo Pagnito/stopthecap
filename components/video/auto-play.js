@@ -9,11 +9,11 @@ export default function AutoPlayVideoHero(props) {
   };
   return (
     <div className="h-screen-3/4 w-full overflow-hidden flex items-center relative">
-      <div className="w-full h-full flex justify-end items-end p-20">
-        <div className="w-1/3">
-          <div className="text-red-500 text-4xl">{props.text_one}</div>
-          <div className="text-white text-6xl mt-4 font-serif">{props.text_two}</div>
-          <button className="hover:bg-red-500 transition-colors cursor-pointer mt-7 pt-4 pb-4 pl-8 pr-8 text-white self-start text-lg border-solid border-red-500 border-2 rounded">
+      <div className="w-full h-full flex md:justify-end xxs:justify-center items-end xxs:p-10 sm:p-20">
+        <div className="lg:w-1/3 md:w-1/2 flex-col flex xxs:text-center md:text-left xxs:items-center md:items-start">
+          <div className="text-red-500 xxs:text-xl lg:text-2xl">{props.text_one}</div>
+          <div className="text-white xxs:text-3xl lg:text-4xl mt-4 font-serif">{props.text_two}</div>
+          <button className="hover:bg-red-500 transition-colors cursor-pointer mt-7 pt-4 pb-4 pl-8 pr-8 text-white md:self-start text-lg border-solid border-red-500 border-2 rounded">
             {props.button}
           </button>
         </div>
@@ -29,9 +29,6 @@ export default function AutoPlayVideoHero(props) {
         <source
           src="/videos/video-one.mp4"
           type="video/mp4"
-          autoPlay={true}
-          muted={true}
-          loop={true}
         />
       </video>
     </div>

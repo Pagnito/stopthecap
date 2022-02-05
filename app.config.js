@@ -80,8 +80,8 @@ module.exports = {
           active_incentives: [
             {
               img_url: "",
-              text_one: "VETTED SUPPLIERS",
-              text_two: "Every product I sell, I held in my hands, from the same supplier I use",
+              text_one: "QUALITY PRODUCTS",
+              text_two: "If we wouldn't use it, I won't sell it",
               button: "LEARN MORE"
             },
             {
