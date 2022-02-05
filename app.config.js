@@ -68,8 +68,8 @@ module.exports = {
             {
               img_url: "",
               text_one: "3 MONTHS SUBSCRIBED?",
-              text_two: "YOU CAN GET UP TO",
-              text_three: "30% OFF ON NEW PRODUCTS",
+              text_two: "GET UP TO 30% OFF",
+              text_three: "ON NEW PRODUCTS",
               text_four: "FREE SHIPPING ON ALL ORDERS",
               button: "Shop Now",
               type: "two",
@@ -80,8 +80,8 @@ module.exports = {
           active_incentives: [
             {
               img_url: "",
-              text_one: "QUALITY PRODUCTS",
-              text_two: "If we wouldn't use it, I won't sell it",
+              text_one: "SOMETHING COOL",
+              text_two: "You can find reviews and tests of our products on our social media",
               button: "LEARN MORE"
             },
             {
@@ -92,10 +92,12 @@ module.exports = {
             },
             {
               img_url: "",
-              text_one: "VETTED PRODUCTS",
-              text_two: "You can find reviews and tests of these products on my social media",
+              text_one: "QUALITY PRODUCTS",
+              text_two: "If we wouldn't use it, we wouldn't sell it",
               button: "LEARN MORE"
-            }
+            },
+
+
           ],
         },
         featured_collection: {

@@ -15,7 +15,7 @@ export default function FeaturedProduct(props) {
       <div className="flex text-left flex-col items-center xxs:w-full md:w-1/2 md:ml-10">
         <div className="flex flex-col justify-start">
           <div className="xxs:text-3xl lg:text-4xl">{props.text_one}</div>
-          <div className="xxs:text-6xl lg:text-8xl text-red-500">
+          <div className="xxs:text-5xl lg:text-8xl text-red-500">
             {props.text_two}
           </div>
           <div className="xxs:text-xl lg:text-2xl">{props.text_three}</div>

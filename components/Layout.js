@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
-import Footer from './footer/classic';
+import Footer from './footer/classic-footer';
 import Header from './header/edgy-transparent';
 
 const Layout = ({ children }) => {

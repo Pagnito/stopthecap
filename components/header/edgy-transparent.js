@@ -39,7 +39,7 @@ export default function EdgyTransparentHeader() {
         </div>
       </div>
       <div className="sm:w-1/3">
-        <div className="flex animate-down opacity-0 -translate-y-3 justify-end align-middle pr-5">
+        <div className="flex animate-down opacity-0 -translate-y-3 justify-end align-middle xxs:pr-1 xs:pr-5">
           <div className="mt-5 mr-7">
             <RiSearchLine className="my-icon-style" color="white" size="25px" />
           </div>
