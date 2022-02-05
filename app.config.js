@@ -80,8 +80,8 @@ module.exports = {
           active_incentives: [
             {
               img_url: "",
-              text_one: "SOMETHING COOL",
-              text_two: "You can find reviews and tests of our products on our social media",
+              text_one: "CUSTOMER SERVICE ",
+              text_two: "You can call and speak to a real person, or use chat!",
               button: "LEARN MORE"
             },
             {

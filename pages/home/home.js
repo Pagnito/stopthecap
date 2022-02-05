@@ -24,6 +24,7 @@ export default function Home(props) {
       console.log(inView)
     },
     onEnter: ({ scrollDirection, entry, observe, unobserve }) => {
+      console.log(entry)
       unobserve()
       // Triggered when the target enters the viewport
     },
@@ -36,12 +37,12 @@ export default function Home(props) {
 
   return (
     <div ref={observe} className="home ">
-      <EdgyCarousel />
+      {inView && <EdgyCarousel /> }
       {inView &&<Incentives />}
       {inView && <FeaturedProduct />}
-      <FeaturedCollection />
-      <AutoPlayVideoHero />
-      <Newsletter />
+      {inView && <FeaturedCollection />}
+      {inView&& <AutoPlayVideoHero /> }
+      {inView && <Newsletter />}
     </div>
   );
 }

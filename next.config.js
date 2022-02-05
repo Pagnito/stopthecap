@@ -12,6 +12,7 @@ module.exports = {
    
       config.experiments = {};
       config.experiments.topLevelAwait = true;
+      config.experiments.layers = true;
 
   
     // Important: return the modified config
