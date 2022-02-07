@@ -21,10 +21,8 @@ export default function Home(props) {
     // threshold: 0.25, // Default is 0
     onChange: ({ inView, scrollDirection, entry, observe, unobserve }) => {
       // Triggered whenever the target meets a threshold, e.g. [0.25, 0.5, ...]
-      console.log(inView)
     },
     onEnter: ({ scrollDirection, entry, observe, unobserve }) => {
-      console.log(entry)
       unobserve()
       // Triggered when the target enters the viewport
     },
@@ -33,7 +31,6 @@ export default function Home(props) {
     // },
     // More useful options...
   });
-  console.log(inView)
 
   return (
     <div ref={observe} className="home ">

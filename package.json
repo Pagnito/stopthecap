@@ -21,6 +21,7 @@
     "realm-web": "^1.6.0",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
+    "shopify-buy": "^2.14.0",
     "v18": "^1.0.2"
   },
   "devDependencies": {

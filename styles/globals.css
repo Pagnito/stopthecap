@@ -27,12 +27,12 @@ body {
 
 }
 ::-moz-selection { /* Code for Firefox */
-  color: #FDEAC7;
+  color: #FAB87E;
   background: rgba(0,0,0,.0);
 }
 
 ::selection {
-  color: #FDEAC7;
+  color: #FAB87E;
   background: rgba(0,0,0,.0);
 }
 a {
@@ -66,6 +66,15 @@ a {
   background-image: url('/images/landing.jpg');
   background-size: cover;
   background-position: center;
+}
+.no-outline {
+  outline: none;
+}
+.no-outline:focus {
+  outline:none;
+}
+.no-outline:active {
+  outline:none;
 }
 .font-super-bold {
   font-weight: 1000;
@@ -131,9 +140,7 @@ a {
 .-mt-20 {
   margin-top: -20rem;
 }
-.h-hunned {
-  height: 100%;
-}
+
 .-z-10 {
   z-index: -10;
 }
@@ -157,8 +164,17 @@ a {
 .stamp-animate {
   animation: stamp-animate .4s ease-in 1.5s forwards;
 }
-
-
+.animate-search-bg {
+  animation: animateSearchBg .5s ease-out forwards;
+} 
+.animate-search {
+  animation: animateSearch .5s ease-out .5s forwards;
+}
+.animate-close-x {
+  transform: rotateZ(90deg) scale(0);
+  transform-origin: center;
+  animation: animateCloseX .3s ease-out 1s forwards;
+}
 
 @keyframes animate-link {
   0%{
@@ -190,6 +206,26 @@ a {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes animateSearchBg {
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes animateSearch {
+  100% {
+    width: 100%;
+  }
+}
+@keyframes animateCloseX {
+  50% {
+    transform: rotateZ(-60deg) scale(1);
+  }
+  100% {
+    transform: rotateZ(0deg) scale(1);
   }
 }
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/

@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
+import SearchModal from "../sub-components/search-modal";
+
 export default function EdgyTransparentHeader() {
+  const [searchModal, showSearchModal] = useState(false);
 
   return (
     <header className="z-10 w-full bg-gray-dark flex justify-between absolute">
@@ -40,7 +43,7 @@ export default function EdgyTransparentHeader() {
       </div>
       <div className="sm:w-1/3">
         <div className="flex animate-down opacity-0 -translate-y-3 justify-end align-middle xxs:pr-1 xs:pr-5">
-          <div className="mt-5 mr-7">
+          <div onClick={() => showSearchModal(true)} className="mt-5 mr-7">
             <RiSearchLine className="my-icon-style" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7 my-icon-style">
@@ -61,6 +64,7 @@ export default function EdgyTransparentHeader() {
           {/* <div className="m-10"></div> */}
         </div>
       </div>
+      {searchModal ? <SearchModal hideSearchModal={() => showSearchModal(false) } /> : false }
     </header>
   );
 }
