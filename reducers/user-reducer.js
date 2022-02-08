@@ -8,9 +8,7 @@ const userReducer = (state = init, action) => {
 
   
       default:
-        return {
-          ...state
-        }
+        return state
     }
   }
 

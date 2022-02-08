@@ -26,30 +26,26 @@ async function ShopifyData(query) {
   }
 }
 
-const useProducts = function () {
-  const fetchAllProducts = () => {
+const products = {
+  fetchAllProducts: () => {
     return client.product.fetchAll().then((products) => {
       return products;
     });
-  };
-  const fetchProduct = function (id) {
+  },
+  fetchProduct: function (id) {
     return client.product.fetch(id).then((product) => {
       return product;
     });
-  };
-  const fetchCollection = async function (name) {
+  },
+  fetchCollection: async function (name) {
     let collection = await ShopifyData(queries.getCollection('ADIDAS'));
     const data = collection.data.collectionByHandle ? collection.data.collectionByHandle : {}
     return data;
-  };
+  }
   // const fetchAllCollection = function() {
   //   client.collection.fe
   // }
-  return {
-    fetchAllProducts,
-    fetchProduct,
-    fetchCollection,
-  };
+
 };
 
-export default useProducts;
+export default products;

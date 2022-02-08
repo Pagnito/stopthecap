@@ -29,9 +29,7 @@ const productReducer = (state = init, action) => {
           features: Object.assign(state.features, { topProducts: action.payload })
         }
       default:
-        return {
-          ...state
-        }
+        return state
     }
   }
 

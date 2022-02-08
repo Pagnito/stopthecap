@@ -6,7 +6,6 @@ export default function ProductCard(props) {
   let title = props.data.title;
   let image = props.data.images.edges[0].node.transformedSrc;
   let price = "$" + props.data.variants.edges[0].node.priceV2.amount;
-  console.log("huh", price);
   return (
 
       <div className="relative pt-5 pb-5 flex flex-col items-center justify-center ">

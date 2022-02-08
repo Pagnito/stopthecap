@@ -1,11 +1,17 @@
-import React, {useState} from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import {connect} from 'react-redux'
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
+import { toggleSearch } from "../../actions/app-actions";
 import SearchModal from "../sub-components/search-modal";
+import { useDispatch, useSelector} from "react-redux";
 
-export default function EdgyTransparentHeader() {
-  const [searchModal, showSearchModal] = useState(false);
-
+const EdgyTransparentHeader = (props) => {
+  useEffect(() => {
+    console.log('wtf',props)
+  })
+  // let app = useSelector((state) => state.app);
+  let dispatch = useDispatch();
   return (
     <header className="z-10 w-full bg-gray-dark flex justify-between absolute">
       <div className="flex flex-col w-1/3">
@@ -43,7 +49,7 @@ export default function EdgyTransparentHeader() {
       </div>
       <div className="sm:w-1/3">
         <div className="flex animate-down opacity-0 -translate-y-3 justify-end align-middle xxs:pr-1 xs:pr-5">
-          <div onClick={() => showSearchModal(true)} className="mt-5 mr-7">
+          <div onClick={() => dispatch(toggleSearch())} className="mt-5 mr-7">
             <RiSearchLine className="my-icon-style" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7 my-icon-style">
@@ -64,7 +70,19 @@ export default function EdgyTransparentHeader() {
           {/* <div className="m-10"></div> */}
         </div>
       </div>
-      {searchModal ? <SearchModal hideSearchModal={() => showSearchModal(false) } /> : false }
+      {props.app.searchVisible ? (
+        <SearchModal open={props.app.searchVisible} />
+      ) : (
+        false
+      )}
     </header>
   );
+};
+
+function stateToProps(state){
+  return {
+    app: state.app
+  }
 }
+
+export default connect(stateToProps, null)(EdgyTransparentHeader);

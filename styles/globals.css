@@ -146,6 +146,11 @@ a {
 }
 
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
+.bg-white-tr-60 {
+  background-color: rgba(255,255,255,0.6);
+  backdrop-filter: blur(3px);
+} 
+
 .animate-link-one {
   animation: animate-link .6s ease-in-out .5s forwards;
 }

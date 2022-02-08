@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { app } from "../../app.config";
 
 const FeaturedCollection = (props) => {
+  
   let products = props.products.topProducts.products.edges;
   return (
     <div className="bg-white -mt-1">
