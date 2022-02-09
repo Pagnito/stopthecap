@@ -3,7 +3,6 @@ import { RiCloseFill } from "react-icons/ri";
 
 export default function SearchModal(props) {
   let [search, setSeach] = useState("");
-  let searchResults = "";
   let input = createRef();
 
   useEffect(() => {

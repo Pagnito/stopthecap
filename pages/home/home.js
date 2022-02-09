@@ -24,7 +24,7 @@ export default function Home(props) {
       <EdgyCarousel />
       <Incentives />
       <FeaturedProduct />
-      {/* <FeaturedCollection /> */}
+      <FeaturedCollection />
       <AutoPlayVideoHero />
       <Newsletter />
     </div>

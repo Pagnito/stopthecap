@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
-import {connect} from 'react-redux'
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
 import { toggleSearch } from "../../actions/app-actions";
+import { useDispatch, useSelector } from "react-redux";
 import SearchModal from "../sub-components/search-modal";
-import { useDispatch, useSelector} from "react-redux";
 
 const EdgyTransparentHeader = (props) => {
-  useEffect(() => {
-    console.log('wtf',props)
-  })
-  // let app = useSelector((state) => state.app);
+
+  let app = useSelector((state) => state.app);
   let dispatch = useDispatch();
   return (
     <header className="z-10 w-full bg-gray-dark flex justify-between absolute">
@@ -70,8 +67,8 @@ const EdgyTransparentHeader = (props) => {
           {/* <div className="m-10"></div> */}
         </div>
       </div>
-      {props.app.searchVisible ? (
-        <SearchModal open={props.app.searchVisible} />
+      {app.searchVisible ? (
+        <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} />
       ) : (
         false
       )}
@@ -79,10 +76,10 @@ const EdgyTransparentHeader = (props) => {
   );
 };
 
-function stateToProps(state){
-  return {
-    app: state.app
-  }
-}
+// function stateToProps(state){
+//   return {
+//     app: state.app
+//   }
+// }
 
-export default connect(stateToProps, null)(EdgyTransparentHeader);
+export default EdgyTransparentHeader;
