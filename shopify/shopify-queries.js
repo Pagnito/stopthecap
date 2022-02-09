@@ -1,42 +1,77 @@
 const queries = {
-  getProductByHandle: (handle) => {
-    return `{
-    productByHandle(handle: "${handle}") {
-        id
-        title
-        description
-        images(first: 5) {
-          edges {
-            node {
-              originalSrc
-              altText
-            }
+  recursiveCatalogWithoutCursor: () => {
+    return `
+    {
+      products(first: 250) {
+        edges {
+          cursor
+          node {
+            id
+            handle
           }
         }
-        variants(first: 100) {
-            edges {
-                cursor
-                node {
-                    image {
-                      originalSrc
-                      altText
-                    }
-                    selectedOptions {
-                      name
-                      value
-                    }
-                    id
-                    title
-                    quantityAvailable
-                    priceV2 {
-                        amount
-                        currencyCode
-                    }
-                }
-            }
+        pageInfo {
+          hasNextPage
         }
       }
-    }`;
+    }
+    `
+  },
+  recursiveCatalogWithCursor: (cursor) => {
+    return `{
+      products(after: "${cursor}", first: 250) {
+        edges {
+          cursor
+          node {
+            id
+            handle
+          }
+        }
+        pageInfo {
+          hasNextPage
+        }
+      }
+    }`
+  },
+  getProductByHandle: (handle) => {
+    return `{
+      productByHandle(handle: "${handle}") {
+          id
+          title
+          description
+          images(first: 5) {
+            edges {
+              node {
+                originalSrc
+                altText
+              }
+            }
+          }
+          variants(first: 100) {
+              edges {
+                  cursor
+                  node {
+                      image {
+                        originalSrc
+                        altText
+                      }
+                      selectedOptions {
+                        name
+                        value
+                      }
+                      sku
+                      id
+                      title
+                      quantityAvailable
+                      priceV2 {
+                          amount
+                          currencyCode
+                      }
+                  }
+              }
+          }
+      }
+  }`
   },
   getCollection: (collection) => {
     return `{

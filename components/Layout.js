@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
 import Footer from './footer/classic-footer';
-import Header from './header/edgy-transparent';
 import ClassicHeader from "./header/classic-header";
 
 
@@ -16,8 +15,6 @@ const Layout = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ClassicHeader />
-
-      <Header/>
       <div>
         <main>
           {children}

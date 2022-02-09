@@ -1,6 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import useInView from "react-cool-inview";
+import EdgyHeader from "../../components/header/edgy-transparent";
 
 // const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
 // const Incentives = dynamic(() => import("../../components/banner-row/incentives"));
@@ -17,10 +18,9 @@ import AutoPlayVideoHero from "../../components/video/auto-play";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
 
 export default function Home(props) {
-
-
   return (
     <div className="home">
+      <EdgyHeader />
       <EdgyCarousel />
       <Incentives />
       <FeaturedProduct />

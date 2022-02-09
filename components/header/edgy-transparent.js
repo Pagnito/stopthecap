@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
-import { toggleSearch } from "../../actions/app-actions";
+import { toggleSearch } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import SearchModal from "../sub-components/search-modal";
 

@@ -18,9 +18,9 @@ function Body(props) {
 export default Body;
 
 export const getStaticProps = async () => {
-  let { fetchCollection } = products;
+  let { getCollection } = products;
   try {
-    let collection = await fetchCollection('ADIDAS');
+    let collection = await getCollection('ADIDAS');
     return {
       props: {
         initialReduxState: {

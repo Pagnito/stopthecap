@@ -1,13 +1,16 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 export default function ProductCard(props) {
   let width = props.width;
   let height = props.height;
   let title = props.data.title;
   let image = props.data.images.edges[0].node.transformedSrc;
   let price = "$" + props.data.variants.edges[0].node.priceV2.amount;
+  let handle = props.data.handle;
   return (
-
+    <Link href={`/product/${handle}`} passHref>
       <div className="relative pt-5 pb-5 flex flex-col items-center justify-center ">
         <div className="container flex justify-center">
           <div className="max-w-md w-full bg-theme-blue shadow-lg rounded-xl p-6">
@@ -23,7 +26,12 @@ export default function ProductCard(props) {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -106,18 +114,10 @@ export default function ProductCard(props) {
                         Size
                       </span>
                       <div className="cursor-pointer text-gray-400 ">
-                        <span className="hover:text-red-500 p-1 py-0">
-                          S
-                        </span>
-                        <span className="hover:text-red-500 p-1 py-0">
-                          M
-                        </span>
-                        <span className="hover:text-red-500 p-1 py-0">
-                          L
-                        </span>
-                        <span className="hover:text-red-500 p-1 py-0">
-                          XL
-                        </span>
+                        <span className="hover:text-red-500 p-1 py-0">S</span>
+                        <span className="hover:text-red-500 p-1 py-0">M</span>
+                        <span className="hover:text-red-500 p-1 py-0">L</span>
+                        <span className="hover:text-red-500 p-1 py-0">XL</span>
                       </div>
                     </div>
                   </div>
@@ -154,27 +154,27 @@ export default function ProductCard(props) {
           </div>
         </div>
       </div>
-
+    </Link>
   );
 }
-    // <div className="group relative">
-    //   <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-90 lg:h-80 lg:aspect-none">
-    //     <img
-    //       src={image}
-    //       alt="Front of men Basic Tee in black."
-    //       className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-    //     />
-    //   </div>
-    //   <div className="mt-4 flex justify-between">
-    //     <div>
-    //       <h3 className="text-sm text-gray-700">
-    //         <a href="#">
-    //           <span aria-hidden="true" className="absolute inset-0"></span>
-    //           {title}
-    //         </a>
-    //       </h3>
-    //       {/* <p className="mt-1 text-sm text-gray-500">Black</p> */}
-    //     </div>
-    //     <p className="text-sm font-medium text-gray-900">{price}</p>
-    //   </div>
-    // </div>
+// <div className="group relative">
+//   <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-90 lg:h-80 lg:aspect-none">
+//     <img
+//       src={image}
+//       alt="Front of men Basic Tee in black."
+//       className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+//     />
+//   </div>
+//   <div className="mt-4 flex justify-between">
+//     <div>
+//       <h3 className="text-sm text-gray-700">
+//         <a href="#">
+//           <span aria-hidden="true" className="absolute inset-0"></span>
+//           {title}
+//         </a>
+//       </h3>
+//       {/* <p className="mt-1 text-sm text-gray-500">Black</p> */}
+//     </div>
+//     <p className="text-sm font-medium text-gray-900">{price}</p>
+//   </div>
+// </div>

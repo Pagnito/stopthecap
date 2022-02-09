@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import {useStore} from '../store'
 
 function MyApp({ Component, pageProps }) {
-  console.log(pageProps)
   const store = useStore(pageProps.initialReduxState);
 
 
