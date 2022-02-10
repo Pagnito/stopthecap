@@ -8,6 +8,7 @@ let init = {
 const productReducer = (state = init, action) => {
     switch (action.type) {
       case 'PDP_SELECTED_VARIANT':
+        console.log('dfuk', action.payload)
         let selectedVariant = state.pdp.product.data.productByHandle.variants.edges.find(({node}) => {
           return node.selectedOptions[0].value == action.payload.color && node.selectedOptions[1].value == action.payload.size
         })

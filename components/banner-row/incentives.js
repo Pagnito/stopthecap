@@ -26,5 +26,5 @@ export default function Incentives(props) {
     );
   };
 
-  return <div className="relative z-10 w-full flex md:flex-row xxs:flex-col shadow-[0px_-10px_16px_2px_rgba(0,0,0,0.3)]">{activeIncentives()}</div>;
+  return <div className="z-10 w-full flex md:flex-row xxs:flex-col shadow-[0px_-10px_16px_2px_rgba(0,0,0,0.3)]">{activeIncentives()}</div>;
 }

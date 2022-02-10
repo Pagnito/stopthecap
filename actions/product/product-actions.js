@@ -9,7 +9,7 @@ export function loadProduct(variant) {
   return { type: productTypes.PDP_SELECTED_VARIANT, payload: variant };
 }
 
-export function selectVariant(product) {
+export function selectVariantAction(product) {
   return { type: productTypes.PDP_PRODUCT, payload: product };
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import useInView from "react-cool-inview";
 import EdgyHeader from "../../components/header/edgy-transparent";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
 // const Incentives = dynamic(() => import("../../components/banner-row/incentives"));

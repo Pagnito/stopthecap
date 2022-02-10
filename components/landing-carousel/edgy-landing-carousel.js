@@ -4,7 +4,6 @@ import VideoSlide from "./slides/video-slide";
 import { app } from "../../app.config";
 import dynamic from "next/dynamic";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 const SlideTwo = dynamic(() => import("./slides/slide-two"));
 
 export default function EdgyCarousel() {

@@ -11,12 +11,12 @@ export default function SearchModal(props) {
     }
   }, []);
   return (
-    <div className="fixed top-0 flex flex-col justify-center items-center h-screen w-full">
-      <div onClick={props.hideSearchModal} className="cursor-pointer z-20 scale-0 animate-close-x absolute top-5 right-5">
+    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full">
+      <div onClick={props.hideSearchModal} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="50px" color="white" />
       </div>
 
-      <div className="w-3/4 z-10 flex justify-center">
+      <div className="w-3/4 z-50 flex justify-center">
         <input
           ref={input}
           autoFocus={true}
@@ -26,8 +26,8 @@ export default function SearchModal(props) {
         />
       </div>
       <div className="flex fixed top-0 w-full h-screen">
-        <div className="bg-black z-20 opacity-90 w-1/2 -translate-x-full animate-search-bg"></div>
-        <div className="bg-black z-20 opacity-90 w-1/2 translate-x-full animate-search-bg"></div>
+        <div className="bg-black z-50 opacity-90 w-1/2 -translate-x-full animate-search-bg"></div>
+        <div className="bg-black z-50 opacity-90 w-1/2 translate-x-full animate-search-bg"></div>
       </div>
 
       <div className=""></div>
