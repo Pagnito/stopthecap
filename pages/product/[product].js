@@ -5,46 +5,63 @@ import Image from "next/image";
 import { useEffect, useMemo } from "react";
 import { connect, useDispatch } from "react-redux";
 import { selectVariantAction } from "../../actions/product/product-actions";
+import ProductCarousel from "../../components/sub-components/product-carousel";
 import Reviews from "../../components/sub-components/reviews";
 import QuantityPicker from "../../components/sub-components/quantity-picker";
-import { Carousel } from "react-responsive-carousel";
-
+import findOptionsIndexInShopifyResponse from "../../util/findVariantOptionIndex";
 function ProductPage(props) {
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
   }, []);
   let dispatch = useDispatch();
-  let images = props.product.product.images.edges.map(
-    (obj) => obj.node.originalSrc
-  );
+  function selectVariant(variant) {
+    dispatch(selectVariantAction(variant));
+  }
+  let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
   let selected = props.product.selectedVariant;
   let description = props.product.product.description;
-  // console.log(selected);
+  let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
+  let variantsExist = props.product.product.variantsExist;
+  let primaryOptionExist = props.product.product.primaryOptionExist;
+  let primaryOption = "color";
+  let primaryOptionIndex = findOptionsIndexInShopifyResponse(variants[0].node.selectedOptions)[primaryOption];
 
-  // function filterDataSizesPerColor(variants) {
-  //   let sizesByColor = {};
-  //   variants.map(variant1 => {
-  //     variants.forEach(variant2 => {
-  //       if(variant1.node.selectedOptions[0].value===variant2.node.selectedOptions[0].value) {
-  //         let color = variant1.node.selectedOptions[0].value;
-  //         if(!sizesByColor.hasOwnProperty(color)) {
-  //           sizesByColor[color] = {};
-  //         }
-  //         let size = variant2.node.selectedOptions[1].value;
-  //         if(variant1.node.selectedOptions[0].value===variant2.node.selectedOptions[0].value && !sizesByColor[color][size]){
-  //           sizesByColor[color][size] = variant2;
-  //         }
-  //       }
-  //     })
-  //   });
-  //   return sizesByColor;
-  // }
-  // let sizesByColor = useMemo(() => filterDataSizesPerColor(props.product.product.variants.edges));
+  function filterByPrimaryOption(variants) {
+    if (variantsExist && primaryOptionExist) {
+      let primaryOptionArray = {};
+      variants.map(({ node }) => {
+        if (!primaryOptionArray[node.selectedOptions[primaryOptionIndex].value]) {
+          primaryOptionArray[node.selectedOptions[primaryOptionIndex].value] = node;
+        }
+      });
+      return primaryOptionArray;
+    }
+  }
+  function filterOtherOptions(variants) {
+    let otherOptions = {};
+    if (variantsExist) {
+      let options = variants[0].node.selectedOptions;
+      options.forEach((option, ind) => {
+        if (option.name.toLowerCase() !== primaryOption) {
+          otherOptions[option.name.toLowerCase()] = [];
+          variants.forEach(({ node }) => {
+            if (otherOptions[option.name.toLowerCase()].indexOf(node.selectedOptions[ind].value.toLowerCase()) < 0) {
+              otherOptions[option.name.toLowerCase()].push(node.selectedOptions[ind].value.toLowerCase());
+            }
+          });
+        }
+      });
+    }
+    return otherOptions;
+  }
+
+  let otherOptionsArrays = useMemo(() => filterOtherOptions(variants));
+  let primaryOptionObj = useMemo(() => filterByPrimaryOption(variants));
 
   return (
-    <div className="min-h-screen pl-5 pr-5 pb-5 mt-classic-header">
-      <div className="flex justify-center items-center -mt-2">
+    <div className="min-h-screen pl-5 pr-5 pb-5 mt-classic-header flex flex-col items-center">
+      <div className="flex w-2/3 justify-center items-center -mt-1">
         <div className="mr-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
         <Image
           alt="Brand Logo"
@@ -56,35 +73,27 @@ function ProductPage(props) {
         />
         <div className="ml-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
       </div>
-      <div className="flex w-full h-full mt-3 xxs:flex-col md:flex-row">
-        <div className="images md:w-1/2">
-          <div className="w-full p-10">
-            <img
-              src={images[0]}
-              alt={title}
-              className=" w-full object-fill rounded"
-            />
-            {/* 
-            <Carousel
-              // renderIndicator={couraselIndicator}
-              showStatus={false}
-              swipeable={true}
-              showThumbs={true}
-              animationHandler={""}
-              infiniteLoop={true}
-              interval={10000}
-            /> */}
+      <div className="flex w-full h-full mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
+        <div className="images lg:w-1/2 xxs:w-full">
+          <div className="w-full xxs:h-96 lg:h-full lg:p-10">
+            {variantsExist ? (
+              <ProductCarousel
+                primaryOptionIndex={primaryOptionIndex}
+                primaryOption={primaryOption}
+                variants={primaryOptionObj}
+                selectedVariant={selected}
+                selectVariant={selectVariant}
+              />
+            ) : (
+              <img src={images[0]} alt={title} className=" w-full object-fill rounded" />
+            )}
           </div>
         </div>
-        <div className="description p-10 md:w-1/2">
-          <div className="breadcrumbs text-xs">
-            {`Home > Car Gadgets > ${title}`}
-          </div>
+        <div className="description lg:p-10 lg:w-1/2">
+          <div className="breadcrumbs text-xs">{`Home > Car Gadgets > ${title}`}</div>
           <div className="mt-5 text-2xl font-bold">{title}</div>
           <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
-          <div className="mt-5 text-4xl text-red-500 font-bold">
-            {"$" + selected.price.amount}
-          </div>
+          <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
           <Reviews />
           <div className="mt-5 text-xs">{description}</div>
           <div className="mt-6">{`COLOR`}</div>
@@ -92,16 +101,12 @@ function ProductPage(props) {
           <div className="mt-4">{`SIZE`}</div>
           <div className="flex mt-5">
             <QuantityPicker quantity={5} />
-            <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">
-              Add To Cart
-            </button>
+            <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>
           </div>
           <div className="h-px bg-gray-400 rounded-full mt-5"></div>
         </div>
       </div>
       <div className="related products"></div>
-      {/* <ProductPageImageCarousel variants={sizesByColor}selectVariant={props.selectVariant} />
-      <ProductPageItemInfo variants={sizesByColor} selectVariant={props.selectVariant} /> */}
     </div>
   );
 }
@@ -115,22 +120,16 @@ export default connect(stateToProps, null)(ProductPage);
 
 export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
+  product.variantsExist = product.variants.edges.length > 1 ? true : false;
+  product.primaryOptionExist = product.variants.edges[0].node.selectedOptions.find((option) => option.name.toLowerCase() === "color");
   let firstVariant = product.variants.edges[0].node;
-  let firstVariantValues = {
-    color: firstVariant.selectedOptions[0].value,
-    size: firstVariant.selectedOptions[1].value,
-    colorIndex: 0,
-    sku: firstVariant.sku,
-    availableAmount: firstVariant.quantityAvailable,
-    price: firstVariant.priceV2,
-  };
   return {
     props: {
       initialReduxState: {
         products: {
           pdp: {
             product: product,
-            selectedVariant: firstVariantValues,
+            selectedVariant: firstVariant,
           },
         },
       },

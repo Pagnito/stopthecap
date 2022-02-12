@@ -119,6 +119,9 @@ a {
 .h-screen-1\/2 {
   height: 50vh;
 }
+.wtf {
+  border: 1px solid red;
+}
 .h-screen-3\/4 {
   height: 75vh;
 }
@@ -151,8 +154,8 @@ a {
   height: 2px;
 }
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
-.bg-white-tr-60 {
-  background-color: rgb(24,15,46);
+.bg-white-tr-20 {
+  background-color: rgba(255,255,255,.2);
   backdrop-filter: blur(3px);
 } 
 

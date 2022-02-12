@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import { app } from "../../app.config";
 
 const FeaturedCollection = (props) => {
-  let products = props.products.topProducts.products.edges;
+  let products =
+    props.products !== null && props.products.topProducts
+      ? props.products.topProducts.products.edges
+      : [];
 
   return (
     <div className="bg-white -mt-1">
@@ -12,12 +15,17 @@ const FeaturedCollection = (props) => {
         <h2 className="text-2xl font-extrabold text-center tracking-tight text-gray-900">
           New Products
         </h2>
-
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
-          {products.map((product) => (
-            <ProductCard key={product.node.id} data={product.node} />
-          ))}
-        </div>
+        {products.length > 0 ? (
+          <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
+            {products.map((product) => (
+              <ProductCard key={product.node.id} data={product.node} />
+            ))}
+          </div>
+        ) : (
+          <div className="w-full flex justify-center mt-5">
+            Products Failed To Load.
+          </div>
+        )}
       </div>
     </div>
   );

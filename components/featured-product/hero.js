@@ -10,6 +10,7 @@ export default function FeaturedProduct(props) {
     feature_two: "Compact",
     featuure_three: "Bluetooth Connectivity",
   };
+  
   return (
     <div className="xxs:flex-col-reverse lg:flex-row flex xxs:items-center xxs:p-5 md:p-20 z-20 w-full -mt-3 clip-path-one bg-white">
       <div className="flex text-left flex-col items-center xxs:w-full md:w-1/2 md:ml-10">
