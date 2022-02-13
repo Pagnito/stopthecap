@@ -1,0 +1,20 @@
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+export default function PdpProductOptions({options}) {
+  let selected = useSelector(state => state.products.pdp.selectedVariant);
+  let optionNames = Object.keys(options);
+  return optionNames.map((name) => {
+    return (
+      <div key={name}>
+        <div className="mt-6">{name.toUpperCase()}</div>
+        {options[name].map((option) => {
+          return (
+            <button key={option} className={`rounded p-3`}>
+              {option}
+            </button>
+          );
+        })}
+      </div>
+    );
+  });
+}

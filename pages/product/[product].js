@@ -8,6 +8,7 @@ import { selectVariantAction } from "../../actions/product/product-actions";
 import ProductCarousel from "../../components/sub-components/product-carousel";
 import Reviews from "../../components/sub-components/reviews";
 import QuantityPicker from "../../components/sub-components/quantity-picker";
+import PdpProductOptions from "../../components/sub-components/pdp-product-options";
 import findOptionsIndexInShopifyResponse from "../../util/findVariantOptionIndex";
 function ProductPage(props) {
   useEffect(() => {
@@ -38,26 +39,24 @@ function ProductPage(props) {
       return primaryOptionArray;
     }
   }
-  function filterOtherOptions(variants) {
+  function filterOptionsIntoArrays(variants) {
     let otherOptions = {};
     if (variantsExist) {
       let options = variants[0].node.selectedOptions;
       options.forEach((option, ind) => {
-        if (option.name.toLowerCase() !== primaryOption) {
-          otherOptions[option.name.toLowerCase()] = [];
-          variants.forEach(({ node }) => {
-            if (otherOptions[option.name.toLowerCase()].indexOf(node.selectedOptions[ind].value.toLowerCase()) < 0) {
-              otherOptions[option.name.toLowerCase()].push(node.selectedOptions[ind].value.toLowerCase());
-            }
-          });
-        }
+        otherOptions[option.name.toLowerCase()] = [];
+        variants.forEach(({ node }) => {
+          if (otherOptions[option.name.toLowerCase()].indexOf(node.selectedOptions[ind].value.toLowerCase()) < 0) {
+            otherOptions[option.name.toLowerCase()].push(node.selectedOptions[ind].value.toLowerCase());
+          }
+        });
       });
     }
     return otherOptions;
   }
-
-  let otherOptionsArrays = useMemo(() => filterOtherOptions(variants));
+  let optionsArrays = useMemo(() => filterOptionsIntoArrays(variants));
   let primaryOptionObj = useMemo(() => filterByPrimaryOption(variants));
+
 
   return (
     <div className="min-h-screen pl-5 pr-5 pb-5 mt-classic-header flex flex-col items-center">
@@ -96,9 +95,7 @@ function ProductPage(props) {
           <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
           <Reviews />
           <div className="mt-5 text-xs">{description}</div>
-          <div className="mt-6">{`COLOR`}</div>
-
-          <div className="mt-4">{`SIZE`}</div>
+          <PdpProductOptions options={optionsArrays} selectVariant={selectVariant}/>
           <div className="flex mt-5">
             <QuantityPicker quantity={5} />
             <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>
@@ -114,6 +111,7 @@ function ProductPage(props) {
 function stateToProps(state) {
   return {
     product: state.products.pdp,
+    selectedVariant: state.products.pdp.selectVariant
   };
 }
 export default connect(stateToProps, null)(ProductPage);
@@ -123,6 +121,7 @@ export const getStaticProps = async ({ params }) => {
   product.variantsExist = product.variants.edges.length > 1 ? true : false;
   product.primaryOptionExist = product.variants.edges[0].node.selectedOptions.find((option) => option.name.toLowerCase() === "color");
   let firstVariant = product.variants.edges[0].node;
+  firstVariant.carouselIndex = 0;
   return {
     props: {
       initialReduxState: {

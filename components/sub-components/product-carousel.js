@@ -14,11 +14,15 @@ function ProductCarousel({ primaryOptionIndex, primaryOption, variants, selected
     name: primaryOption,
     value: selected.selectedOptions[primaryOptionIndex].value,
   };
-  
+  // useEffect(()=>{
+  //   swiperHolder && swiperHolder.slideTo(selected.index+1) ; 
+  // }, [swiperHolder, selected.selectedOptions[0].value]);
+
   function selectCarouselOption(swiper) {
     let index = swiper.activeIndex > primaryOptions.length ? 1 : swiper.activeIndex < 1 ? primaryOptions.length : swiper.activeIndex;
     let primaryOption = primaryOptions[index - 1];
     selectedVariant.value = primaryOption.toLowerCase();
+    selectVariant.carouselIndex = index - 1;
     selectVariant(selectedVariant);
   }
   let images = primaryOptions.map((variant, i) => {
