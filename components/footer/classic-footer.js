@@ -7,7 +7,7 @@ import {
 import { FaTiktok } from "react-icons/fa";
 export default function Footer(props) {
   return (
-    <div className=" bg-theme-blue lg:pt-20 lg:pl-20 lg:pr-20">
+    <div className="bg-theme-blue lg:pt-20 lg:pl-20 lg:pr-20">
       <div className="flex lg:flex-row xxs:flex-col-reverse xxs:items-center lg:items-start justify-between">
         <div className="text-white flex lg:flex-row xxs:flex-col">
           <div>

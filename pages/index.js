@@ -21,7 +21,6 @@ export const getStaticProps = async () => {
   let { getCollection } = products;
   try {
     let collection = await getCollection('ADIDAS');
-    console.log(collection)
     return {
       props: {
         initialReduxState: {

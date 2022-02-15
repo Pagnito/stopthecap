@@ -100,6 +100,12 @@ module.exports = {
 
           ],
         },
+        pdp_collapsibles: {
+          description: true,
+          shipping: false,
+          reviews: false
+
+        },
         featured_collection: {
           number_of_rows: 2,
           number_of_columns: 4

@@ -153,12 +153,29 @@ a {
 .h-2px {
   height: 2px;
 }
+
+.line-h-\.7 {
+  line-height: .7;
+}
+
+.p-100\% {
+  padding: 100%;
+}
+.flex-0 {
+  flex: 0;
+}
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
 .bg-white-tr-20 {
   background-color: rgba(255,255,255,.2);
   backdrop-filter: blur(3px);
 } 
-
+.Collapsible {
+  padding: 1rem;
+  border-bottom: 2px solid #E5E7EB;
+}
+.collapsibles:last-child {
+  border-bottom: none;
+}
 .animate-link-one {
   animation: animate-link .6s ease-in-out .5s forwards;
 }
@@ -187,6 +204,16 @@ a {
   transform: rotateZ(90deg) scale(0);
   transform-origin: center;
   animation: animateCloseX .3s ease-out 1s forwards;
+}
+
+.moving-header {
+  position: fixed;
+  top: -100%;
+  transition: top 1s ease-in-out;
+}
+
+.moving-header-down {
+  top: 0%;
 }
 
 @keyframes animate-link {

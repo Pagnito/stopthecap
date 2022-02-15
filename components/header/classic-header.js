@@ -1,54 +1,149 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
 import { toggleSearch } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 import SearchModal from "../sub-components/search-modal";
-import { route } from "next/dist/server/router";
 
 const ClassicHeader = (props) => {
   let app = useSelector((state) => state.app);
   let router = useRouter();
-  let [headerButtonStyles, setHeaderButtonStyles] = useState(
-    "border-white bg-theme-blue text-white"
-  );
-  let [headerIconStyles, setHeaderIconStyles] = useState("white");
+  let [pathname, setPathname] = useState(router.pathname);
+  let didScroll;
+  let lastScrollTop = 0;
+  let delta = 5;
+  let header = createRef();
+  let scrollEventCreated = false;
+  let headerWatcher = null;
+  let initState = {
+    headerButtonStyles: router.pathname === "/" ? "border-white bg-theme-blue text-white" : "bg-white-tr-20 text-theme-blue border-theme-blue" ,
+    headerIconStyles: router.pathname === "/" ? "white" : "#180F2E",
+    headerStyles: router.pathname === "/" ? "moving-header" :"moving-header moving-header-down",
+  }
+
+  let [state, setState] = useState(initState)
 
   useEffect(() => {
-    if(router.pathname.includes('/product/')){
-      setHeaderButtonStyles('bg-white-tr-20 text-theme-blue border-theme-blue');
-      setHeaderIconStyles('#180F2E');
-    }
     const handleRouteChange = (url, { shallow }) => {
-      console.log(url, typeof url)
+      // setPathname(url);
       if (url.includes("/product/")) {
-        setHeaderButtonStyles('bg-white-tr-20 text-theme-blue border-theme-blue');
-        setHeaderIconStyles('#180F2E');
-
+        toggleWindowScrollEvent(url)
+        toggleHeaderWatcher(url);
+        setState({
+          headerButtonStyles: "bg-white-tr-20 text-theme-blue border-theme-blue",
+          headerIconStyles: "#180F2E",
+          headerStyles: "moving-header moving-header-down"
+        })
+      } else if (url === "/") {
+        toggleWindowScrollEvent(url)
+        toggleHeaderWatcher(url);
+        setState({
+          headerButtonStyles: "border-white bg-theme-blue text-white",
+          headerIconStyles: "white",
+          headerStyles: "moving-header"
+        })
       }
     };
     router.events.on("routeChangeStart", handleRouteChange);
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  },[]);
+  }, []);
+
+
+  useEffect(() => {
+    toggleWindowScrollEvent(pathname)
+    toggleHeaderWatcher(pathname)
+    return () => {
+      toggleWindowScrollEvent(pathname);
+    }
+  }, []);
+
+  // run hasScrolled() and reset didScroll status
+  let toggleWindowScrollEvent = (pathname) => {
+    if (scrollEventCreated === false && pathname === '/') {
+      scrollEventCreated = true;
+      window.addEventListener("scroll", setScrollState);
+    } else {
+      window.removeEventListener("scroll", setScrollState);
+      didScroll = false;
+      scrollEventCreated = false;
+    }
+  }
+
+  let toggleHeaderWatcher = (pathname) => {
+    if(headerWatcher===null && pathname === '/') {
+      headerWatcher = setInterval(function () {
+        if (didScroll) {
+          hasScrolled(pathname);
+          didScroll = false;
+        }
+      }, 250);
+    } else {
+      didScroll = false;
+      clearInterval(headerWatcher)
+      headerWatcher = null;
+    }
+  }
   
+  let setScrollState = () => {
+    didScroll = true;
+  }
+
+
+  function hasScrolled(pathname) {
+    let viewPosition = window.scrollY;
+    if (Math.abs(lastScrollTop - viewPosition) <= delta) return;
+
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (pathname === "/") {
+      if (viewPosition > lastScrollTop && viewPosition > 100) {
+        // Scroll Down
+        setState({
+          headerButtonStyles: "border-white bg-theme-blue text-white",
+          headerIconStyles: "white",
+          headerStyles: 'moving-header moving-header-down'
+        });
+      } else {
+        // Scroll Up
+        if (viewPosition < 600) {
+          setState({
+            headerButtonStyles: "border-white bg-theme-blue text-white",
+            headerIconStyles: "white",
+            headerStyles: 'moving-header'
+          });
+        }
+      }
+    }
+
+    lastScrollTop = viewPosition;
+  }
+
   let dispatch = useDispatch();
   return (
-    <header className="w-full pt-4 pb-4 fixed top-0  z-10">
+    <header ref={header} className={`${state.headerStyles} w-full pt-4 pb-4 fixed top-0 z-10`}>
       <div className="flex justify-between">
         <div className="flex">
-          <div className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}>
+          <div
+            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+          >
             Home
           </div>
-          <div className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}>
+          <div
+            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+          >
             About
           </div>
-          <div className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}>
+          <div
+            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+          >
             Contact
           </div>
-          <div className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}>
+          <div
+            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+          >
             Shop
           </div>
         </div>
@@ -57,45 +152,26 @@ const ClassicHeader = (props) => {
           <div className="flex justify-end align-middle xxs:pr-1">
             <div
               onClick={() => dispatch(toggleSearch())}
-              className={`mr-7 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${headerButtonStyles}`}
+              className={`mr-7 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
             >
-              <RiSearchLine
-                className="my-icon-style"
-                color={headerIconStyles}
-                size="25px"
-              />
+              <RiSearchLine className="my-icon-style" color={state.headerIconStyles} size="25px" />
             </div>
             <div
-              className={`mr-7 my-icon-style flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${headerButtonStyles}`}
+              className={`mr-7 my-icon-style flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
             >
-              <RiHeartLine
-                className="my-icon-style-heart"
-                color={headerIconStyles}
-                size="25px"
-              />
+              <RiHeartLine className="my-icon-style-heart" color={state.headerIconStyles} size="25px" />
             </div>
             <div
-              className={`mr-3 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${headerButtonStyles}`}
+              className={`mr-3 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
             >
-              <RiShoppingBagLine
-                className="my-icon-style"
-                color={headerIconStyles}
-                size="25px"
-              />
+              <RiShoppingBagLine className="my-icon-style" color={state.headerIconStyles} size="25px" />
             </div>
 
             {/* <div className="m-10"></div> */}
           </div>
         </div>
       </div>
-      {app.searchVisible ? (
-        <SearchModal
-          hideSearchModal={() => dispatch(toggleSearch())}
-          open={app.searchVisible}
-        />
-      ) : (
-        false
-      )}
+      {app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} /> : false}
     </header>
   );
 };

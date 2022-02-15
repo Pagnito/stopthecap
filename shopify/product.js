@@ -54,7 +54,6 @@ const products = {
     }
 
     const response = await ShopifyData(query);
-    console.log(response)
     data = response.data.products.edges ? response.data.products.edges : [];
 
     if (response.data.products.pageInfo.hasNextPage) {

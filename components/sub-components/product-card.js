@@ -70,7 +70,7 @@ export default function ProductCard(props) {
                   <div className="text-xl text-white font-semibold mt-1">
                     $240.00
                   </div>
-                  <div className="lg:flex  py-4  text-sm text-gray-600">
+                  <div className="flex flex-col  py-4  text-sm text-gray-600">
                     <div className="flex-1 inline-flex items-center  mb-3">
                       <div className="w-full flex-none text-sm flex items-center text-gray-600">
                         <ul className="flex flex-row justify-center items-center space-x-2">
@@ -110,9 +110,9 @@ export default function ProductCard(props) {
                       </div>
                     </div>
                     <div className="flex-1 inline-flex items-center mb-3">
-                      <span className="text-secondary whitespace-nowrap mr-3">
+                      {/* <span className="text-secondary whitespace-nowrap mr-3">
                         Size
-                      </span>
+                      </span> */}
                       <div className="cursor-pointer text-gray-400 ">
                         <span className="hover:text-red-500 p-1 py-0">S</span>
                         <span className="hover:text-red-500 p-1 py-0">M</span>

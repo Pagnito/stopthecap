@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useEmail from "../../db/useDb";
+import useEmail from "../../db/use-db";
 import Image from "next/image";
 
 const Newsletter = (props) => {
