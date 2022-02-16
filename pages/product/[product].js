@@ -2,7 +2,7 @@
 
 import shopify from "../../shopify/product";
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from 'next/link';
 import { connect, useDispatch } from "react-redux";
 import { selectVariantAction } from "../../actions/product/product-actions";
@@ -13,8 +13,11 @@ import PdpProductOptions from "../../components/sub-components/pdp-product-optio
 import findOptionsIndexInShopifyResponse from "../../util/findVariantOptionIndex";
 import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
+import htmlParser from 'html-react-parser';
+import Newsletter from '../../components/newsletter/edgy-newsletter'
 
 function ProductPage(props) {
+
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
   }, []);
@@ -25,7 +28,8 @@ function ProductPage(props) {
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
   let selected = props.product.selectedVariant;
-  let description = props.product.product.description;
+  let description = htmlParser(props.product.product.descriptionHtml);
+
   let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
   let variantsExist = props.product.product.variantsExist;
   let primaryOptionExist = props.product.product.primaryOptionExist;
@@ -62,67 +66,71 @@ function ProductPage(props) {
   let primaryOptionObj = useMemo(() => filterByPrimaryOption(variants));
 
   return (
-    <div className="pl-5 pr-5 pb-5 mt-classic-header ">
-      <div className=" flex flex-col items-center">
-        <div className="flex w-2/3 justify-center items-center -mt-1">
-          <div className="mr-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
-          <Link href="/" passHref>
-            <div>
-          <Image
-            alt="Brand Logo"
-            width={100}
-            height={100}
-            className="m-1 cursor-pointer"
-            src="/images/StopTheCapLogo-Black.png"
-            objectFit="contain"
-          />
-          </div>
-          </Link>
-   
-          <div className="ml-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
+    <div>  <div className="pl-5 pr-5 pb-5 mt-classic-header ">
+    <div className=" flex flex-col items-center">
+      <div className="flex w-2/3 justify-center items-center -mt-1">
+        <div className="mr-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
+        <Link href="/" passHref>
+          <div>
+        <Image
+          alt="Brand Logo"
+          width={100}
+          height={100}
+          className="m-1 cursor-pointer"
+          src="/images/StopTheCapLogo-Black.png"
+          objectFit="contain"
+        />
         </div>
-        <div className="flex w-full h-full mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
-          <div className="images lg:w-1/2 xxs:w-full">
-            <div className="w-full xxs:h-96 lg:h-full lg:p-10">
-              {variantsExist ? (
-                <ProductCarousel
-                  primaryOptionIndex={primaryOptionIndex}
-                  primaryOption={primaryOption}
-                  variants={primaryOptionObj}
-                  selectedVariant={selected}
-                  selectVariant={selectVariant}
-                />
-              ) : (
-                <img src={images[0]} alt={title} className=" w-full object-fill rounded" />
-              )}
-            </div>
+        </Link>
+ 
+        <div className="ml-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
+      </div>
+      <div className="flex w-full h-full mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
+        <div className="images lg:w-1/2 xxs:w-full">
+          <div className="w-full xxs:h-96 lg:h-full lg:p-10">
+            {variantsExist ? (
+              <ProductCarousel
+                primaryOptionIndex={primaryOptionIndex}
+                primaryOption={primaryOption}
+                variants={primaryOptionObj}
+                selectedVariant={selected}
+                selectVariant={selectVariant}
+              />
+            ) : (
+              <img src={images[0]} alt={title} className=" w-full object-fill rounded" />
+            )}
           </div>
-          <div className="description lg:mt-0 xxs:mt-12 lg:p-10 lg:w-1/2">
-            <div className="breadcrumbs text-xs">{`Home > Car Gadgets > ${title}`}</div>
-            <div className="mt-5 text-2xl font-bold">{title}</div>
-            <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
-            <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
-            <Reviews />
-            <div className="mt-5 text-xs">{description}</div>
-            <PdpProductOptions options={optionsArrays} selectVariant={selectVariant} />
-            <div className="flex mt-8">
-              <QuantityPicker quantity={5} />
-              <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>
-            </div>
-            {/* <div className="h-2px bg-black rounded-full mt-6"></div> */}
+        </div>
+        <div className="description lg:mt-0 xxs:mt-12 lg:p-10 lg:w-1/2">
+          <div className="breadcrumbs text-xs">{`Home > Car Gadgets > ${title}`}</div>
+          <div className="mt-5 text-2xl font-bold">{title}</div>
+          <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
+          <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
+          <Reviews />
+          <div className="mt-5 text-xs">{description}</div>
+          <PdpProductOptions options={optionsArrays} selectVariant={selectVariant} />
+          <div className="flex mt-8">
+            <QuantityPicker quantity={5} />
+            <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>
           </div>
+          {/* <div className="h-2px bg-black rounded-full mt-6"></div> */}
         </div>
       </div>
-      <div className="flex xxs:flex-col lg:flex-row mt-5">
-        <div className="xxs:w-full lg:w-1/2">
-          <PdpImageGrid images={images}/>
-        </div>
-        <div className="w-1/2 pl-10 pr-10">
-          <PdpCollapsibles />
-        </div>
-      </div>
-      <div className="related products"></div>
     </div>
+    <div className="flex xxs:flex-col lg:flex-row mt-5">
+      <div className="xxs:w-full lg:w-1/2">
+        <PdpImageGrid images={images}/>
+      </div>
+      <div className="lg:w-1/2 xxs:w-full xxs:mt-10 lg:mt-0 lg:pl-10 lg:pr-10">
+        <PdpCollapsibles description={description}/>
+      </div>
+    </div>
+    <div className="related products"></div>
+
+  </div>
+        <Newsletter /></div>
+  
+
   );
 }
 

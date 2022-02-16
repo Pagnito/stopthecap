@@ -38,7 +38,9 @@ const queries = {
       productByHandle(handle: "${handle}") {
           id
           title
-          description
+          descriptionHtml
+          productType
+          tags
           images(first: 5) {
             edges {
               node {
@@ -72,6 +74,9 @@ const queries = {
           }
       }
   }`
+  },
+  getProductRecommendationsById: (id) => {
+
   },
   getCollection: (collection) => {
     return `{

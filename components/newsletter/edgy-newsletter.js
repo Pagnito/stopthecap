@@ -60,7 +60,7 @@ const Newsletter = (props) => {
   };
 
   return (
-    <div className="p-10 bg-theme-blue flex-col justify-between items-center w-full  z-20 shadow-[0px_-10px_16px_2px_rgba(0,0,0,0.4)]">
+    <div className="p-10 bg-theme-blue flex-col justify-between items-center w-full  z-20 ">
       <div className="mt-2 mb-2 flex justify-center"></div>
       <div className="flex items-center justify-center w-full xxs:flex-col md:flex-row">
         <img

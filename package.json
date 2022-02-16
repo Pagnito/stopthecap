@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "html-react-parser": "^1.4.8",
     "logrocket": "^2.2.0",
     "next": "latest",
     "next-pwa": "^5.4.4",

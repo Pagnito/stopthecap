@@ -14,7 +14,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import EdgyCarousel from "../../components/landing-carousel/edgy-landing-carousel";
 import Incentives from "../../components/banner-row/incentives";
 import FeaturedProduct from "../../components/featured-product/hero";
-import FeaturedCollection from "../../components/featured-collection/edgy-featured-collection";
+import ProductMap from "../../components/product-map/product-map";
 import AutoPlayVideoHero from "../../components/video/auto-play";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
 
@@ -25,7 +25,7 @@ export default function Home(props) {
       <EdgyCarousel />
       <Incentives />
       <FeaturedProduct />
-      <FeaturedCollection />
+      <ProductMap type="featured" />
       <AutoPlayVideoHero />
       <Newsletter />
     </div>

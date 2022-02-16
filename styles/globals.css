@@ -299,3 +299,10 @@ a {
 }
 /*///////////////////////////// CAROUSEL STYLES //////////////////////////////////////*/
 
+.description li {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+.h-335px {
+  height: 335px;
+}
