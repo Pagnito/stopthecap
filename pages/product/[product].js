@@ -79,8 +79,7 @@ function ProductPage(props) {
       return primaryOptionArray;
     }
   }
-  let organized = useMemo(() => organizeOptions(variants));
-  console.log(organized);
+  let organizedOptions = useMemo(() => organizeOptions(variants));
   let optionsArrays = useMemo(() => filterOptionsIntoArrays(variants, variantsExist));
   let primaryOptionObj = useMemo(() => filterByPrimaryOption(variants));
 
@@ -131,7 +130,7 @@ function ProductPage(props) {
               <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
               <Reviews />
               <div className="mt-5 text-xs">{description}</div>
-              <PdpProductOptions options={optionsArrays} selectVariant={selectVariant} />
+              <PdpProductOptions options={organizedOptions} selectedVariant={selected} selectVariant={selectVariant} />
               <div className="flex mt-8">
                 <QuantityPicker quantity={5} />
                 <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>

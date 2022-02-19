@@ -1,27 +1,63 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-export default function PdpProductOptions({ options }) {
-  let selected = useSelector((state) => state.products.productPage.selectedVariant);
-  let optionNames = Object.keys(options);
-  return optionNames.map((name) => {
+import { useDispatch } from "react-redux";
+export default function PdpProductOptions({ options, selectedVariant, selectVariant }) {
+  let selectedOptions = selectedVariant.selectedOptions;
+  let governingOptionName = selectedOptions[0].name;
+  let governingOptions = () => {
+    let governingOptions = Object.keys(options);
     return (
-      <div className="" key={name}>
-        <div className="mt-6">{name.toUpperCase()}</div>
+      <div>
+        <div className="mt-6">{governingOptionName.toUpperCase()}</div>
         <div className="flex flex-wrap">
-          {options[name].map((option) => {
+          {governingOptions.map((option) => {
             return (
               <button
                 key={option}
                 className={`${
-                  name === "color" ? `text-${option} bg-${option}` : ""
+                  option === "color" ? `text-${option} bg-${option}` : ""
                 }  ml-4 mt-4 h-8 w-8 rounded transition-colors border-solid border-theme-blue border-2 hover:border-red-500`}
               >
-                {name !== "color" ? option : ""}
+                {option.toLowerCase() !== "color" ? option : ""}
               </button>
             );
           })}
         </div>
       </div>
     );
-  });
+  };
+
+  let otherOptions = () => {
+    let otherOptions = selectedOptions.map(option => option.name).filter(option => option.toLowerCase()!==governingOptionName.toLowerCase());
+    return otherOptions.map((name) => {
+      console.log(options, selectedOptions[0].value)
+      console.log(name)
+      return (
+        <div className="" key={name}>
+          <div className="mt-6">{name.toUpperCase()}</div>
+          <div className="flex flex-wrap">
+            {options[selectedOptions[0].value.toLowerCase()][name.toLowerCase()].map((option) => {
+              return (
+                <button
+                  key={option}
+                  className={`${
+                    name.toLowerCase() === "color" ? `text-${option} bg-${option}` : ""
+                  }  ml-4 mt-4 h-8 w-8 rounded transition-colors border-solid border-theme-blue border-2 hover:border-red-500`}
+                >
+                  {name.toLowerCase() !== "color" ? option : ""}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      );
+    });
+  }
+ 
+
+  return (
+  <div>
+    {governingOptions()}
+    {otherOptions()}
+  </div>
+  )
 }
