@@ -41,6 +41,33 @@ function ProductPage(props) {
   let primaryOption = "color";
   let primaryOptionIndex = findOptionsIndexInShopifyResponse(variants[0].node.selectedOptions)[primaryOption];
 
+  function organizeOptions(variants) {
+    let organized = {};
+    let amountOfOptions = variants[0].node.selectedOptions.length;
+    if (amountOfOptions > 1) {
+      variants.forEach((variant1) => {
+        let rootKeyToOrganizeBy = variant1.node.selectedOptions[0].value.toLowerCase();
+        organized[rootKeyToOrganizeBy] = {};
+        variants.forEach((variant2, ind) => {
+          let optionToTest = variant2.node.selectedOptions[0].value.toLowerCase();
+          if (rootKeyToOrganizeBy === optionToTest) {
+            variant2.node.selectedOptions.forEach((option) => {
+              if (organized[rootKeyToOrganizeBy][option.name.toLowerCase()]) {
+                if (organized[rootKeyToOrganizeBy][option.name.toLowerCase()].indexOf(option.value.toLowerCase()) < 0) {
+                  organized[rootKeyToOrganizeBy][option.name.toLowerCase()].push(option.value.toLowerCase());
+                }
+              } else {
+                organized[rootKeyToOrganizeBy][option.name.toLowerCase()] = [option.value.toLowerCase()];
+              }
+            });
+          }
+        });
+      });
+    } 
+
+    return organized;
+  }
+
   function filterByPrimaryOption(variants) {
     if (variantsExist && primaryOptionExist) {
       let primaryOptionArray = {};
@@ -52,7 +79,8 @@ function ProductPage(props) {
       return primaryOptionArray;
     }
   }
-
+  let organized = useMemo(() => organizeOptions(variants));
+  console.log(organized);
   let optionsArrays = useMemo(() => filterOptionsIntoArrays(variants, variantsExist));
   let primaryOptionObj = useMemo(() => filterByPrimaryOption(variants));
 
@@ -126,7 +154,7 @@ function ProductPage(props) {
           <Recommendations />
         </div>
       </div>
-      <Newsletter />
+      {/* <Newsletter /> */}
     </div>
   );
 }

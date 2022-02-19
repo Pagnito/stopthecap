@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { app } from "../../app.config";
 
 const recommendations = (props) => {
-  console.log(props.products.recommendations.slice(3));
   let products =
     props.products !== null && props.products.recommendations ? props.products.recommendations.slice(0,4) : []
    

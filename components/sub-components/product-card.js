@@ -1,33 +1,33 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import { filterOptionsIntoArrays } from "../../util/filterOptionsIntoArrays";
 import { selectVariantActionPC } from "../../actions/product/product-actions";
-import Options from './product-card-options';
+import {formatter} from '../../util/toUSD';
+import Options from "./product-card-options";
 
 function ProductCard(props) {
   let title = props.data.title;
   let image = props.data.images.edges[0].node.transformedSrc || props.data.images.edges[0].node.originalSrc;
-  let price = "$" + props.data.variants.edges[0].node.priceV2.amount;
   let handle = props.data.handle;
   let dispatch = useDispatch();
   let cart = props.cart;
-
+  let price =formatter.format(props.data.variants.edges[0].node.priceV2.amount);
   let [option, setOption] = useState({
     name: null,
-    value: null
+    value: null,
   });
   useEffect(() => {
-    if(option.value && option.name){
+    if (option.value && option.name) {
       dispatch(selectVariantActionPC(option, props.data));
     }
   }, [option, dispatch, props.data]);
 
-  let addToCart = () =>{
+  let addToCart = () => {
     dispatch(addToCartAction(props.product.selectedVariant, cart.items));
-  }
+  };
   let optionsArrays = useMemo(() => filterOptionsIntoArrays(props.data.variants.edges));
   return (
     <div className="relative pt-5 pb-5 flex flex-col items-center justify-center hover:scale-105 transition-transform">
@@ -63,29 +63,32 @@ function ProductCard(props) {
                     <Link href={`/product/${handle}`} passHref>
                       <h2 className="text-lg mr-auto cursor-pointer text-gray-200 hover:text-red-500 truncate ">{title}</h2>
                     </Link>
-                    <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">INSTOCK</div>
                   </div>
+                  <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 mt-1 rounded">INSTOCK</div>
+
                 </div>
                 <div className="text-xl text-white font-semibold mt-1">{price}</div>
-                <Options setOption={setOption} options={optionsArrays} selected={props.product} product={props.data} />
+                {/* <Options setOption={setOption} options={optionsArrays} selected={props.product} product={props.data} /> */}
                 <div className="flex space-x-2 text-sm font-medium justify-start">
-                  <button
+                  {/* <button
                     onClick={addToCart}
                     className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-red-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-red-600 "
                   >
                     <span>Add Cart</span>
-                  </button>
-                  <button className="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      />
-                    </svg>
-                  </button>
+                  </button> */}
+                  <div className="w-full flex justify-center">
+                    <button className="transition mt-5 ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-white border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke="white">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -98,7 +101,7 @@ function ProductCard(props) {
 function stateToProps(state) {
   return {
     cart: state.cart,
-    product: state.products.productCard
-  }
+    product: state.products.productCard,
+  };
 }
 export default connect(stateToProps, null)(ProductCard);
