@@ -1,3 +1,5 @@
 export default {
-    TOGGLE_SEARCH: 'TOGGLE_SEARCH'
+    TOGGLE_SEARCH: 'TOGGLE_SEARCH',
+    TOGGLE_CART: 'TOGGLE_CART'
+
 }

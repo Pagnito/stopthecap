@@ -1,9 +1,10 @@
 import React, { createRef, useEffect, useState } from "react";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
-import { toggleSearch } from "../../actions/app/app-actions";
+import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
+import CartModal from "../cart/drawer-cart";
 import SearchModal from "../sub-components/search-modal";
 
 const ClassicHeader = (props) => {
@@ -17,32 +18,42 @@ const ClassicHeader = (props) => {
   let scrollEventCreated = false;
   let headerWatcher = null;
   let initState = {
-    headerButtonStyles: router.pathname === "/" ? "border-white bg-theme-blue text-white" : "bg-white-tr-20 text-theme-blue border-theme-blue" ,
-    headerIconStyles: router.pathname === "/" ? "white" : "#180F2E",
-    headerStyles: router.pathname === "/" ? "moving-header" :"moving-header moving-header-down",
-  }
+    headerButtonStyles:
+      router.pathname === "/" || router.pathname === '/contact' ? "border-white bg-theme-blue text-white" : "bg-white-tr-20 text-theme-blue border-theme-blue",
+    headerIconStyles: router.pathname === "/" || router.pathname === '/contact' ? "white" : "#180F2E",
+    headerStyles: router.pathname === "/" ? "moving-header" : "moving-header moving-header-down",
+  };
 
-  let [state, setState] = useState(initState)
+  let [state, setState] = useState(initState);
 
   useEffect(() => {
     const handleRouteChange = (url, { shallow }) => {
       // setPathname(url);
-      if (url.includes("/product/")) {
-        toggleWindowScrollEvent(url)
+      if (url!== '/') {
+        toggleWindowScrollEvent(url);
         toggleHeaderWatcher(url);
-        setState({
-          headerButtonStyles: "bg-white-tr-20 text-theme-blue border-theme-blue",
-          headerIconStyles: "#180F2E",
-          headerStyles: "moving-header moving-header-down"
-        })
+        if(url == '/contact') {
+          setState({
+            headerButtonStyles: "border-white bg-theme-blue text-white",
+            headerIconStyles: "white",
+            headerStyles: "moving-header moving-header-down",
+          });
+        } else {
+          setState({
+            headerButtonStyles: "bg-white-tr-20 text-theme-blue border-theme-blue",
+            headerIconStyles: "#180F2E",
+            headerStyles: "moving-header moving-header-down",
+          });
+        }
+ 
       } else if (url === "/") {
-        toggleWindowScrollEvent(url)
+        toggleWindowScrollEvent(url);
         toggleHeaderWatcher(url);
         setState({
           headerButtonStyles: "border-white bg-theme-blue text-white",
           headerIconStyles: "white",
-          headerStyles: "moving-header"
-        })
+          headerStyles: "moving-header",
+        });
       }
     };
     router.events.on("routeChangeStart", handleRouteChange);
@@ -51,18 +62,17 @@ const ClassicHeader = (props) => {
     };
   }, []);
 
-
   useEffect(() => {
-    toggleWindowScrollEvent(pathname)
-    toggleHeaderWatcher(pathname)
+    toggleWindowScrollEvent(pathname);
+    toggleHeaderWatcher(pathname);
     return () => {
       toggleWindowScrollEvent(pathname);
-    }
+    };
   }, []);
 
   // run hasScrolled() and reset didScroll status
   let toggleWindowScrollEvent = (pathname) => {
-    if (scrollEventCreated === false && pathname === '/') {
+    if (scrollEventCreated === false && pathname === "/") {
       scrollEventCreated = true;
       window.addEventListener("scroll", setScrollState);
     } else {
@@ -70,10 +80,10 @@ const ClassicHeader = (props) => {
       didScroll = false;
       scrollEventCreated = false;
     }
-  }
+  };
 
   let toggleHeaderWatcher = (pathname) => {
-    if(headerWatcher===null && pathname === '/') {
+    if (headerWatcher === null && pathname === "/") {
       headerWatcher = setInterval(function () {
         if (didScroll) {
           hasScrolled(pathname);
@@ -82,15 +92,14 @@ const ClassicHeader = (props) => {
       }, 250);
     } else {
       didScroll = false;
-      clearInterval(headerWatcher)
+      clearInterval(headerWatcher);
       headerWatcher = null;
     }
-  }
-  
+  };
+
   let setScrollState = () => {
     didScroll = true;
-  }
-
+  };
 
   function hasScrolled(pathname) {
     let viewPosition = window.scrollY;
@@ -104,7 +113,7 @@ const ClassicHeader = (props) => {
         setState({
           headerButtonStyles: "border-white bg-theme-blue text-white",
           headerIconStyles: "white",
-          headerStyles: 'moving-header moving-header-down'
+          headerStyles: "moving-header moving-header-down",
         });
       } else {
         // Scroll Up
@@ -112,7 +121,7 @@ const ClassicHeader = (props) => {
           setState({
             headerButtonStyles: "border-white bg-theme-blue text-white",
             headerIconStyles: "white",
-            headerStyles: 'moving-header'
+            headerStyles: "moving-header",
           });
         }
       }
@@ -126,26 +135,34 @@ const ClassicHeader = (props) => {
     <header ref={header} className={`${state.headerStyles} w-full pt-4 pb-4 fixed top-0 z-10`}>
       <div className="flex justify-between">
         <div className="flex">
-          <div
-            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
-          >
-            Home
-          </div>
-          <div
-            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
-          >
-            About
-          </div>
-          <div
-            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
-          >
-            Contact
-          </div>
-          <div
-            className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
-          >
-            Shop
-          </div>
+          <Link href="/" passHref>
+            <div
+              className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+            >
+              Home
+            </div>
+          </Link>
+          <Link href="/about" passHref>
+            <div
+              className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+            >
+              About
+            </div>
+          </Link>
+          <Link href="/contact" passHref>
+            <div
+              className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+            >
+              Contact
+            </div>
+          </Link>
+          <Link href="/shop" passHref>
+            <div
+              className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
+            >
+              Shop
+            </div>
+          </Link>
         </div>
         <div></div>
         <div className="sm:w-1/3">
@@ -161,7 +178,7 @@ const ClassicHeader = (props) => {
             >
               <RiHeartLine className="my-icon-style-heart" color={state.headerIconStyles} size="25px" />
             </div>
-            <div
+            <div onClick={() => dispatch(toggleCart())}
               className={`mr-3 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
             >
               <RiShoppingBagLine className="my-icon-style" color={state.headerIconStyles} size="25px" />
@@ -171,7 +188,6 @@ const ClassicHeader = (props) => {
           </div>
         </div>
       </div>
-      {app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} /> : false}
     </header>
   );
 };

@@ -30,7 +30,6 @@ export default function SearchModal(props) {
         <div className="bg-black z-50 opacity-90 w-1/2 translate-x-full animate-search-bg"></div>
       </div>
 
-      <div className=""></div>
     </div>
   );
 }

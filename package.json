@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "framer-motion": "^6.2.6",
     "html-react-parser": "^1.4.8",
     "logrocket": "^2.2.0",
     "next": "latest",
@@ -24,6 +25,7 @@
     "realm-web": "^1.6.0",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
     "shopify-buy": "^2.14.0",
     "swiper": "^8.0.3",
     "v18": "^1.0.2"

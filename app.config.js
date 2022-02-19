@@ -1,5 +1,9 @@
 module.exports = {
   app: {
+    contact: {
+      number: '774-360-2363',
+      email: 'info@stopthecap.com'
+    },
     layout: {
       // landing: [
       //   { type: "header", style: "edgy-transparent" },

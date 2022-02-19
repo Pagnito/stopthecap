@@ -1,42 +1,50 @@
-import findVariantOptionIndex from '../util/findVariantOptionIndex';
 let init = {
   features: null,
-  pdp: {
+  productPage: {
+    product: null,
+    selectedVariant: null,
+  },
+  productCard: {
+    selectedProduct: null,
     selectedVariant: null,
   },
 };
-
+function selectVariant(currentSelectedOptions, variants, variantOption) {
+  console.log(currentSelectedOptions,variants, variantOption)
+  let selectedVariant = variants.find(({ node }) => {
+    return node.selectedOptions.every((option, ind) => {
+      if (option.name.toLowerCase() === variantOption.name.toLowerCase()) {
+        return option.value.toLowerCase() === variantOption.value.toLowerCase();
+      } else {
+        return option.value.toLowerCase() === currentSelectedOptions[ind].value.toLowerCase();
+      }
+    });
+  });
+  return selectedVariant.node;
+}
 const productReducer = (state = init, action) => {
   switch (action.type) {
     case "PDP_SELECT_VARIANT":
-      let currentSelectedOptions = state.pdp.selectedVariant.selectedOptions;
-      let selectedVariant = state.pdp.product.variants.edges.find(
-        ({ node }) => {
-          return node.selectedOptions.every((option, ind) => {
-            if(option.name.toLowerCase() === action.payload.name.toLowerCase()){
-              return option.value.toLowerCase()===action.payload.value.toLowerCase();
-            } else {
-              return option.value.toLowerCase()===currentSelectedOptions[ind].value.toLowerCase()
-            }
-          })
-        }
-      );
-      selectedVariant = selectedVariant.node;
+      let currentSelectedOptionsPDP = state.productPage.selectedVariant.selectedOptions;
+      let variantsPDP = state.productPage.product.variants.edges;
       return {
         ...state,
-        pdp: Object.assign(state.pdp, { selectedVariant: selectedVariant }),
-      };
-    case "PDP_PRODUCT":
-      return {
-        ...state,
-        pdp: Object.assign(state.pdp, { product: action.payload }),
-      };
-    case "FEATURED_PRODUCTS":
-      return {
-        ...state,
-        features: Object.assign(state.features, {
-          topProducts: action.payload,
+        productPage: Object.assign(state.productPage, {
+          selectedVariant: selectVariant(currentSelectedOptionsPDP, variantsPDP, action.payload),
         }),
+      };
+    case "PC_SELECT_VARIANT": 
+      // let productsWithEditedOptions = state.productCard.productsWithEditedOptions;
+      // let newProduct = productsWithEditedOptions.find((product) => product.id === action.payload.product.id);
+      let variantsPC = action.payload.product.variants.edges;
+      let currentSelectedOptionsPC = state.productCard.selectedVariant && action.payload.product.id === state.productCard.selectedProduct.id ? 
+      state.productCard.selectedVariant.selectedOptions : action.payload.product.variants.edges[0].node.selectedOptions;
+      return {
+        ...state,   
+        productCard: {
+          selectedProduct: action.payload.product,
+          selectedVariant: selectVariant(currentSelectedOptionsPC, variantsPC, action.payload.variantOption),
+        },
       };
     default:
       return state;

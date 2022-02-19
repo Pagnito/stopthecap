@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import useInView from "react-cool-inview";
 import EdgyHeader from "../../components/header/edgy-transparent";
@@ -14,20 +14,37 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import EdgyCarousel from "../../components/landing-carousel/edgy-landing-carousel";
 import Incentives from "../../components/banner-row/incentives";
 import FeaturedProduct from "../../components/featured-product/hero";
-import ProductMap from "../../components/product-map/product-map";
+import FeaturedCollection from "../../components/featured-collection/classic-featured-collection";
 import AutoPlayVideoHero from "../../components/video/auto-play";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
+import { connect, useDispatch } from "react-redux";
+import CartModal from '../../components/cart/drawer-cart';
+import SearchModal from "../../components/sub-components/search-modal";
+import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
 
-export default function Home(props) {
+
+function Home(props) {
+  let app = props.app;
+  let dispatch = useDispatch();
   return (
     <div className="home">
+      {app.cartVisible ? <CartModal hideCartModal={() => dispatch(toggleCart())} open={app.cartVisible} /> : false}
+
+      {app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} /> : false}
       <EdgyHeader />
       <EdgyCarousel />
       <Incentives />
       <FeaturedProduct />
-      <ProductMap type="featured" />
+      <FeaturedCollection />
       <AutoPlayVideoHero />
       <Newsletter />
     </div>
   );
 }
+
+function stateToProps(state) {
+  return {
+    app: state.app,
+  };
+}
+export default connect(stateToProps, null)(Home);

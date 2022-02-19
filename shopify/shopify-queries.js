@@ -15,7 +15,7 @@ const queries = {
         }
       }
     }
-    `
+    `;
   },
   recursiveCatalogWithCursor: (cursor) => {
     return `{
@@ -31,7 +31,7 @@ const queries = {
           hasNextPage
         }
       }
-    }`
+    }`;
   },
   getProductByHandle: (handle) => {
     return `{
@@ -73,10 +73,51 @@ const queries = {
               }
           }
       }
-  }`
+  }`;
   },
   getProductRecommendationsById: (id) => {
-
+    return `
+    {
+      productRecommendations(productId: "${id}") {
+        id
+        title
+        handle
+        productType
+        tags
+        images(first: 5) {
+          edges {
+            node {
+              originalSrc
+              altText
+            }
+          }
+        }
+        variants(first: 100) {
+          edges {
+              cursor
+              node {
+                  image {
+                    originalSrc
+                    altText
+                  }
+                  selectedOptions {
+                    name
+                    value
+                  }
+                  sku
+                  id
+                  title
+                  quantityAvailable
+                  priceV2 {
+                      amount
+                      currencyCode
+                  }
+              }
+          }
+        }
+      }
+    }
+    `;
   },
   getCollection: (collection) => {
     return `{
@@ -141,6 +182,40 @@ const queries = {
     }
   }`;
   },
+  createCheckout: (id, quantity) => {
+    return `
+    mutation {
+      checkoutCreate(input: {
+        lineItems: [{ variantId: "${id}", quantity: ${quantity}}]
+      }) {
+        checkout {
+          id
+          webUrl
+        }
+      }
+    }`
+  },
+  updateCheckout: (id, lineItemsObject) => {
+    return `
+    mutation {
+      checkoutLineItemsReplace(lineItems: [${lineItemsObject}], checkoutId: "${id}") {
+        checkout {
+          id
+          webUrl
+          lineItems(first: 25) {
+            edges {
+              node {
+                id
+                title
+                quantity
+              }
+            }
+          }
+        }
+      }
+    }
+    `
+  }
 };
 
 export default queries;

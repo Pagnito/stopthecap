@@ -28,23 +28,40 @@ async function ShopifyData(query) {
 const products = {
   getAllProducts: () => {},
   getProduct: async function (handle) {
-    let product= await ShopifyData(queries.getProductByHandle(handle));
-    const data = product.data.productByHandle
-      ? product.data.productByHandle
-      : {};
+    let product = await ShopifyData(queries.getProductByHandle(handle));
+    const data = product.data.productByHandle ? product.data.productByHandle : {};
+    return data;
+  },
+  getProductRecommendationsById: async (id) => {
+    let product = await ShopifyData(queries.getProductRecommendationsById(id));
+    console.log(product);
+    const data = product.data.productRecommendations ? product.data.productRecommendations : {};
     return data;
   },
   getCollection: async function (name) {
     let collection = await ShopifyData(queries.getCollection(name));
-    const data = collection.data.collectionByHandle
-      ? collection.data.collectionByHandle
-      : {};
+    const data = collection.data.collectionByHandle ? collection.data.collectionByHandle : {};
     return data;
   },
-  recursiveCatalog: async function(
-    cursor = "",
-    initialRequest = true
-  ) {
+  createCheckout: async function (id, quantity) {
+    const response = await ShopifyData(queries.createCheckout(id, quantity));
+    console.log(response)
+    const checkout = response.data.checkoutCreate.checkout ? response.data.checkoutCreate.checkout : [];
+    return checkout;
+  },
+  updateCheckout: async function updateCheckout(id, lineItems) {
+    const lineItemsObject = lineItems.map(item => {
+      return `{
+        variantId: "${item.id}",
+        quantity:  ${item.variantQuantity}
+      }`
+    })
+    const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject))
+    const checkout = response.data.checkoutLineItemsReplace.checkout ? response.data.checkoutLineItemsReplace.checkout : []
+    return checkout
+  },
+  
+  recursiveCatalog: async function (cursor = "", initialRequest = true) {
     let data;
     let query;
     if (cursor !== "") {
@@ -64,7 +81,6 @@ const products = {
       return data;
     }
   },
-
 };
 
 export default products;

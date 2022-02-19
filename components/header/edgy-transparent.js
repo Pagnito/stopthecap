@@ -3,10 +3,9 @@ import Image from "next/image";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
 import { toggleSearch } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
-import SearchModal from "../sub-components/search-modal";
+import Link from "next/link";
 
 const EdgyTransparentHeader = (props) => {
-
   let app = useSelector((state) => state.app);
   let dispatch = useDispatch();
   return (
@@ -17,18 +16,26 @@ const EdgyTransparentHeader = (props) => {
           <div className="ml-2 font-super-bold -rotate-90 font-xs">{"<"}</div>
         </div>
         <div className="block xxs:hidden md:block text-white ml-12 mt-10 transition-opacity">
-          <div className="animate-link-one opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
-            01 . Home
-          </div>
-          <div className="animate-link-two opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
-            02. About
-          </div>
-          <div className="animate-link-three opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
-            03. Contact
-          </div>
-          <div className="animate-link-four opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
-            04. Shop
-          </div>
+          <Link href="/" passHref >
+            <div className="animate-link-one opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
+              01 . Home
+            </div>
+          </Link>
+          <Link href="/about" passHref>
+            <div className="animate-link-two opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
+              02. About
+            </div>
+          </Link>
+          <Link href="/contact" passHref>
+            <div className="animate-link-three opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
+              03. Contact
+            </div>
+          </Link>
+          <Link href="/shop" passHref>
+            <div className="animate-link-four opacity-0 -translate-x-2 mt-3 cursor-pointer hover:text-red-500 transition-colors">
+              04. Shop
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -50,28 +57,15 @@ const EdgyTransparentHeader = (props) => {
             <RiSearchLine className="my-icon-style" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7 my-icon-style">
-            <RiHeartLine
-              className="my-icon-style-heart"
-              color="white"
-              size="25px"
-            />
+            <RiHeartLine className="my-icon-style-heart" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7">
-            <RiShoppingBagLine
-              className="my-icon-style"
-              color="white"
-              size="25px"
-            />
+            <RiShoppingBagLine className="my-icon-style" color="white" size="25px" />
           </div>
 
           {/* <div className="m-10"></div> */}
         </div>
       </div>
-      {app.searchVisible ? (
-        <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} />
-      ) : (
-        false
-      )}
     </header>
   );
 };

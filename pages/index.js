@@ -1,7 +1,7 @@
 import Home from "./home/home";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import products from "../shopify/product";
+import products from "../shopify/shopify-funcs";
 
 
 
@@ -27,7 +27,11 @@ export const getStaticProps = async () => {
           products: {
             features: {
               topProducts: Object.keys(collection).length > 0 ? collection : null
-            }
+            },
+            productCard: {
+              selectedProduct: null,
+              selectedVariant: null,
+            },
           }
         }
       }

@@ -23,17 +23,17 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Frank' !important;
-
+  font-family: "Frank" !important;
 }
-::-moz-selection { /* Code for Firefox */
-  color: #FAB87E;
-  background: rgba(0,0,0,.0);
+::-moz-selection {
+  /* Code for Firefox */
+  color: #fab87e;
+  background: rgba(0, 0, 0, 0);
 }
 
 ::selection {
-  color: #FAB87E;
-  background: rgba(0,0,0,.0);
+  color: #fab87e;
+  background: rgba(0, 0, 0, 0);
 }
 a {
   color: inherit;
@@ -49,55 +49,20 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background:white;
+  background: white;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #180F2E;
+  background: #180f2e;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #372a5a
+  background: #372a5a;
 }
+/*////////////////////////////////////////// MARGINS////////////////////////////////////////*/
 
-.landing {
-  background-image: url('/images/landing.jpg');
-  background-size: cover;
-  background-position: center;
-}
-.mt-classic-header {
-  margin-top: 77px;
-}
-.no-outline {
-  outline: none;
-}
-.no-outline:focus {
-  outline:none;
-}
-.no-outline:active {
-  outline:none;
-}
-.font-super-bold {
-  font-weight: 1000;
-}
-.my-icon-style {
-  cursor: pointer;
-  transition: fill .2s ease-in-out;
-}
-.my-icon-style-heart {
-  cursor: pointer;
-  transition: fill .05s ease-in-out;
-}
-.my-icon-style:hover {
-  fill: #E84748;
-  color: #E84748;
-}
-.my-icon-style-heart:hover {
-  fill: #E84748;
-  color: #E84748;
-}
 .m-w-2\/3 {
   max-width: 66%;
 }
@@ -113,14 +78,31 @@ a {
 .-mt-\%-17 {
   margin-top: -17%;
 }
+.-mt-3 {
+  margin-top: -3rem;
+}
+.-mt-20 {
+  margin-top: -20rem;
+}
+.mt-classic-header {
+  margin-top: 77px;
+}
+/*//////////////////////////////////////////^^^ MARGINS////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// HEIGHTS ////////////////////////////////////////*/
+.h-2px {
+  height: 2px;
+}
+.h-335px {
+  height: 335px;
+}
 .h-screen-1\/5 {
   height: 20vh;
 }
 .h-screen-1\/2 {
   height: 50vh;
-}
-.wtf {
-  border: 1px solid red;
 }
 .h-screen-3\/4 {
   height: 75vh;
@@ -131,6 +113,45 @@ a {
 .h-screen-1\/4 {
   height: 25vh;
 }
+
+/*//////////////////////////////////////////^^^ HEIGHTS ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// OUTLINES ////////////////////////////////////////*/
+
+.no-outline {
+  outline: none;
+}
+.no-outline:focus {
+  outline: none;
+}
+.no-outline:active {
+  outline: none;
+}
+/*////////////////////////////////////////// OUTLINES ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*//////////////////////////////////////////Z-INDEXES ////////////////////////////////////////*/
+.-z-10 {
+  z-index: -10;
+}
+/*//////////////////////////////////////////^^^ Z-INDEXES ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// LINE-HEIGHTS ////////////////////////////////////////*/
+
+.line-h-\.7 {
+  line-height: 0.7;
+}
+/*//////////////////////////////////////////^^^ LINE-HEIGHTS ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*//////////////////////////////////////////^^^ CLIP-PATHS ////////////////////////////////////////*/
+
 .clip-path-one {
   clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
 }
@@ -140,70 +161,125 @@ a {
 .clip-path-three {
   clip-path: polygon(0 0, 100% 0, 100% 93%, 0% 100%);
 }
-.-mt-3 {
-  margin-top: -3rem;
+
+/*//////////////////////////////////////////^^^ CLIP-PATHS ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// COLORS ////////////////////////////////////////*/
+
+.bg-white-tr-20 {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(3px);
 }
-.-mt-20 {
-  margin-top: -20rem;
+.bg-black-rgba-40 {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.-z-10 {
-  z-index: -10;
-}
-.h-2px {
-  height: 2px;
-}
+/*//////////////////////////////////////////^^^ COLORS ////////////////////////////////////////*/
 
-.line-h-\.7 {
-  line-height: .7;
-}
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// PADDINGS ////////////////////////////////////////*/
 
 .p-100\% {
   padding: 100%;
 }
+
+/*//////////////////////////////////////////^^^ PADDINGS ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// FONT ////////////////////////////////////////*/
+
+.font-super-bold {
+  font-weight: 1000;
+}
+
+/*//////////////////////////////////////////^^^ FONT ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// ICONS  ////////////////////////////////////////*/
+
+.my-icon-style {
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+}
+.my-icon-style-heart {
+  cursor: pointer;
+  transition: fill 0.05s ease-in-out;
+}
+.my-icon-style:hover {
+  fill: #e84748;
+  color: #e84748;
+}
+.my-icon-style-heart:hover {
+  fill: #e84748;
+  color: #e84748;
+}
+
+/*//////////////////////////////////////////^^^ ICONS ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// FLEXBOX  ////////////////////////////////////////*/
+
 .flex-0 {
   flex: 0;
 }
+
+/*//////////////////////////////////////////^^^ FLEXBOX ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
+/*////////////////////////////////////////// WIDTH  ////////////////////////////////////////*/
+
+.max-width {
+  max-width: 1420px;
+}
+
+/*//////////////////////////////////////////^^^ WIDTH ////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------*/
+
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
-.bg-white-tr-20 {
-  background-color: rgba(255,255,255,.2);
-  backdrop-filter: blur(3px);
-} 
+
 .Collapsible {
   padding: 1rem;
-  border-bottom: 2px solid #E5E7EB;
+  border-bottom: 2px solid #e5e7eb;
 }
 .collapsibles:last-child {
   border-bottom: none;
 }
 .animate-link-one {
-  animation: animate-link .6s ease-in-out .5s forwards;
+  animation: animate-link 0.6s ease-in-out 0.5s forwards;
 }
 .animate-link-two {
-  animation: animate-link .6s ease-in-out .6s forwards;
+  animation: animate-link 0.6s ease-in-out 0.6s forwards;
 }
 .animate-link-three {
-  animation: animate-link .6s ease-in-out .7s forwards;
+  animation: animate-link 0.6s ease-in-out 0.7s forwards;
 }
 .animate-link-four {
-  animation: animate-link .6s ease-in-out .8s forwards;
+  animation: animate-link 0.6s ease-in-out 0.8s forwards;
 }
 .animate-down {
-  animation: animate-down .7s ease-in-out 1s forwards;
+  animation: animate-down 0.7s ease-in-out 1s forwards;
 }
 .stamp-animate {
-  animation: stamp-animate .4s ease-in 1.5s forwards;
+  animation: stamp-animate 0.4s ease-in 1.5s forwards;
 }
 .animate-search-bg {
-  animation: animateSearchBg .5s ease-out forwards;
-} 
+  animation: animateSearchBg 0.5s ease-out forwards;
+}
 .animate-search {
-  animation: animateSearch .5s ease-out .5s forwards;
+  animation: animateSearch 0.5s ease-out 0.5s forwards;
 }
 .animate-close-x {
   transform: rotateZ(90deg) scale(0);
   transform-origin: center;
-  animation: animateCloseX .3s ease-out 1s forwards;
+  animation: animateCloseX 0.3s ease-out 1s forwards;
 }
 
 .moving-header {
@@ -217,9 +293,10 @@ a {
 }
 
 @keyframes animate-link {
-  0%{
+  0% {
     opacity: 0;
-  } 100% {
+  }
+  100% {
     opacity: 1;
     transform: translateX(0rem);
   }
@@ -227,7 +304,7 @@ a {
 @keyframes animate-down {
   100% {
     opacity: 1;
-    transform:translateY(0rem);
+    transform: translateY(0rem);
   }
 }
 @keyframes stamp-animate {
@@ -237,7 +314,7 @@ a {
   }
   80% {
     opacity: 1;
-    transform: scale(1)
+    transform: scale(1);
   }
   90% {
     opacity: 1;
@@ -248,7 +325,6 @@ a {
     transform: scale(1);
   }
 }
-
 @keyframes animateSearchBg {
   100% {
     transform: translateX(0%);
@@ -270,29 +346,28 @@ a {
 }
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
 
-
-
 /*///////////////////////////// CAROUSEL STYLES //////////////////////////////////////*/
 .animate-text-one {
-  animation: animate-text .6s ease-in-out .0s forwards;
+  animation: animate-text 0.6s ease-in-out 0s forwards;
 }
 .animate-text-two {
-  animation: animate-text .6s ease-in-out .1s forwards;
+  animation: animate-text 0.6s ease-in-out 0.1s forwards;
 }
 .animate-text-three {
-  animation: animate-text .6s ease-in-out .2s forwards;
+  animation: animate-text 0.6s ease-in-out 0.2s forwards;
 }
 .animate-text-four {
-  animation: animate-text .6s ease-in-out .3s forwards;
+  animation: animate-text 0.6s ease-in-out 0.3s forwards;
 }
 .animate-button {
-  animation: animate-text .6s ease-in-out .4s forwards;
+  animation: animate-text 0.6s ease-in-out 0.4s forwards;
 }
 
 @keyframes animate-text {
-  0%{
+  0% {
     opacity: 0;
-  } 100% {
+  }
+  100% {
     opacity: 1;
     transform: translateX(0rem);
   }
@@ -303,6 +378,21 @@ a {
   padding-left: 20px;
   margin-top: 10px;
 }
-.h-335px {
-  height: 335px;
+
+.animate-opacity {
+  animation: animateOpacity 0.3s ease-in-out forwards;
+}
+.animate-tx-to-left {
+  animation: animateSlideToLeft 0.2s ease-in-out forwards;
+}
+
+@keyframes animateOpacity {
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes animateSlideToLeft {
+  100% {
+    transform: translateX(0%);
+  }
 }
