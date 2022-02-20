@@ -16,7 +16,7 @@ const appReducer = (state = init, action) => {
     case 'ADD_TO_CART':
       return {
         ...state,
-        items: [...state.items, action.payload.newItem]
+        items: [...state.items, action.payload]
       }
     case 'UPDATE_CART':
       return {

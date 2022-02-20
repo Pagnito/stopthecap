@@ -4,8 +4,6 @@ import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import CartModal from "../cart/drawer-cart";
-import SearchModal from "../sub-components/search-modal";
 
 const ClassicHeader = (props) => {
   let app = useSelector((state) => state.app);
@@ -19,20 +17,26 @@ const ClassicHeader = (props) => {
   let headerWatcher = null;
   let initState = {
     headerButtonStyles:
-      router.pathname === "/" || router.pathname === '/contact' ? "border-white bg-theme-blue text-white" : "bg-white-tr-20 text-theme-blue border-theme-blue",
-    headerIconStyles: router.pathname === "/" || router.pathname === '/contact' ? "white" : "#180F2E",
+      router.pathname === "/" || router.pathname === "/contact"
+        ? "border-white bg-theme-blue text-white"
+        : "bg-white-tr-20 text-theme-blue border-theme-blue",
+    headerIconStyles: router.pathname === "/" || router.pathname === "/contact" ? "white" : "#180F2E",
     headerStyles: router.pathname === "/" ? "moving-header" : "moving-header moving-header-down",
   };
 
   let [state, setState] = useState(initState);
-
+  let [cartItemsAmount, setCartItemsAmount] = useState(0);
+  let cart = useSelector((state) => state.cart);
+  useEffect(() => {
+    setCartItemsAmount(cart.items.length);
+  }, [cart.items]);
   useEffect(() => {
     const handleRouteChange = (url, { shallow }) => {
       // setPathname(url);
-      if (url!== '/') {
+      if (url !== "/") {
         toggleWindowScrollEvent(url);
         toggleHeaderWatcher(url);
-        if(url == '/contact') {
+        if (url == "/contact") {
           setState({
             headerButtonStyles: "border-white bg-theme-blue text-white",
             headerIconStyles: "white",
@@ -45,7 +49,6 @@ const ClassicHeader = (props) => {
             headerStyles: "moving-header moving-header-down",
           });
         }
- 
       } else if (url === "/") {
         toggleWindowScrollEvent(url);
         toggleHeaderWatcher(url);
@@ -178,9 +181,16 @@ const ClassicHeader = (props) => {
             >
               <RiHeartLine className="my-icon-style-heart" color={state.headerIconStyles} size="25px" />
             </div>
-            <div onClick={() => dispatch(toggleCart())}
-              className={`mr-3 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
-            >
+            <div
+              onClick={() => dispatch(toggleCart())}
+              className={`mr-3 flex relative rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
+            > {cartItemsAmount > 0 ? (
+                <div className="absolute flex border-white border-solid border-2 justify-center items-center h-7 w-7 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-3 -top-2">
+                  {cartItemsAmount}
+                </div>
+              ) : (
+                false
+              )}
               <RiShoppingBagLine className="my-icon-style" color={state.headerIconStyles} size="25px" />
             </div>
 

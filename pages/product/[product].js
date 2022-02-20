@@ -6,9 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { selectVariantAction } from "../../actions/product/product-actions";
+import { addToCartAction } from "../../actions/cart/cart-actions";
 import ProductCarousel from "../../components/sub-components/product-carousel";
 import Reviews from "../../components/sub-components/reviews-stars";
-import QuantityPicker from "../../components/sub-components/quantity-picker";
 import PdpProductOptions from "../../components/sub-components/pdp-product-options";
 import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
@@ -26,10 +26,13 @@ function ProductPage(props) {
   }, []);
   let dispatch = useDispatch();
 
+  function addToCart(variant) {
+    dispatch(addToCartAction(variant, props.cart));
+  }
   function selectVariant(variant) {
-    console.log(variant)
     dispatch(selectVariantAction(variant));
   }
+
   let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary } = useProduct();
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
@@ -84,6 +87,7 @@ function ProductPage(props) {
               <div className="mt-5 text-xs">{description}</div>
               {variantsExist ? (
                 <PdpProductOptions
+                  addToCart={addToCart}
                   primaryOptionIndex={primaryOptionIndex}
                   options={organizedOptions}
                   selectedVariant={selected}
@@ -92,10 +96,12 @@ function ProductPage(props) {
               ) : (
                 false
               )}
-              <div className="flex mt-8">
-                <QuantityPicker quantity={5} />
-                <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>
-              </div>
+              {/* <div className="flex mt-8">
+                <QuantityPicker setQuantity={setQuantity} quantity={quantity} />
+                <button onClick={() => addToCart(selected)} className="rounded transition-colors hover:bg-green-500 bg-red-500 pl-10 pr-10 ml-3 text-white">
+                  Add To Cart
+                </button>
+              </div> */}
               {/* <div className="h-2px bg-black rounded-full mt-6"></div> */}
             </div>
           </div>
@@ -124,6 +130,7 @@ function stateToProps(state) {
     product: state.products.productPage,
     selectedVariant: state.products.productPage.selectedVariant,
     app: state.app,
+    cart: state.cart,
   };
 }
 export default connect(stateToProps, null)(ProductPage);

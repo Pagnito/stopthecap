@@ -49,12 +49,15 @@ const products = {
   },
   updateCheckout: async function updateCheckout(id, lineItems) {
     const lineItemsObject = lineItems.map(item => {
+      console.log(item)
       return `{
         variantId: "${item.id}",
         quantity:  ${item.variantQuantity}
       }`
-    })
-    const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject))
+    });
+  
+    const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject));
+    console.log('response', response)
     const checkout = response.data.checkoutLineItemsReplace.checkout ? response.data.checkoutLineItemsReplace.checkout : []
     return checkout
   },
