@@ -10,16 +10,15 @@ import ProductCarousel from "../../components/sub-components/product-carousel";
 import Reviews from "../../components/sub-components/reviews-stars";
 import QuantityPicker from "../../components/sub-components/quantity-picker";
 import PdpProductOptions from "../../components/sub-components/pdp-product-options";
-import findOptionsIndexInShopifyResponse from "../../util/findVariantOptionIndex";
 import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
 import Recommendations from "../../components/recommendations/recommendations";
 import htmlParser from "html-react-parser";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
-import { filterOptionsIntoArrays } from "../../util/filterOptionsIntoArrays";
 import CartModal from "../../components/cart/drawer-cart";
 import SearchModal from "../../components/sub-components/search-modal";
 import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
+import useProduct from "../../use/useProduct";
 
 function ProductPage(props) {
   useEffect(() => {
@@ -28,65 +27,23 @@ function ProductPage(props) {
   let dispatch = useDispatch();
 
   function selectVariant(variant) {
+    console.log(variant)
     dispatch(selectVariantAction(variant));
   }
+  let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary } = useProduct();
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
   let selected = props.product.selectedVariant;
   let description = htmlParser(props.product.product.descriptionHtml);
-
   let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
   let variantsExist = props.product.product.variantsExist;
-  let primaryOptionExist = props.product.product.primaryOptionExist;
-  let primaryOption = "color";
-  let primaryOptionIndex = findOptionsIndexInShopifyResponse(variants[0].node.selectedOptions)[primaryOption];
-
-  function organizeOptions(variants) {
-    let organized = {};
-    let amountOfOptions = variants[0].node.selectedOptions.length;
-    if (amountOfOptions > 1) {
-      variants.forEach((variant1) => {
-        let rootKeyToOrganizeBy = variant1.node.selectedOptions[0].value.toLowerCase();
-        organized[rootKeyToOrganizeBy] = {};
-        variants.forEach((variant2, ind) => {
-          let optionToTest = variant2.node.selectedOptions[0].value.toLowerCase();
-          if (rootKeyToOrganizeBy === optionToTest) {
-            variant2.node.selectedOptions.forEach((option) => {
-              if (organized[rootKeyToOrganizeBy][option.name.toLowerCase()]) {
-                if (organized[rootKeyToOrganizeBy][option.name.toLowerCase()].indexOf(option.value.toLowerCase()) < 0) {
-                  organized[rootKeyToOrganizeBy][option.name.toLowerCase()].push(option.value.toLowerCase());
-                }
-              } else {
-                organized[rootKeyToOrganizeBy][option.name.toLowerCase()] = [option.value.toLowerCase()];
-              }
-            });
-          }
-        });
-      });
-    } 
-
-    return organized;
-  }
-
-  function filterByPrimaryOption(variants) {
-    if (variantsExist && primaryOptionExist) {
-      let primaryOptionArray = {};
-      variants.map(({ node }) => {
-        if (!primaryOptionArray[node.selectedOptions[primaryOptionIndex].value]) {
-          primaryOptionArray[node.selectedOptions[primaryOptionIndex].value] = node;
-        }
-      });
-      return primaryOptionArray;
-    }
-  }
-  let organizedOptions = useMemo(() => organizeOptions(variants));
-  let optionsArrays = useMemo(() => filterOptionsIntoArrays(variants, variantsExist));
-  let primaryOptionObj = useMemo(() => filterByPrimaryOption(variants));
+  let carouselOptions = filterVariantsByOption_ColorPrimary(variants);
+  let primaryOptionIndex = determinePrimaryOptionIndex(selected.selectedOptions);
+  let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex));
 
   return (
     <div>
       {props.app.cartVisible ? <CartModal hideCartModal={() => dispatch(toggleCart())} open={props.app.cartVisible} /> : false}
-
       {props.app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={props.app.searchVisible} /> : false}
       <div className="mt-classic-header">
         <div className=" flex flex-col items-center">
@@ -110,17 +67,12 @@ function ProductPage(props) {
           <div className="flex w-full h-full mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
             <div className="images lg:w-1/2 xxs:w-full">
               <div className="w-full xxs:h-96 lg:h-full lg:p-10">
-                {variantsExist ? (
-                  <ProductCarousel
-                    primaryOptionIndex={primaryOptionIndex}
-                    primaryOption={primaryOption}
-                    variants={primaryOptionObj}
-                    selectedVariant={selected}
-                    selectVariant={selectVariant}
-                  />
-                ) : (
-                  <img src={images[0]} alt={title} className=" w-full object-fill rounded" />
-                )}
+                <ProductCarousel
+                  options={carouselOptions}
+                  primaryOptionIndex={primaryOptionIndex}
+                  selectedVariant={selected}
+                  selectVariant={selectVariant}
+                />
               </div>
             </div>
             <div className="description lg:mt-0 xxs:mt-12 lg:p-10 lg:w-1/2">
@@ -130,7 +82,16 @@ function ProductPage(props) {
               <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
               <Reviews />
               <div className="mt-5 text-xs">{description}</div>
-              <PdpProductOptions options={organizedOptions} selectedVariant={selected} selectVariant={selectVariant} />
+              {variantsExist ? (
+                <PdpProductOptions
+                  primaryOptionIndex={primaryOptionIndex}
+                  options={organizedOptions}
+                  selectedVariant={selected}
+                  selectVariant={selectVariant}
+                />
+              ) : (
+                false
+              )}
               <div className="flex mt-8">
                 <QuantityPicker quantity={5} />
                 <button className="rounded bg-red-500 pl-10 pr-10 ml-3 text-white">Add To Cart</button>
@@ -140,7 +101,7 @@ function ProductPage(props) {
           </div>
         </div>
         <div className="w-full flex flex-col mt-5 items-center">
-          <div className="flex xxs:flex-col lg:flex-row max-w-screen-2xl">
+          <div className="flex xxs:flex-col w-full  lg:flex-row max-w-screen-2xl">
             <div className="xxs:w-full lg:w-1/2 px-10">
               <PdpImageGrid images={images} />
             </div>
@@ -161,7 +122,7 @@ function ProductPage(props) {
 function stateToProps(state) {
   return {
     product: state.products.productPage,
-    selectedVariant: state.products.productPage.selectVariant,
+    selectedVariant: state.products.productPage.selectedVariant,
     app: state.app,
   };
 }
@@ -171,7 +132,6 @@ export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
   const recommendations = await shopify.getProductRecommendationsById(product.id);
   product.variantsExist = product.variants.edges.length > 1 ? true : false;
-  product.primaryOptionExist = product.variants.edges[0].node.selectedOptions.find((option) => option.name.toLowerCase() === "color");
   let firstVariant = product.variants.edges[0].node;
   firstVariant.carouselIndex = 0;
   return {

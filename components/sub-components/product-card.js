@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { addToCartAction } from "../../actions/cart/cart-actions";
-import { filterOptionsIntoArrays } from "../../util/filterOptionsIntoArrays";
 import { selectVariantActionPC } from "../../actions/product/product-actions";
 import {formatter} from '../../util/toUSD';
 import Options from "./product-card-options";
@@ -28,7 +27,7 @@ function ProductCard(props) {
   let addToCart = () => {
     dispatch(addToCartAction(props.product.selectedVariant, cart.items));
   };
-  let optionsArrays = useMemo(() => filterOptionsIntoArrays(props.data.variants.edges));
+
   return (
     <div className="relative pt-5 pb-5 flex flex-col items-center justify-center hover:scale-105 transition-transform">
       <div className="xxs:w-80 lg:w-11/12 xl:w-72 flex justify-center">

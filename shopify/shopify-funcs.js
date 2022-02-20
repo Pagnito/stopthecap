@@ -34,7 +34,6 @@ const products = {
   },
   getProductRecommendationsById: async (id) => {
     let product = await ShopifyData(queries.getProductRecommendationsById(id));
-    console.log(product);
     const data = product.data.productRecommendations ? product.data.productRecommendations : {};
     return data;
   },
@@ -45,7 +44,6 @@ const products = {
   },
   createCheckout: async function (id, quantity) {
     const response = await ShopifyData(queries.createCheckout(id, quantity));
-    console.log(response)
     const checkout = response.data.checkoutCreate.checkout ? response.data.checkoutCreate.checkout : [];
     return checkout;
   },
