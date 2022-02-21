@@ -1,3 +1,4 @@
+import cartTypes from '../actions/cart/cart-types'
 let init = {
   checkout_id: null,
   checkout_url: null,
@@ -7,23 +8,29 @@ let init = {
 
 const appReducer = (state = init, action) => {
   switch (action.type) {
-    case 'CREATE_CHECKOUT': 
+    case cartTypes.CREATE_CHECKOUT: 
       return {
         ...state,
         checkout_id: action.payload.id,
         checkout_url: action.payload.webUrl
       }
-    case 'ADD_TO_CART':
+    case cartTypes.ADD_TO_CART:
       return {
         ...state,
         items: [...state.items, action.payload]
       }
-    case 'UPDATE_CART':
+    case cartTypes.UPDATE_CART:
       return {
         ...state,
         items: action.payload
       }
-    case 'CART_ERROR':
+    case cartTypes.LOAD_CHECKOUT:
+      console.log(action.payload)
+      return {
+        ...state,
+        ...action.payload
+      }
+    case cartTypes.CART_ERROR:
       return {
         ...state,
         error: action.payload

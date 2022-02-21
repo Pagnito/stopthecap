@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 const ClassicHeader = (props) => {
-  let app = useSelector((state) => state.app);
   let router = useRouter();
   let [pathname, setPathname] = useState(router.pathname);
   let didScroll;
@@ -170,28 +169,33 @@ const ClassicHeader = (props) => {
         <div></div>
         <div className="sm:w-1/3">
           <div className="flex justify-end align-middle xxs:pr-1">
-            <div
+            <RiSearchLine
               onClick={() => dispatch(toggleSearch())}
-              className={`mr-7 flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
-            >
-              <RiSearchLine className="my-icon-style" color={state.headerIconStyles} size="25px" />
-            </div>
-            <div
-              className={`mr-7 my-icon-style flex rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
-            >
-              <RiHeartLine className="my-icon-style-heart" color={state.headerIconStyles} size="25px" />
-            </div>
-            <div
-            
-              className={`mr-3 flex relative rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
-            > {cartItemsAmount > 0 ? (
-                <div className="absolute flex border-white border-solid border-2 justify-center items-center h-7 w-7 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-3 -top-2">
+              className={`my-icon-style mr-7 flex rounded-full p-2 border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
+              color={state.headerIconStyles}
+              size="43px"
+            />
+
+            <RiHeartLine
+              className={`mr-7 my-icon-style flex rounded-full p-2 border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles} my-icon-style-heart`}
+              color={state.headerIconStyles}
+              size="43px"
+            />
+
+            <div className="mr-3 flex relative">
+              {cartItemsAmount > 0 ? (
+                <div onClick={() => dispatch(toggleCart())} className="cursor-pointer absolute flex z-10 border-white border-solid border-2 justify-center items-center h-7 w-7 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-3 -top-2">
                   {cartItemsAmount}
                 </div>
               ) : (
                 false
               )}
-              <RiShoppingBagLine onClick={() => dispatch(toggleCart())} className="my-icon-style border-2 hover:border-red-500" color={state.headerIconStyles} size="25px" />
+              <RiShoppingBagLine
+                onClick={() => dispatch(toggleCart())}
+                className={`${state.headerButtonStyles} rounded-full p-2 border-2 hover:border-red-500 my-icon-style transition-colors cursor-pointer`}
+                color={state.headerIconStyles}
+                size="43px"
+              />
             </div>
 
             {/* <div className="m-10"></div> */}

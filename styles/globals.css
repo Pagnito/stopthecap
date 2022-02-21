@@ -98,6 +98,9 @@ a {
 .h-335px {
   height: 335px;
 }
+.h-250px {
+  height: 250px;
+}
 .h-screen-1\/5 {
   height: 20vh;
 }
@@ -207,11 +210,11 @@ a {
 
 .my-icon-style {
   cursor: pointer;
-  transition: fill 0.2s ease-in-out;
+  transition: fill 0.05s ease-in-out;
 }
 .my-icon-style-heart {
   cursor: pointer;
-  transition: fill 0.05s ease-in-out;
+  transition: fill 0.02s ease-in-out;
 }
 .my-icon-style:hover {
   fill: #e84748;
@@ -394,7 +397,7 @@ a {
   animation: animateOpacity 0.3s ease-in-out forwards;
 }
 .animate-tx-to-left {
-  animation: animateSlideToLeft 0.2s ease-in-out forwards;
+  animation: animateSlideToLeft 0.3s ease-in-out forwards;
 }
 
 @keyframes animateOpacity {

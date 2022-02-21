@@ -1,61 +1,64 @@
 import React, { useState } from "react";
 import useEmail from "../../db/use-db";
+import shopify from "../../shopify/shopify-funcs";
 import Image from "next/image";
 
 const Newsletter = (props) => {
   let { insertEmail } = useEmail();
   let [email, setEmail] = useState("");
   let [notif, setNotif] = useState({
-    message: '',
-    color: 'text-gray-400'
-  }); 
+    message: "",
+    color: "text-gray-400",
+  });
   let emailRegex = new RegExp(
-    "([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"
+    "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
   );
   const changeEmailValue = (value) => {
     setNotif({
-      message:'',
-      color: 'text-gray-400'
+      message: "",
+      color: "text-gray-400",
     });
-    setEmail(value)
-  }
+    setEmail(value);
+  };
   const submitEmail = async () => {
     if (emailRegex.test(email)) {
-      setEmail('');
+      let response = shopify.createSubscription(email);
+      setEmail("");
       setNotif({
-        color: 'text-gray-400',
-        message: "Sent!"
-      })
-      let response = await insertEmail(email);
-      if(response.status===200) {
+        color: "text-gray-400",
+        message: "Sent!",
+      });
+
+      if (response === 200) {
         setNotif({
-          color: 'text-gray-400',
-          message: "You're all set!"
-        })
+          color: "text-gray-400",
+          message: "You're all set!",
+        });
         setTimeout(() => {
           setNotif({
-            color: 'text-gray-400',
-            message: ""
-          })
-        },2000)
+            color: "text-gray-400",
+            message: "",
+          });
+        }, 2000);
       } else {
-        setEmail('');
+        setEmail("");
         setNotif({
-          message:response.message,
-          color: 'bg-red-500'
+          message: response.message,
+          color: "bg-red-500",
         });
       }
     } else {
       setEmail("");
       setNotif({
         message: `You've entered an invalid email`,
-        color: 'bg-red-500'
+        color: "bg-red-500",
       });
     }
   };
   const submitEmailOnEnter = (e) => {
     if (e.code === "Enter") {
-      submitEmail(email);
+      shopify.createSubscription(email);
+      // submitEmail(email);
     }
   };
 
@@ -92,5 +95,5 @@ const Newsletter = (props) => {
       </div>
     </div>
   );
-}
-export default Newsletter
+};
+export default Newsletter;

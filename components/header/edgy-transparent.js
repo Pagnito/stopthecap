@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
-import { toggleSearch } from "../../actions/app/app-actions";
+import { toggleSearch,  toggleCart } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
 const EdgyTransparentHeader = (props) => {
   let app = useSelector((state) => state.app);
   let dispatch = useDispatch();
+  let [cartItemsAmount, setCartItemsAmount] = useState(0);
+  let cart = useSelector((state) => state.cart);
+  useEffect(() => {
+    setCartItemsAmount(cart.items.length);
+  }, [cart.items]);
+
   return (
     <header className="z-10 w-full bg-gray-dark flex justify-between absolute">
       <div className="flex flex-col w-1/3">
@@ -60,7 +66,16 @@ const EdgyTransparentHeader = (props) => {
             <RiHeartLine className="my-icon-style-heart" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7">
-            <RiShoppingBagLine className="my-icon-style" color="white" size="25px" />
+          <div className="mr-3 flex relative">
+              {cartItemsAmount > 0 ? (
+                <div onClick={() => dispatch(toggleCart())} className="cursor-pointer absolute flex z-10 border-white border-solid border-2 justify-center items-center h-5 w-5 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-5 -top-1">
+                  {cartItemsAmount}
+                </div>
+              ) : (
+                false
+              )}
+              </div>
+            <RiShoppingBagLine onClick={() => dispatch(toggleCart())} className="my-icon-style" color="white" size="25px" />
           </div>
 
           {/* <div className="m-10"></div> */}

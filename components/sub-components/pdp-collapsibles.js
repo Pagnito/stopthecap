@@ -22,9 +22,9 @@ export default function PdpCollapsibles({ description }) {
   };
   let descriptionEl = () => {
     return (
-      <div className="pl-5 description text-xs mt-5">
+      <div className="xxs:px-2 lg:px-5 description text-xs mt-5">
         {description}
-        <iframe className="w-full mt-6 mb-5 h-335px" src="https://www.youtube.com/embed/1Be6YsjIXCs" allowFullScreen></iframe>
+        <iframe className="w-full mt-6 mb-5  lg:h-80" src="https://www.youtube.com/embed/1Be6YsjIXCs" allowFullScreen></iframe>
       </div>
     );
   };

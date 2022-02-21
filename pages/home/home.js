@@ -18,9 +18,7 @@ import FeaturedCollection from "../../components/featured-collection/classic-fea
 import AutoPlayVideoHero from "../../components/video/auto-play";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
 import { connect, useDispatch } from "react-redux";
-import CartModal from '../../components/cart/drawer-cart';
-import SearchModal from "../../components/sub-components/search-modal";
-import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
+
 
 
 function Home(props) {
@@ -28,9 +26,6 @@ function Home(props) {
   let dispatch = useDispatch();
   return (
     <div className="home">
-      {app.cartVisible ? <CartModal hideCartModal={() => dispatch(toggleCart())} open={app.cartVisible} /> : false}
-
-      {app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} /> : false}
       <EdgyHeader />
       <EdgyCarousel />
       <Incentives />

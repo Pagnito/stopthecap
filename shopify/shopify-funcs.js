@@ -47,7 +47,7 @@ const products = {
     const checkout = response.data.checkoutCreate.checkout ? response.data.checkoutCreate.checkout : [];
     return checkout;
   },
-  updateCheckout: async function updateCheckout(id, lineItems) {
+  updateCheckout: async function(id, lineItems) {
     const lineItemsObject = lineItems.map(item => {
       console.log(item)
       return `{
@@ -59,6 +59,13 @@ const products = {
     const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject));
     const checkout = response.data.checkoutLineItemsReplace.checkout ? response.data.checkoutLineItemsReplace.checkout : []
     return checkout
+  },
+  createSubscription: async function (email) {
+    console.log(queries.createSubscription(email, true))
+    const response = await ShopifyData(queries.createSubscription(email, true));
+    console.log(response)
+    const success = response.data.customerCreate ? true : false;
+    return success;
   },
   // getPage: async (handle) => {
   //   const response = await ShopifyData(queries.getPageByHandle(handle));

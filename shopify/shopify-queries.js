@@ -193,7 +193,7 @@ const queries = {
           webUrl
         }
       }
-    }`
+    }`;
   },
   updateCheckout: (id, lineItemsObject) => {
     return `
@@ -214,7 +214,7 @@ const queries = {
         }
       }
     }
-    `
+    `;
   },
   getPageByHandle: (handle) => {
     return `
@@ -227,8 +227,27 @@ const queries = {
         }
       }
     }
-    `
-  }
+    `;
+  },
+
+
+  createSubscription: (email, acceptsMarketing) => {
+    return `
+      mutation 
+      {
+        customerCreate(input: {
+        acceptsMarketing: ${acceptsMarketing},
+        email: "${email}",
+        password: "subscription"
+      }) {
+        customer {
+          id
+        }
+      }
+    }
+    
+    `;
+  },
 };
 
 export default queries;

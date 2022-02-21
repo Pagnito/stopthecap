@@ -15,9 +15,6 @@ import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
 import Recommendations from "../../components/recommendations/recommendations";
 import htmlParser from "html-react-parser";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
-import CartModal from "../../components/cart/drawer-cart";
-import SearchModal from "../../components/sub-components/search-modal";
-import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
 import useProduct from "../../use/useProduct";
 
 function ProductPage(props) {
@@ -46,10 +43,8 @@ function ProductPage(props) {
 
   return (
     <div>
-      {props.app.cartVisible ? <CartModal hideCartModal={() => dispatch(toggleCart())} open={props.app.cartVisible} /> : false}
-      {props.app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={props.app.searchVisible} /> : false}
-      <div className="mt-classic-header">
-        <div className=" flex flex-col items-center">
+      <div className="mt-classic-header xxs:px-5 lg:px-0 ">
+        <div className="flex flex-col items-center">
           <div className="flex w-2/3 justify-center items-center -mt-1">
             <div className="mr-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
             <Link href="/" passHref>
@@ -67,7 +62,7 @@ function ProductPage(props) {
 
             <div className="ml-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
           </div>
-          <div className="flex w-full h-full mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
+          <div className="flex w-full h-full  mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
             <div className="images lg:w-1/2 xxs:w-full">
               <div className="w-full xxs:h-96 lg:h-full lg:p-10">
                 <ProductCarousel

@@ -6,17 +6,20 @@ import { GoTrashcan } from "react-icons/go";
 
 function DrawerCart({ app, cart, hideCartModal }) {
   let visible = app.cartVisible;
-  let subtotal = cart.items.reduce((prev, curr) => {
-    return {
-      priceV2: {
-        amount: Number(prev.priceV2.amount) + Number(curr.priceV2.amount),
-      },
-    };
-  });
+  let subtotal =
+    cart.items.length > 0
+      ? cart.items.reduce((prev, curr) => {
+          return {
+            priceV2: {
+              amount: Number(prev.priceV2.amount) + Number(curr.priceV2.amount),
+            },
+          };
+        })
+      : { priceV2: { amount: 0 } };
   let totalInUsd = formatter.format(subtotal.priceV2.amount);
   let cartItems = () => {
     if (cart.items.length === 0) {
-      return <div className="w-full p-10 mt-10 text-zinc-500 text-sm text-center">You Cart Is Empty.</div>;
+      return <div className="w-full p-10 mt-10 text-zinc-500 text-sm text-center">Your Cart Is Empty.</div>;
     } else {
       return cart.items.map((item, ind) => {
         return (
@@ -31,7 +34,7 @@ function DrawerCart({ app, cart, hideCartModal }) {
             </div>
             <div className="flex flex-col justify-between items-end">
               <p className="mt-1 text-xs text-zinc-500">{formatter.format(item.priceV2.amount)}</p>
-              <GoTrashcan className="cursor-pointer" size="20px" />
+              <GoTrashcan className="cursor-pointer my-icon-style" size="20px" />
             </div>
           </div>
         );
@@ -40,13 +43,13 @@ function DrawerCart({ app, cart, hideCartModal }) {
   };
 
   return (
-    <div onClick={hideCartModal} className={`fixed animate-opacity top-0 opacity-0 w-full h-screen bg-black-rgba-40 z-40 flex justify-end`}>
+    <div className={`fixed animate-opacity top-0 opacity-0 w-full h-screen bg-black-rgba-40 z-40 flex justify-end`}>
       <div className="max-w-md w-screen animate-tx-to-left translate-x-full flex flex-col justify-between bg-white h-full">
         <div>
           <div className="flex p-5 w-full justify-between">
             <div className="">Shopping Cart</div>
             <div className="">
-              <RiCloseFill className="cursor-pointer" size="25px" color="black" />
+              <RiCloseFill onClick={hideCartModal} className="cursor-pointer my-icon-style" size="25px" color="black" />
             </div>
           </div>
           <div className="px-5 overflow-y-scroll">
@@ -60,9 +63,13 @@ function DrawerCart({ app, cart, hideCartModal }) {
               <div>Subtotal</div>
               <div>{totalInUsd}</div>
             </div>
-            <button className="hover:bg-yellow-500 transition-colors relative bg-black text-white w-full rounded mt-5 p-3">
-              Check Out
-            </button>
+            <p className="text-xs mt-2 text-zinc-500"> Taxes will be calculated at checkout.</p>
+            <a href={cart.checkout_url}>
+              <button type="button" className="hover:bg-yellow-500 transition-colors relative bg-black text-white w-full rounded mt-5 p-3">
+                Check Out
+              </button>
+            </a>
+  
           </div>
         ) : (
           false
