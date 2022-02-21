@@ -57,11 +57,14 @@ const products = {
     });
   
     const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject));
-    console.log('response', response)
     const checkout = response.data.checkoutLineItemsReplace.checkout ? response.data.checkoutLineItemsReplace.checkout : []
     return checkout
   },
-  
+  // getPage: async (handle) => {
+  //   const response = await ShopifyData(queries.getPageByHandle(handle));
+  //   const page = response.data.pageByHandle ? response.data.pageByHandle : {};
+  //   return page
+  // },
   recursiveCatalog: async function (cursor = "", initialRequest = true) {
     let data;
     let query;

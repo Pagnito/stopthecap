@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import QuantityPicker from "./quantity-picker";
 
-export default function PdpProductOptions({ options, selectedVariant, selectVariant, primaryOptionIndex, addToCart }) {
+export default function PdpProductOptions({ product, options, selectedVariant, selectVariant, primaryOptionIndex, addToCart }) {
   let selectedOptions = selectedVariant.selectedOptions;
   let governingOptionName = selectedOptions[primaryOptionIndex].name.toLowerCase();
   let [quantity, setQuantity] = useState(1);
 
   let addToCartWithQty = () => {
     selectedVariant.variantQuantity = quantity;
+    selectedVariant.name = product.title;
     addToCart(selectedVariant);
   }
   let governingOptions = () => {

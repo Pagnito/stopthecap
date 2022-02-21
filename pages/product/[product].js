@@ -92,6 +92,7 @@ function ProductPage(props) {
                   options={organizedOptions}
                   selectedVariant={selected}
                   selectVariant={selectVariant}
+                  product={props.product.product}
                 />
               ) : (
                 false

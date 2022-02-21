@@ -215,6 +215,19 @@ const queries = {
       }
     }
     `
+  },
+  getPageByHandle: (handle) => {
+    return `
+    {
+      pageByHandle(handle: "${handle}") {
+        title
+        seo {
+          description
+          title
+        }
+      }
+    }
+    `
   }
 };
 

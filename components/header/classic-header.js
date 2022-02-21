@@ -182,7 +182,7 @@ const ClassicHeader = (props) => {
               <RiHeartLine className="my-icon-style-heart" color={state.headerIconStyles} size="25px" />
             </div>
             <div
-              onClick={() => dispatch(toggleCart())}
+            
               className={`mr-3 flex relative rounded-full p-2 border-white border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
             > {cartItemsAmount > 0 ? (
                 <div className="absolute flex border-white border-solid border-2 justify-center items-center h-7 w-7 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-3 -top-2">
@@ -191,7 +191,7 @@ const ClassicHeader = (props) => {
               ) : (
                 false
               )}
-              <RiShoppingBagLine className="my-icon-style" color={state.headerIconStyles} size="25px" />
+              <RiShoppingBagLine onClick={() => dispatch(toggleCart())} className="my-icon-style border-2 hover:border-red-500" color={state.headerIconStyles} size="25px" />
             </div>
 
             {/* <div className="m-10"></div> */}
