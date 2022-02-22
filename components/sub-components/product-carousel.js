@@ -30,6 +30,7 @@ function ProductCarousel({ options, selected, selectVariant, primaryOptionIndex 
     selectVariant(selectedVariant);
   }
   let images = options.map((variant, i) => {
+    console.log(variant)
     return (
       <SwiperSlide key={`slide-${i}`}>
         <Image src={variant.node.image.originalSrc} alt={variant.node.image.altText} layout="fill" objectFit="contain" />

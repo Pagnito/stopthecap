@@ -8,13 +8,15 @@ import { connect, useDispatch } from "react-redux";
 import { selectVariantAction } from "../../actions/product/product-actions";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import ProductCarousel from "../../components/sub-components/product-carousel";
-import Reviews from "../../components/sub-components/reviews-stars";
+import ReviewStars from "../../components/sub-components/reviews-stars";
 import PdpProductOptions from "../../components/sub-components/pdp-product-options";
 import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
 import Recommendations from "../../components/recommendations/recommendations";
 import htmlParser from "html-react-parser";
+import { formatter } from "../../util/toUSD";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
+import Reviews from "../../components/sub-components/reviews";
 import useProduct from "../../use/useProduct";
 
 function ProductPage(props) {
@@ -34,6 +36,7 @@ function ProductPage(props) {
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
   let selected = props.product.selectedVariant;
+  let price = formatter.format(selected.priceV2.amount);
   let description = htmlParser(props.product.product.descriptionHtml);
   let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
   let variantsExist = props.product.product.variantsExist;
@@ -77,8 +80,8 @@ function ProductPage(props) {
               <div className="breadcrumbs text-xs">{`Home > Car Gadgets > ${title}`}</div>
               <div className="mt-5 text-2xl font-bold">{title}</div>
               <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
-              <div className="mt-5 text-4xl text-red-500 font-bold">{"$" + selected.priceV2.amount}</div>
-              <Reviews />
+              <div className="mt-5 text-4xl text-red-500 font-bold">{price}</div>
+              <ReviewStars />
               <div className="mt-5 text-xs">{description}</div>
               {variantsExist ? (
                 <PdpProductOptions
@@ -109,6 +112,13 @@ function ProductPage(props) {
             </div>
             <div className="lg:w-1/2 xxs:w-full xxs:mt-10 lg:mt-0 lg:pl-10 lg:pr-10">
               <PdpCollapsibles description={description} />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="w-full flex justify-center mt-40">
+            <div className="max-w-screen-2xl px-40">
+              <Reviews />
             </div>
           </div>
         </div>
