@@ -18,6 +18,7 @@ import { formatter } from "../../util/toUSD";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
 import Reviews from "../../components/sub-components/reviews";
 import useProduct from "../../use/useProduct";
+import useReviews from '../../use/use-db';
 
 function ProductPage(props) {
   useEffect(() => {
@@ -147,6 +148,7 @@ export const getStaticProps = async ({ params }) => {
   product.variantsExist = product.variants.edges.length > 1 ? true : false;
   let firstVariant = product.variants.edges[0].node;
   firstVariant.carouselIndex = 0;
+  let productReviews = await useReviews.getReviewsForProduct('123');
   return {
     props: {
       initialReduxState: {

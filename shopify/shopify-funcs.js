@@ -49,7 +49,6 @@ const products = {
   },
   updateCheckout: async function(id, lineItems) {
     const lineItemsObject = lineItems.map(item => {
-      console.log(item)
       return `{
         variantId: "${item.id}",
         quantity:  ${item.variantQuantity}
@@ -61,9 +60,7 @@ const products = {
     return checkout
   },
   createSubscription: async function (email) {
-    console.log(queries.createSubscription(email, true))
     const response = await ShopifyData(queries.createSubscription(email, true));
-    console.log(response)
     const success = response.data.customerCreate ? true : false;
     return success;
   },

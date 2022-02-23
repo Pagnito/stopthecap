@@ -2,6 +2,7 @@ let reviews = {
   'sku': [
     {
       "product_handle": "",
+      "product_id": "",
       "state": "published",
       "rating": 5,
       "title": "Color Name: Green only case",

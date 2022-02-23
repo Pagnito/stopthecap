@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useEmail from "../../db/use-db";
 import shopify from "../../shopify/shopify-funcs";
 import Image from "next/image";
 

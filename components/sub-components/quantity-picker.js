@@ -16,7 +16,6 @@ export default function QuantityPicker({variant, quantity, setQuantity}) {
 
   let increment = (value) => {
     if(variant.quantityAvailable >= quantity + 1){
-      console.log(quantity, variant.quantityAvailable)
       setQuantity(quantity+1)
     } else {
       setError('Quantity Not Available');

@@ -42,7 +42,6 @@ export async function removeCartItemAction(itemToRemove) {
 }
 
 export function loadCheckoutFromLocalStorage(payload) {
-  console.log('wtf', cartTypes.LOAD_CHECKOUT)
   return {
     type: cartTypes.LOAD_CHECKOUT,
     payload: payload

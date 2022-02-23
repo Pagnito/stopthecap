@@ -1,6 +1,6 @@
 import * as Realm from 'realm-web';
 
-const app = new Realm.App({ id: "stopthecap-emails-kxvtt" });
+const app = new Realm.App({ id: "stopthecap-jxtox" });
 const credentials = Realm.Credentials.anonymous();
 let user;
 try {

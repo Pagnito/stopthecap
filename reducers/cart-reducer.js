@@ -25,7 +25,6 @@ const appReducer = (state = init, action) => {
         items: action.payload
       }
     case cartTypes.LOAD_CHECKOUT:
-      console.log(action.payload)
       return {
         ...state,
         ...action.payload
