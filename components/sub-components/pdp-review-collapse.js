@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import useReviews from "../../use/useReview";
+import React, { useEffect, useState } from "react";
+import useReview from "../../use/useReview";
 import ReviewsStars from "./reviews-stars";
 
+
 export default function PdpReviewCollapse(props) {
-  let { submitReview } = useReviews();
-  let [email, setEmail] = useState("");
-  let [review, setReview] = useState("");
+  let { submitReview, setAuthor, setBody, setEmail, setRating, setTitle, email, body, title, author, rating } = useReview();
 
   return (
     <div className="bg-whiterounded-lg w-full ">
@@ -86,22 +85,59 @@ export default function PdpReviewCollapse(props) {
         <div className="flex mt-2">
           <div className="w-full">
             <p>Email</p>
-            <input type="text" className="border-2 pl-2 w-full text-xs py-2 rounded" />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              className="border-2 pl-2 w-full text-xs py-2 rounded"
+            />
+          </div>
+        </div>
+        <div className="flex mt-2">
+          <div className="w-full">
+            <p>Name</p>
+            <input
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              type="text"
+              className="border-2 pl-2 w-full text-xs py-2 rounded"
+            />
           </div>
         </div>
         <div className="flex mt-2">
           <div className="w-full">
             <p>Rating</p>
-            <ReviewsStars />
+            <div className="mt-1">
+              <ReviewsStars setRating={setRating} rating={rating} />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex mt-2">
+          <div className="w-full">
+            <p>Title</p>
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              type="text"
+              className="border-2 pl-2 w-full text-xs py-2 rounded"
+            />
           </div>
         </div>
         <div className="mt-2">
           <p>Review</p>
-          <textarea className="w-full border-2 rounded pl-2 pt-2 text-xs min-h-20"></textarea>
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            className="w-full border-2 rounded pl-2 pt-2 text-xs min-h-20"
+          ></textarea>
         </div>
       </div>
       <div className="px-4">
-        <button className="border-2 bg-theme-blue border-theme-blue px-3 py-1 rounded hover:bg-green-500 hover:border-green-500 transition-colors text-white mt-2">
+        <button
+          onClick={submitReview}
+          className="border-2 bg-theme-blue border-theme-blue px-3 py-1 rounded hover:bg-green-500 hover:border-green-500 transition-colors text-white mt-2"
+        >
           Submit review
         </button>
       </div>

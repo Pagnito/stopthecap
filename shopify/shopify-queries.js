@@ -38,6 +38,7 @@ const queries = {
       productByHandle(handle: "${handle}") {
           id
           title
+          handle
           descriptionHtml
           productType
           tags
@@ -231,7 +232,6 @@ const queries = {
   },
 
   getOrdersByEmail: (email) => {
-    console.log(email)
     return `
     {
       orders(first: 30, query: "email:${email}") {

@@ -2,7 +2,6 @@ import React, { createRef, useEffect, useState } from "react";
 import Review from "../sub-components/review";
 
 export default function Reviews({ reviews }) {
-  console.log("ha", reviews);
   let amountOfReviews = reviews.length;
   let [pages, setPages] = useState(amountOfReviews % 4 == 0 ? amountOfReviews / 4 : amountOfReviews / 4 + 1);
   let reviewsContainer = createRef();

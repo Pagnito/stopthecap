@@ -1,8 +1,10 @@
+import types from '../actions/product/product-types'
 let init = {
   features: null,
   productPage: {
     product: null,
     selectedVariant: null,
+    reviews: []
   },
   productCard: {
     selectedProduct: null,
@@ -30,7 +32,7 @@ function selectVariant(currentSelectedOptions, variants, variantOption) {
 }
 const productReducer = (state = init, action) => {
   switch (action.type) {
-    case "PDP_SELECT_VARIANT":
+    case types.PDP_SELECT_VARIANT:
       let currentSelectedOptionsPDP = state.productPage.selectedVariant.selectedOptions;
       let variantsPDP = state.productPage.product.variants.edges;
       return {
@@ -52,6 +54,11 @@ const productReducer = (state = init, action) => {
     //       selectedVariant: selectVariant(currentSelectedOptionsPC, variantsPC, action.payload.variantOption),
     //     },
     //   };
+    case types.ADD_REVIEW:  
+      return {
+        ...state,
+        productPage: Object.assign({reviews: [...state.productPage.reviews, action.payload]}, state.productPage)
+      }
     default:
       return state;
   }

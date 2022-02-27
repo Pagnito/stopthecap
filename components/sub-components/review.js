@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import parseHtmlString from "html-react-parser";
 import ReviewStars from "./reviews-stars";
-import resizeImage from "../../util/resizeImage";
 
 export default function Review({ review }) {
   let body = review.body;
  
   body = parseHtmlString(review.body, {replace: (node) => {
     if(node.name==='img'){
-      return <img className="xxs:max-w-full md:max-w-xs" src={node.attribs.src} />
+      return <img className="xxs:max-w-full md:max-w-xs mt-2" src={node.attribs.src} />
     }
   }});
   return (

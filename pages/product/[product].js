@@ -43,7 +43,7 @@ function ProductPage(props) {
   let carouselOptions = filterVariantsByOption_ColorPrimary(variants);
   let primaryOptionIndex = determinePrimaryOptionIndex(selected.selectedOptions);
   let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex));
-  let reviews = props.product.product.reviews;
+  let reviews = props.product.reviews;
   
   return (
     <div>
@@ -142,7 +142,6 @@ export const getStaticProps = async ({ params }) => {
   const recommendations = await shopify.getProductRecommendationsById(product.id);
   let reviews = await mongo.getReviewsForProduct(product.id);
   reviews = reviews.map(review => {review._id = review._id.toString(); return review});
-  product.reviews = reviews;
   product.variantsExist = product.variants.edges.length > 1 ? true : false;
   let firstVariant = product.variants.edges[0].node;
   firstVariant.carouselIndex = 0;
@@ -156,6 +155,7 @@ export const getStaticProps = async ({ params }) => {
           productPage: {
             product: product,
             selectedVariant: firstVariant,
+            reviews: reviews
           },
           productCard: {
             selectedProduct: null,

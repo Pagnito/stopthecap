@@ -6,12 +6,6 @@ import PdpReviewCollapse from "./pdp-review-collapse";
 
 export default function PdpCollapsibles({ description }) {
   let initState = JSON.parse(JSON.stringify(app.layout.data.pdp_collapsibles));
-  let [state, setState] = useState(initState);
-  let toggleCollapsible = (type) => {
-    let newState = JSON.parse(JSON.stringify(state));
-    newState[type] = newState[type] ? false : true;
-    setState(newState);
-  };
   let trigger = (word) => {
     return (
       <div className="flex w-full justify-between pl-2 pr-2">
