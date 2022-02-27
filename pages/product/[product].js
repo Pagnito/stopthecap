@@ -14,11 +14,10 @@ import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
 import Recommendations from "../../components/recommendations/recommendations";
 import htmlParser from "html-react-parser";
-import { formatter } from "../../util/toUSD";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
-import Reviews from "../../components/sub-components/reviews";
+import Reviews from "../../components/reviews/reviews";
 import useProduct from "../../use/useProduct";
-import useReviews from '../../use/use-db';
+import mongo from '../../use/use-mongo';
 
 function ProductPage(props) {
   useEffect(() => {
@@ -33,7 +32,7 @@ function ProductPage(props) {
     dispatch(selectVariantAction(variant));
   }
 
-  let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary } = useProduct();
+  let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary, formatter } = useProduct();
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
   let selected = props.product.selectedVariant;
@@ -44,7 +43,8 @@ function ProductPage(props) {
   let carouselOptions = filterVariantsByOption_ColorPrimary(variants);
   let primaryOptionIndex = determinePrimaryOptionIndex(selected.selectedOptions);
   let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex));
-
+  let reviews = props.product.product.reviews;
+  
   return (
     <div>
       <div className="mt-classic-header xxs:px-5 lg:px-0 ">
@@ -82,7 +82,9 @@ function ProductPage(props) {
               <div className="mt-5 text-2xl font-bold">{title}</div>
               <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
               <div className="mt-5 text-4xl text-red-500 font-bold">{price}</div>
-              <ReviewStars />
+              <div className="mt-2">
+                <ReviewStars />
+              </div>
               <div className="mt-5 text-xs">{description}</div>
               {variantsExist ? (
                 <PdpProductOptions
@@ -96,19 +98,12 @@ function ProductPage(props) {
               ) : (
                 false
               )}
-              {/* <div className="flex mt-8">
-                <QuantityPicker setQuantity={setQuantity} quantity={quantity} />
-                <button onClick={() => addToCart(selected)} className="rounded transition-colors hover:bg-green-500 bg-red-500 pl-10 pr-10 ml-3 text-white">
-                  Add To Cart
-                </button>
-              </div> */}
-              {/* <div className="h-2px bg-black rounded-full mt-6"></div> */}
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col mt-5 items-center">
           <div className="flex xxs:flex-col w-full  lg:flex-row max-w-screen-2xl">
-            <div className="xxs:w-full lg:w-1/2 px-10">
+            <div className="xxs:w-full lg:w-1/2 lg:px-10">
               <PdpImageGrid images={images} />
             </div>
             <div className="lg:w-1/2 xxs:w-full xxs:mt-10 lg:mt-0 lg:pl-10 lg:pr-10">
@@ -117,9 +112,9 @@ function ProductPage(props) {
           </div>
         </div>
         <div>
-          <div className="w-full flex justify-center mt-40">
-            <div className="max-w-screen-2xl px-40">
-              <Reviews />
+          <div className="w-full flex justify-center xxs:mt-10 lg:mt-40">
+            <div className="lg:max-w-screen-2xl w-full lg:px-40 xxs:px-0">
+              <Reviews reviews={reviews}/>
             </div>
           </div>
         </div>
@@ -145,10 +140,12 @@ export default connect(stateToProps, null)(ProductPage);
 export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
   const recommendations = await shopify.getProductRecommendationsById(product.id);
+  let reviews = await mongo.getReviewsForProduct(product.id);
+  reviews = reviews.map(review => {review._id = review._id.toString(); return review});
+  product.reviews = reviews;
   product.variantsExist = product.variants.edges.length > 1 ? true : false;
   let firstVariant = product.variants.edges[0].node;
   firstVariant.carouselIndex = 0;
-  let productReviews = await useReviews.getReviewsForProduct('123');
   return {
     props: {
       initialReduxState: {

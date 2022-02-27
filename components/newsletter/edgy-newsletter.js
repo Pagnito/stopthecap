@@ -3,7 +3,6 @@ import shopify from "../../shopify/shopify-funcs";
 import Image from "next/image";
 
 const Newsletter = (props) => {
-  let { insertEmail } = useEmail();
   let [email, setEmail] = useState("");
   let [notif, setNotif] = useState({
     message: "",

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import { selectVariantActionPC } from "../../actions/product/product-actions";
-import {formatter} from '../../util/toUSD';
+import useProduct from "../../use/useProduct";
 import Options from "./product-card-options";
 
 function ProductCard(props) {
@@ -13,6 +13,7 @@ function ProductCard(props) {
   let handle = props.data.handle;
   let dispatch = useDispatch();
   let cart = props.cart;
+  let {formatter} = useProduct();
   let price =formatter.format(props.data.variants.edges[0].node.priceV2.amount);
   let [option, setOption] = useState({
     name: null,

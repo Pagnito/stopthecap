@@ -2,6 +2,7 @@ import queries from "./shopify-queries";
 
 async function ShopifyData(query) {
   const URL = `https://stopthecapp.myshopify.com/api/2021-10/graphql.json`;
+  const adminURL = `https://stopthecapp.myshopify.com/admin/api/2022-01/graphql.json`
 
   const options = {
     endpoint: URL,
@@ -23,6 +24,32 @@ async function ShopifyData(query) {
   } catch (error) {
     throw new Error("Products not fetched");
   }
+}
+
+async function adminShopifyData(query){
+  const URL = `https://stopthecapp.myshopify.com/admin/api/2022-01/graphql.json`
+
+  const options = {
+    endpoint: URL,
+    method: "POST",
+    headers: {
+      "X-Shopify-Access-Token": "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",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  };
+
+  try {
+    const data = await fetch(URL, options).then((response) => {
+      return response.json();
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error("Data not fetched");
+  }
+  
 }
 
 const products = {
@@ -64,11 +91,16 @@ const products = {
     const success = response.data.customerCreate ? true : false;
     return success;
   },
-  // getPage: async (handle) => {
-  //   const response = await ShopifyData(queries.getPageByHandle(handle));
-  //   const page = response.data.pageByHandle ? response.data.pageByHandle : {};
-  //   return page
-  // },
+  getOrdersByEmail: async (email) => {
+    const response = await adminShopifyData(queries.getOrdersByEmail(email));
+    if(response.errors){
+      console.log(response.errors[0])
+    } else {
+      console.log(response)
+    }
+   
+    // return page
+  },
   recursiveCatalog: async function (cursor = "", initialRequest = true) {
     let data;
     let query;

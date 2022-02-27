@@ -1,10 +1,11 @@
 import React, { createRef, useEffect } from "react";
 import { connect } from "react-redux";
-import { formatter } from "../../util/toUSD";
+import useProduct from "../../use/useProduct";
 import { RiCloseFill } from "react-icons/ri";
 import { GoTrashcan } from "react-icons/go";
 
 function DrawerCart({ app, cart, hideCartModal }) {
+  let {formatter} = useProduct()
   let visible = app.cartVisible;
   let subtotal =
     cart.items.length > 0

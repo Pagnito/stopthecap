@@ -230,7 +230,20 @@ const queries = {
     `;
   },
 
-
+  getOrdersByEmail: (email) => {
+    console.log(email)
+    return `
+    {
+      orders(first: 30, query: "email:${email}") {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+    `
+  },
   createSubscription: (email, acceptsMarketing) => {
     return `
       mutation 

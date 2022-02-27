@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Reviews(props) {
   return (
-    <span className="flex items-center mt-3 text-xs">
+    <span className="flex items-center mt-1 text-xs">
       <svg
         fill="currentColor"
         stroke="currentColor"
