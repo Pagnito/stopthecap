@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
-import { toggleSearch,  toggleCart } from "../../actions/app/app-actions";
+import { toggleSearch,  toggleCart, toggleWishlist } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ const EdgyTransparentHeader = (props) => {
       </div>
 
       <div className="flex justify-center sm:w-1/3">
-        <div className="mt-2 xxs:hidden md:block opacity-0 stamp-animate">
+        <div className={`${app.searchVisible || app.cartVisible || app.wishlistVisible ? 'pr-10px' : ''} mt-2 xxs:hidden md:block opacity-0 stamp-animate`}>
           <Image
             alt="Brand Logo"
             width={110}
@@ -58,12 +58,12 @@ const EdgyTransparentHeader = (props) => {
         </div>
       </div>
       <div className="sm:w-1/3">
-        <div className="flex animate-down opacity-0 -translate-y-3 justify-end align-middle xxs:pr-1">
+        <div className={`${app.searchVisible || app.cartVisible || app.wishlistVisible ? 'pr-14px' : ''} flex animate-down opacity-0 -translate-y-3 justify-end align-middle xxs:pr-1`}>
           <div onClick={() => dispatch(toggleSearch())} className="mt-5 mr-7">
             <RiSearchLine className="my-icon-style" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7 my-icon-style">
-            <RiHeartLine className="my-icon-style-heart" color="white" size="25px" />
+            <RiHeartLine onClick={() => dispatch(toggleWishlist())}  className="my-icon-style-heart" color="white" size="25px" />
           </div>
           <div className="mt-5 mr-7">
           <div className="mr-3 flex relative">

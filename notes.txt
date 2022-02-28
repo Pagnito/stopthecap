@@ -1,0 +1,2 @@
+move logic to use
+have bulletproof error handling so site doesnt crash

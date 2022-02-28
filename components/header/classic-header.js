@@ -8,6 +8,7 @@ import Link from "next/link";
 const ClassicHeader = (props) => {
   let router = useRouter();
   let [pathname, setPathname] = useState(router.pathname);
+  let app = useSelector(({app}) => app);
   let didScroll;
   let lastScrollTop = 0;
   let delta = 5;
@@ -168,7 +169,7 @@ const ClassicHeader = (props) => {
         </div>
         <div></div>
         <div className="sm:w-1/3">
-          <div className="flex justify-end align-middle xxs:pr-1">
+          <div className={`${app.searchVisible || app.cartVisible || app.wishlistVisible ? 'pr-14px' : ''} flex justify-end align-middle xxs:pr-1`}>
             <RiSearchLine
               onClick={() => dispatch(toggleSearch())}
               className={`my-icon-style mr-7 flex rounded-full p-2 border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
