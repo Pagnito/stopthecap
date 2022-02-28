@@ -1,6 +1,4 @@
 import Home from "./home/home";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
 import products from "../shopify/shopify-funcs";
 
 function Body(props) {

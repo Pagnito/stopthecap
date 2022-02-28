@@ -1,4 +1,17 @@
+import { useDispatch, useSelector} from "react-redux";
+import {updateWishlist} from '../actions/products/products-actions';
+
 export default function UseProduct(props) {
+  let dispatch = useDispatch();
+  let wishlistSearchSource = useSelector(({products}) => products.wishlistSearchSource);
+  let searchWishlist = (keyword) => {
+    let searched = wishlistSearchSource.filter((product) => {
+      return product.title.indexOf(keyword) > -1 || product.handle.indexOf(keyword) > -1 || product.productType.indexOf(keyword) > -1 ||
+      product.tags.indexOf(keyword) > -1;
+    });
+    dispatch(updateWishlist(searched));
+  };
+
   let determinePrimaryOptionIndex = (options) => {
     let colorIndex = options.findIndex((option) => option.name.toLowerCase() === "color");
     return colorIndex > -1 ? colorIndex : 0;
@@ -47,17 +60,18 @@ export default function UseProduct(props) {
   let findIndexOfOption = (options) => {
     let indexes = {};
     options.forEach((obj, ind) => {
-       indexes[obj.name.toLowerCase()] = ind;   
+      indexes[obj.name.toLowerCase()] = ind;
     });
-    return indexes
+    return indexes;
   };
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2
-  })
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
   return {
     formatter,
+    searchWishlist,
     findIndexOfOption,
     organizeOptions,
     determinePrimaryOptionIndex,

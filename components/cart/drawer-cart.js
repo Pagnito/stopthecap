@@ -1,11 +1,13 @@
 import React, { createRef, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import useProduct from "../../use/useProduct";
 import { RiCloseFill } from "react-icons/ri";
 import { GoTrashcan } from "react-icons/go";
+import {removeCartItemAction} from '../../actions/cart/cart-actions';
 
 function DrawerCart({ app, cart, hideCartModal }) {
-  let {formatter} = useProduct()
+  let {formatter} = useProduct();
+  let dispatch = useDispatch();
   let visible = app.cartVisible;
   let subtotal =
     cart.items.length > 0
@@ -35,7 +37,7 @@ function DrawerCart({ app, cart, hideCartModal }) {
             </div>
             <div className="flex flex-col justify-between items-end">
               <p className="mt-1 text-xs text-zinc-500">{formatter.format(item.priceV2.amount)}</p>
-              <GoTrashcan className="cursor-pointer my-icon-style" size="20px" />
+              <GoTrashcan onClick={() => dispatch(removeCartItemAction(item, cart))} className="cursor-pointer my-icon-style" size="20px" />
             </div>
           </div>
         );

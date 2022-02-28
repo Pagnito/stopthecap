@@ -26,8 +26,8 @@ export default function SearchModal(props) {
         />
       </div>
       <div className="flex fixed top-0 w-full h-screen">
-        <div className="bg-black z-50 opacity-90 w-1/2 -translate-x-full animate-doors-close"></div>
-        <div className="bg-black z-50 opacity-90 w-1/2 translate-x-full animate-doors-close"></div>
+        <div className="bg-black z-50 opacity-80 w-1/2 -translate-x-full animate-doors-close"></div>
+        <div className="bg-black z-50 opacity-80 w-1/2 translate-x-full animate-doors-close"></div>
       </div>
 
     </div>

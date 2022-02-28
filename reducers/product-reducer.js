@@ -4,6 +4,7 @@ let init = {
   product: null,
   selectedVariant: null,
   reviews: [],
+  reviewsSearchSource: [],
   reviewOverview: null,
   shipping: null,
   productCard: {
@@ -55,8 +56,14 @@ const productReducer = (state = init, action) => {
     case types.ADD_REVIEW:
       return {
         ...state,
-        reviews: [action.payload, ...state.reviews]
+        reviews: [action.payload, ...state.reviews],
+        reviewsSearchSource: [action.payload, ...state.reviews]
       };
+      case types.SET_REVIEWS:
+        return {
+          ...state,
+          reviews: action.payload,
+        };
     default:
       return state;
   }

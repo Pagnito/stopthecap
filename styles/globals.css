@@ -45,15 +45,20 @@ a {
 }
 ::-webkit-scrollbar {
   width: 10px;
+  border-top-right-radius: 5px ;
+  border-bottom-right-radius: 5px ;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
+  border-top-right-radius: 5px ;
+  border-bottom-right-radius: 5px ;
   background: white;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
+  border-radius: 2px;
   background: #180f2e;
 }
 

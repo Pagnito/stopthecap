@@ -134,7 +134,8 @@ const queries = {
               node {
                   id
                   title
-                  vendor
+                  tags
+                  productType
                   availableForSale
                   handle
                   variants(first: 25) {

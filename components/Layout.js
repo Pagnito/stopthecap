@@ -9,6 +9,7 @@ import {connect, useDispatch} from 'react-redux';
 import {loadCheckoutFromLocalStorage} from '../actions/cart/cart-actions';
 import useCart from '../use/useCart';
 import { useEffect } from 'react';
+import { setWishList } from '../actions/products/products-actions';
 import WishlistModal from './wishlist.js/wishlist';
 
 const Layout = ({ children, app }) => {

@@ -4,6 +4,7 @@ import formatDate from "../util/formatDate";
 import { useState } from "react";
 import { submitReviewAction } from "../actions/product/product-actions";
 import { useDispatch, useSelector } from "react-redux";
+import { setReviewsAction } from "../actions/product/product-actions";
 import shopify from "../shopify/shopify-funcs";
 
 export default function useReview() {
@@ -16,7 +17,17 @@ export default function useReview() {
   let [error, setError] = useState({ msg: null, type: null });
   let product = useSelector(({ product }) => product.product);
   let reviews = useSelector(({ product }) => product.reviews);
-  
+  let reviewsSearchSource = useSelector(({ product }) => product.reviewsSearchSource);
+  let keyStrokesForSearch = 0;
+
+  let searchReviews = (keyword) => {
+    let searched = reviewsSearchSource.filter((review) => {
+      return review.title.indexOf(keyword) > -1 || review.body.indexOf(keyword) > -1;
+    });
+    console.log(keyword);
+    dispatch(setReviewsAction(searched));
+  };
+
   let calcOverview = () => {
     let overview = {
       fives: 0,
@@ -25,12 +36,10 @@ export default function useReview() {
       twos: 0,
       ones: 0,
     };
-    let count = 0;
-    let sum = 0;
 
-    reviews.forEach(function (value, index) {
-      count += value.rating;
-      sum += value.rating * (index + 1);
+    let sum = 0;
+    reviews.forEach(function (value) {
+      sum += value.rating;
       if (value.rating === 5) {
         overview.fives += 1;
       }
@@ -47,13 +56,13 @@ export default function useReview() {
         overview.ones += 1;
       }
     });
-    overview.fives = ((100 * overview.fives) / reviews.length).toFixed(0);
-    overview.fours = ((100 * overview.fours) / reviews.length).toFixed(0);
-    overview.threes = ((100 * overview.threes) / reviews.length).toFixed(0);
-    overview.twos = ((100 * overview.twos) / reviews.length).toFixed(0);
-    overview.ones = ((100 * overview.ones) / reviews.length).toFixed(0);
+    overview.fives = overview.fives !== 0 ? ((100 * overview.fives) / reviews.length).toFixed(0) : 0;
+    overview.fours = overview.fours !== 0 ? ((100 * overview.fours) / reviews.length).toFixed(0) : 0;
+    overview.threes = overview.threes !== 0 ? ((100 * overview.threes) / reviews.length).toFixed(0) : 0;
+    overview.twos = overview.twos !== 0 ? ((100 * overview.twos) / reviews.length).toFixed(0) : 0;
+    overview.ones = overview.ones !== 0 ? ((100 * overview.ones) / reviews.length).toFixed(0) : 0;
 
-    let average = sum / count;
+    let average = sum / reviews.length;
     overview.average = Math.round(average.toFixed(1));
     overview.count = reviews.length;
     return overview;
@@ -128,6 +137,7 @@ export default function useReview() {
     setEmail,
     setTitle,
     setRating,
+    searchReviews,
     error,
     email,
     title,

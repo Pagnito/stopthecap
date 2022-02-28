@@ -14,7 +14,7 @@ import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
 import Recommendations from "../../components/recommendations/recommendations";
 import htmlParser from "html-react-parser";
-// import Newsletter from "../../components/newsletter/edgy-newsletter";
+import Newsletter from "../../components/newsletter/edgy-newsletter";
 import Reviews from "../../components/reviews/reviews";
 import useProduct from "../../use/useProduct";
 import mongo from "../../use/use-mongo";
@@ -31,12 +31,13 @@ function ProductPage(props) {
   let description = htmlParser(props.product.product.descriptionHtml);
   let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
   let variantsExist = props.product.product.variantsExist;
-  let carouselOptions = filterVariantsByOption_ColorPrimary(variants);
-  let primaryOptionIndex = determinePrimaryOptionIndex(selected.selectedOptions);
+  let carouselOptions = useMemo(() => filterVariantsByOption_ColorPrimary(variants));
+  let primaryOptionIndex = useMemo(() => determinePrimaryOptionIndex(selected.selectedOptions));
   let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex));
   let reviews = props.product.reviews;
+  let reviewsSearchSource = props.product.reviewsSearchSource;
   let product_id = props.product.product.id;
-  let reviewOverview = calcOverview(reviews);
+  let reviewOverview = useMemo(() => calcOverview(reviews));
   
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
@@ -124,7 +125,7 @@ function ProductPage(props) {
         <div>
           <div className="w-full flex justify-center xxs:mt-10 lg:mt-40">
             <div className="lg:max-w-screen-2xl w-full lg:px-40 xxs:px-0">
-              <Reviews product_id={product_id} reviews={reviews} />
+              {reviewsSearchSource.length > 0 ? <Reviews product_id={product_id} reviews={reviews} /> : false}
             </div>
           </div>
         </div>
@@ -132,7 +133,7 @@ function ProductPage(props) {
           <Recommendations />
         </div>
       </div>
-      {/* <Newsletter /> */}
+      <Newsletter />
     </div>
   );
 }
@@ -150,7 +151,7 @@ export default connect(stateToProps, null)(ProductPage);
 export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
   const recommendations = await shopify.getProductRecommendationsById(product.id);
-  let reviews = await mongo.getReviewsForProduct(product.id);
+  let reviews = await mongo.getReviewsForProduct(product.handle);
   let policies = await shopify.getDeliveryProfiles()
   reviews = reviews.map((review) => {
     review._id = review._id.toString();
@@ -170,11 +171,14 @@ export const getStaticProps = async ({ params }) => {
       initialReduxState: {
         products: {
           recommendations,
+          wishlist: [],
+          wishlistSearchSource: []
         },
         product: {
           product: product,
           selectedVariant: firstVariant,
           reviews: reviews,
+          reviewsSearchSource: reviews,
           productCard: {
             selectedProduct: {},
             selectedVariant: {},

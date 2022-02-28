@@ -4,6 +4,7 @@ import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import { selectVariantActionPC } from "../../actions/product/product-actions";
+import { addToWishList } from "../../actions/products/products-actions";
 import useProduct from "../../use/useProduct";
 import Options from "./product-card-options";
 
@@ -37,7 +38,7 @@ function ProductCard(props) {
             <div className="">
               <div className="relative h-62 w-full mb-3">
                 <div className="absolute flex flex-col -top-1 right-0 p-3">
-                  <button className="transition ease-in  hover:text-red-600 text-red-400  rounded-full w-8 h-8 text-center p-1">
+                  <button onClick={() => dispatch(addToWishList(props.data))} className="transition ease-in  hover:text-red-600 text-red-400  rounded-full w-8 h-8 text-center p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"

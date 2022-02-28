@@ -1,8 +1,8 @@
 import user from "../mongo/mongo-realm";
 
 const useReviews = {
-  getReviewsForProduct: async (product_id) => {
-    let result = await user.functions.GetReviewsForProduct(product_id);
+  getReviewsForProduct: async (product_handle) => {
+    let result = await user.functions.GetReviewsForProduct(product_handle);
     return result.reviews ? result.reviews : [];
   },
   createReview: async (review) => {

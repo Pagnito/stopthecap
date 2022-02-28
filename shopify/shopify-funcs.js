@@ -81,7 +81,6 @@ const products = {
         quantity:  ${item.variantQuantity}
       }`
     });
-  
     const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject));
     const checkout = response.data.checkoutLineItemsReplace.checkout ? response.data.checkoutLineItemsReplace.checkout : []
     return checkout

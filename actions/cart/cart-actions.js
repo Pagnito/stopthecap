@@ -24,17 +24,17 @@ export const addToCartAction = (newItem, cart) => async (dispatch) => {
     }
 
     const newCheckout = await shopify.updateCheckout(cart.checkout_id, newCart)
-    localStorage.setItem("checkout_id", JSON.stringify({items: newCart, checkout_id: newCheckout.id, checkout_url: newCheckout.webUrl}))
+    localStorage.setItem("checkout", JSON.stringify({items: newCart, checkout_id: newCheckout.id, checkout_url: newCheckout.webUrl}))
     return dispatch({type: cartTypes.UPDATE_CART, payload: newCart});
   }
 }
 
-export async function removeCartItemAction(itemToRemove) {
-  const updatedCart = cart.filter(item => item.id !== itemToRemove)
-  dispatch({type: cartTypes.UPDATE_CART, payload: updatedCart});
-  const newCheckout = await shopify.updateCheckout(checkoutId, updatedCart)
-
-  localStorage.setItem("checkout_id", JSON.stringify({items: updatedCart, checkout: newCheckout}))
+export const removeCartItemAction =(itemToRemove) => async (dispatch) => {
+  let cart = JSON.parse(localStorage.getItem('checkout'));
+  const updatedCart = cart.items.filter(item => item.id !== itemToRemove.id);
+  const newCheckout = await shopify.updateCheckout(cart.checkout_id, updatedCart);
+  localStorage.setItem("checkout", JSON.stringify({items: updatedCart, checkout_id: newCheckout.id, checkout_url: newCheckout.webUrl}));
+  return dispatch({type: cartTypes.UPDATE_CART, payload: updatedCart});
 
   // if (cart.length === 1) {
   //   toggleCart()
