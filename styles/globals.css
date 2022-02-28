@@ -252,10 +252,43 @@ a {
 /*------------------------------------------------------------------------------------------------*/
 
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
+/* background: */
+progress::-webkit-progress-bar {
+  background-color: #D1D5DB;
+  height: 8px;
+  width: 100%;
+  border-radius: 5px;
+}
+progress {
+  height: 8px;
+  background-color: #D1D5DB;
+  border-radius: 5px;
+
+}
+
+/* value: */
+progress::-webkit-progress-value {
+  height: 8px;
+  background-color: #EF4444 !important;
+  border-radius: 5px;
+
+}
+progress::-moz-progress-bar {
+  height: 8px;
+  background-color: #EF4444 !important;
+  border-radius: 5px;
+
+}
+progress {
+  height: 8px;
+  color: #EF4444;
+  border-radius: 5px;
+
+}
 
 .anim-scale-child:hover div {
   transform: scale(1.7);
-  transition: transform .3s ease-out;
+  transition: transform 0.3s ease-out;
   transform-origin: center;
 }
 
@@ -284,11 +317,11 @@ a {
 .stamp-animate {
   animation: stamp-animate 0.4s ease-in 1.5s forwards;
 }
-.animate-search-bg {
-  animation: animateSearchBg 0.5s ease-out forwards;
+.animate-doors-close {
+  animation: animateDoorsClose 0.5s ease-out forwards;
 }
-.animate-search {
-  animation: animateSearch 0.5s ease-out 0.5s forwards;
+.animate-width-open {
+  animation: animateWidthOpen 0.5s ease-out 0.5s forwards;
 }
 .animate-close-x {
   transform: rotateZ(90deg) scale(0);
@@ -339,13 +372,13 @@ a {
     transform: scale(1);
   }
 }
-@keyframes animateSearchBg {
+@keyframes animateDoorsClose {
   100% {
     transform: translateX(0%);
   }
 }
 
-@keyframes animateSearch {
+@keyframes animateWidthOpen {
   100% {
     width: 100%;
   }
@@ -386,7 +419,6 @@ a {
     transform: translateX(0rem);
   }
 }
-
 
 /*///////////////////////////// CAROUSEL STYLES //////////////////////////////////////*/
 

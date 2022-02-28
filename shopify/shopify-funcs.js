@@ -101,6 +101,14 @@ const products = {
    
     // return page
   },
+  getDeliveryProfiles: async (id) => {
+    const response = await adminShopifyData(queries.getDeliveryProfile());
+    if(response.errors){
+      console.log(response.errors[0])
+    } else {
+      console.log(response.data.deliveryProfiles.edges)
+    }
+  },
   recursiveCatalog: async function (cursor = "", initialRequest = true) {
     let data;
     let query;

@@ -32,7 +32,7 @@ const recommendations = (props) => {
 
 function stateToProps(state) {
   return {
-    products: state.products.features,
+    products: state.products,
   };
 }
 export default connect(stateToProps, null)(recommendations);

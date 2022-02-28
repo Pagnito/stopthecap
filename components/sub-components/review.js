@@ -4,12 +4,14 @@ import ReviewStars from "./reviews-stars";
 
 export default function Review({ review }) {
   let body = review.body;
- 
-  body = parseHtmlString(review.body, {replace: (node) => {
-    if(node.name==='img'){
-      return <img className="xxs:max-w-full md:max-w-xs mt-2" src={node.attribs.src} />
-    }
-  }});
+
+  body = parseHtmlString(review.body, {
+    replace: (node) => {
+      if (node.name === "img") {
+        return <img className="xxs:max-w-full md:max-w-xs mt-2" src={node.attribs.src} />;
+      }
+    },
+  });
   return (
     <div className="lg:mt-10 xxs:mt-5">
       <div className="flex items-start">
@@ -33,12 +35,15 @@ export default function Review({ review }) {
         </div>
       </div>
       <div className="lg:ml-6">
-        <p className="flex items-baseline">
-          <span className="text-gray-600 font-bold">{review.author}</span>
-          <span className="ml-2 text-green-600 text-xs">Verified Buyer</span>
-        </p>
+        <div className="flex items-baseline w-full justify-between">
+          <div>
+            <span className="text-gray-600 font-bold">{review.author}</span>
+            <span className="ml-2 text-green-600 text-xs">Verified Buyer</span>
+          </div>
+          <div className="text-xs">{review.created_at}</div>
+        </div>
         <div className="mt-2">
-          <ReviewStars  rating={review.rating} />
+          <ReviewStars rating={review.rating} />
         </div>
         {/* <div className="flex items-center mt-4 text-gray-600">
           <div className="flex items-center">

@@ -1,9 +1,11 @@
 import React, { createRef, useEffect, useState } from "react";
 import Review from "../sub-components/review";
 
-export default function Reviews({ reviews }) {
+export default function Reviews({ reviews, product_id }) {
   let amountOfReviews = reviews.length;
-  let [pages, setPages] = useState(amountOfReviews % 4 == 0 ? amountOfReviews / 4 : amountOfReviews / 4 + 1);
+  let [pages, setPages] = useState(
+    amountOfReviews % 4 == 0 ? amountOfReviews / 4 : Math.ceil(amountOfReviews % 4) < 4 ? Math.ceil(amountOfReviews / 4) : Math.ceil(amountOfReviews % 4) + 1
+  );
   let reviewsContainer = createRef();
   pages = pages.toFixed(0);
   let [paginationState, setPaginationState] = useState({
@@ -23,7 +25,7 @@ export default function Reviews({ reviews }) {
       reviews: reviews.slice(0, 4),
       page: 1,
     });
-  }, [reviews]);
+  }, [product_id, reviews]);
 
   let turnPage = (page) => {
     if (clicked === false) {
@@ -58,7 +60,7 @@ export default function Reviews({ reviews }) {
       <div className="flex justify-center items-center">{navigation()}</div>
       <div>
         {paginationState.reviews.map((review) => {
-          return <Review review={review} key={review.author + review.location + review.created_at} />;
+          return <Review review={review} rating={review.rating} key={review.author + review.email + review.created_at} />;
         })}
       </div>
       <div className="flex justify-center items-center mt-10">{navigation()}</div>

@@ -20,14 +20,14 @@ export default function SearchModal(props) {
         <input
           ref={input}
           autoFocus={true}
-          className="caret-red-500 pb-2 text-2xl animate-search text-center no-outline w-0 text-white border-b-solid border-b-2 bg-transparent"
+          className="caret-red-500 pb-2 text-2xl animate-width-open text-center no-outline w-0 text-white border-b-solid border-b-2 bg-transparent"
           value={search}
           onChange={(e) => setSeach(e.target.value)}
         />
       </div>
       <div className="flex fixed top-0 w-full h-screen">
-        <div className="bg-black z-50 opacity-90 w-1/2 -translate-x-full animate-search-bg"></div>
-        <div className="bg-black z-50 opacity-90 w-1/2 translate-x-full animate-search-bg"></div>
+        <div className="bg-black z-50 opacity-90 w-1/2 -translate-x-full animate-doors-close"></div>
+        <div className="bg-black z-50 opacity-90 w-1/2 translate-x-full animate-doors-close"></div>
       </div>
 
     </div>

@@ -65,7 +65,7 @@ function ProductCarousel({ options, selected, selectVariant, primaryOptionIndex 
 }
 function stateToProps(state) {
   return {
-    selected: state.products.productPage.selectedVariant
+    selected: state.product.selectedVariant
   };
 }
 export default connect(stateToProps, null)(ProductCarousel);

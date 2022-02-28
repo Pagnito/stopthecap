@@ -1,6 +1,7 @@
 let init = {
   searchVisible: false,
   cartVisible: false,
+  wishlistVisible: false,
 };
 
 const appReducer = (state = init, action) => {
@@ -14,6 +15,11 @@ const appReducer = (state = init, action) => {
       return {
         ...state,
         cartVisible: state.cartVisible ? false : true,
+      };
+    case "TOGGLE_WISHLIST":
+      return {
+        ...state,
+        wishlistVisible: state.wishlistVisible ? false : true,
       };
     default:
       return state;

@@ -1,39 +1,81 @@
-import mongo from './use-mongo';
-import validateEmail from '../util/validateEmail';
-import { useState } from 'react';
-import { submitReviewAction } from '../actions/product/product-actions';
+import mongo from "./use-mongo";
+import validateEmail from "../util/validateEmail";
+import formatDate from "../util/formatDate";
+import { useState } from "react";
+import { submitReviewAction } from "../actions/product/product-actions";
 import { useDispatch, useSelector } from "react-redux";
-import shopify from '../shopify/shopify-funcs'
- 
-export default function useReviews(props){ 
-  let dispatch = useDispatch()
+import shopify from "../shopify/shopify-funcs";
+
+export default function useReview() {
+  let dispatch = useDispatch();
   let [email, setEmail] = useState("");
   let [body, setBody] = useState("");
   let [title, setTitle] = useState("");
   let [rating, setRating] = useState(0);
   let [author, setAuthor] = useState("");
-  let product = useSelector(({products}) => products.productPage.product);
+  let [error, setError] = useState({ msg: null, type: null });
+  let product = useSelector(({ product }) => product.product);
+  let reviews = useSelector(({ product }) => product.reviews);
+  
+  let calcOverview = () => {
+    let overview = {
+      fives: 0,
+      fours: 0,
+      threes: 0,
+      twos: 0,
+      ones: 0,
+    };
+    let count = 0;
+    let sum = 0;
+
+    reviews.forEach(function (value, index) {
+      count += value.rating;
+      sum += value.rating * (index + 1);
+      if (value.rating === 5) {
+        overview.fives += 1;
+      }
+      if (value.rating === 4) {
+        overview.fours += 1;
+      }
+      if (value.rating === 3) {
+        overview.threes += 1;
+      }
+      if (value.rating === 2) {
+        overview.twos += 1;
+      }
+      if (value.rating === 1) {
+        overview.ones += 1;
+      }
+    });
+    overview.fives = ((100 * overview.fives) / reviews.length).toFixed(0);
+    overview.fours = ((100 * overview.fours) / reviews.length).toFixed(0);
+    overview.threes = ((100 * overview.threes) / reviews.length).toFixed(0);
+    overview.twos = ((100 * overview.twos) / reviews.length).toFixed(0);
+    overview.ones = ((100 * overview.ones) / reviews.length).toFixed(0);
+
+    let average = sum / count;
+    overview.average = Math.round(average.toFixed(1));
+    overview.count = reviews.length;
+    return overview;
+  };
 
   let validateReview = (review) => {
-    if(!validateEmail(review.email)){
-      return {status: false, msg: 'Please enter a real email.'}
+    if (!validateEmail(review.email)) {
+      return { status: false, msg: "Please enter a real email.", type: "email" };
     }
-    if(review.author.length< 3) {
-      return {status: false, msg: 'Please enter your name (min 3 chars).'}
+    if (review.author.length < 3) {
+      return { status: false, msg: "Please enter your name (min 3 chars).", type: "author" };
     }
-    if(review.rating === 0) {
-      return {status: false, msg: 'Please select a rating.'}
+    if (review.rating === 0) {
+      return { status: false, msg: "Please select a rating.", type: "rating" };
     }
-    if(review.title.length < 3) {
-      return {status: false, msg: 'Please enter at least 3 characters.'}
+    if (review.title.length < 3) {
+      return { status: false, msg: "Please enter at least 3 characters.", type: "title" };
     }
-    return{status: true}
-  }
+    return { status: true };
+  };
 
-  let submitReview = () => {    
-    let date = new Date();
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let formattedDate = months[date.getMonth()] +' '+ date.getDay() + ' ' + date.getFullYear()
+  let submitReview = () => {
     let reviewObj = {
       product_id: product.id,
       product_handle: product.handle,
@@ -42,15 +84,30 @@ export default function useReviews(props){
       body,
       title,
       rating,
-      created_at: formattedDate
+      created_at: formatDate(new Date()),
     };
-    if(validateReview(reviewObj).status){
+    let validated = validateReview(reviewObj);
+    if (validated.status) {
       setAuthor("");
       setBody("");
       setEmail("");
       setRating(0);
       setTitle("");
       dispatch(submitReviewAction(reviewObj));
+      setError({ msg: null, type: null });
+    } else {
+      if (validated.type === "email") {
+        setEmail("");
+      } else if (validated.type === "author") {
+        setAuthor("");
+      } else if (validated.type === "body") {
+        setBody("");
+      } else if (validated.type === "rating") {
+        setRating("");
+      } else if (validated.type === "title") {
+        setTitle("");
+      }
+      setError(validated);
     }
 
     // let shopifyOrdersForEmail = await shopify.getOrdersByEmail(review.email);
@@ -63,7 +120,7 @@ export default function useReviews(props){
     // } else {
     //   return false
     // }
-  }
+  };
   return {
     submitReview,
     setAuthor,
@@ -71,10 +128,12 @@ export default function useReviews(props){
     setEmail,
     setTitle,
     setRating,
+    error,
     email,
     title,
     body,
     rating,
-    author
-  }
- }
+    author,
+    calcOverview,
+  };
+}

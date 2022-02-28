@@ -261,6 +261,27 @@ const queries = {
     
     `;
   },
+  getDeliveryProfile: (id) => {
+    return `{
+      deliveryProfiles(first: 5) {
+        edges {
+          node {
+            name
+            profileItems(first: 50) {
+              edges {
+                node {
+                  product {
+                    handle
+                    id
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }`
+  }
 };
 
 export default queries;

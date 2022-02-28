@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
-import { selectVariantAction } from "../../actions/product/product-actions";
+import { selectVariantAction, } from "../../actions/product/product-actions";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import ProductCarousel from "../../components/sub-components/product-carousel";
 import ReviewStars from "../../components/sub-components/reviews-stars";
@@ -14,24 +14,15 @@ import PdpImageGrid from "../../components/sub-components/pdp-image-grid";
 import PdpCollapsibles from "../../components/sub-components/pdp-collapsibles";
 import Recommendations from "../../components/recommendations/recommendations";
 import htmlParser from "html-react-parser";
-import Newsletter from "../../components/newsletter/edgy-newsletter";
+// import Newsletter from "../../components/newsletter/edgy-newsletter";
 import Reviews from "../../components/reviews/reviews";
 import useProduct from "../../use/useProduct";
-import mongo from '../../use/use-mongo';
+import mongo from "../../use/use-mongo";
+import sortArrayByKey from "../../util/sortArrayByKey";
+import useReview from "../../use/useReview";
 
 function ProductPage(props) {
-  useEffect(() => {
-    document.body.firstChild.firstChild.scrollTo(0, 0);
-  }, []);
-  let dispatch = useDispatch();
-
-  function addToCart(variant) {
-    dispatch(addToCartAction(variant, props.cart));
-  }
-  function selectVariant(variant) {
-    dispatch(selectVariantAction(variant));
-  }
-
+  let {calcOverview} = useReview();
   let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary, formatter } = useProduct();
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
@@ -44,7 +35,25 @@ function ProductPage(props) {
   let primaryOptionIndex = determinePrimaryOptionIndex(selected.selectedOptions);
   let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex));
   let reviews = props.product.reviews;
+  let product_id = props.product.product.id;
+  let reviewOverview = calcOverview(reviews);
   
+  useEffect(() => {
+    document.body.firstChild.firstChild.scrollTo(0, 0);
+  }, []);
+
+  let dispatch = useDispatch();
+
+  function addToCart(variant) {
+    dispatch(addToCartAction(variant, props.cart));
+  }
+
+  function selectVariant(variant) {
+    dispatch(selectVariantAction(variant));
+  }
+
+
+
   return (
     <div>
       <div className="mt-classic-header xxs:px-5 lg:px-0 ">
@@ -82,8 +91,9 @@ function ProductPage(props) {
               <div className="mt-5 text-2xl font-bold">{title}</div>
               <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
               <div className="mt-5 text-4xl text-red-500 font-bold">{price}</div>
-              <div className="mt-2">
-                <ReviewStars />
+              <div className="mt-2 flex items-center">
+                <ReviewStars rating={reviewOverview.average}/>
+                <span className="text-gray-600 ml-3 text-xs mt-2">{`${reviews.length} reviews`}</span>
               </div>
               <div className="mt-5 text-xs">{description}</div>
               {variantsExist ? (
@@ -107,14 +117,14 @@ function ProductPage(props) {
               <PdpImageGrid images={images} />
             </div>
             <div className="lg:w-1/2 xxs:w-full xxs:mt-10 lg:mt-0 lg:pl-10 lg:pr-10">
-              <PdpCollapsibles description={description} />
+              <PdpCollapsibles reviewOverview={reviewOverview} description={description} />
             </div>
           </div>
         </div>
         <div>
           <div className="w-full flex justify-center xxs:mt-10 lg:mt-40">
             <div className="lg:max-w-screen-2xl w-full lg:px-40 xxs:px-0">
-              <Reviews reviews={reviews}/>
+              <Reviews product_id={product_id} reviews={reviews} />
             </div>
           </div>
         </div>
@@ -129,8 +139,8 @@ function ProductPage(props) {
 
 function stateToProps(state) {
   return {
-    product: state.products.productPage,
-    selectedVariant: state.products.productPage.selectedVariant,
+    product: state.product,
+    selectedVariant: state.products.selectedVariant,
     app: state.app,
     cart: state.cart,
   };
@@ -141,7 +151,17 @@ export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
   const recommendations = await shopify.getProductRecommendationsById(product.id);
   let reviews = await mongo.getReviewsForProduct(product.id);
-  reviews = reviews.map(review => {review._id = review._id.toString(); return review});
+  let policies = await shopify.getDeliveryProfiles()
+  reviews = reviews.map((review) => {
+    review._id = review._id.toString();
+    review.date = new Date(review.created_at);
+    return review;
+  });
+  reviews = sortArrayByKey(reviews, "date", false);
+  reviews = reviews.map((review) => {
+    delete review.date;
+    return review;
+  });
   product.variantsExist = product.variants.edges.length > 1 ? true : false;
   let firstVariant = product.variants.edges[0].node;
   firstVariant.carouselIndex = 0;
@@ -149,17 +169,15 @@ export const getStaticProps = async ({ params }) => {
     props: {
       initialReduxState: {
         products: {
-          features: {
-            recommendations,
-          },
-          productPage: {
-            product: product,
-            selectedVariant: firstVariant,
-            reviews: reviews
-          },
+          recommendations,
+        },
+        product: {
+          product: product,
+          selectedVariant: firstVariant,
+          reviews: reviews,
           productCard: {
-            selectedProduct: null,
-            selectedVariant: null,
+            selectedProduct: {},
+            selectedVariant: {},
           },
         },
       },

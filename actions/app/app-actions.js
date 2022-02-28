@@ -10,3 +10,8 @@ export const toggleCart = () => {
         type: appTypes.TOGGLE_CART
     }
 }
+export const toggleWishlist = () => {
+    return {
+        type: appTypes.TOGGLE_WISHLIST
+    }
+}

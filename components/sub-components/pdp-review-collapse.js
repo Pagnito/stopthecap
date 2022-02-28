@@ -2,78 +2,61 @@ import React, { useEffect, useState } from "react";
 import useReview from "../../use/useReview";
 import ReviewsStars from "./reviews-stars";
 
-
-export default function PdpReviewCollapse(props) {
-  let { submitReview, setAuthor, setBody, setEmail, setRating, setTitle, email, body, title, author, rating } = useReview();
-
+export default function PdpReviewCollapse({overview}) {
+  let { submitReview, setAuthor, setBody, setEmail, setRating, setTitle, email, body, title, author, rating, error} =
+    useReview();
   return (
     <div className="bg-whiterounded-lg w-full ">
       <div className="mb-1 tracking-wide px-4 py-4">
-        <h2 className="text-gray-800 font-semibold mt-1">67 Users reviews</h2>
+        <h2 className="text-gray-800 font-semibold mt-1">{`${overview.count} User reviews`}</h2>
         <div className="border-b -mx-8 px-8 pb-3">
           <div className="flex items-center mt-1">
-            <div className=" w-1/5 text-red-500 tracking-tighter">
+            <div className="w-1/5 text-red-500 tracking-tighter">
               <span>5 star</span>
             </div>
-            <div className="w-3/5">
-              <div className="bg-gray-300 w-full rounded-lg h-2">
-                <div className=" w-7/12 bg-red-600 rounded-lg h-2"></div>
-              </div>
-            </div>
+            <progress className="w-3/5 rounded" value={overview.fives} max={100} color="#EF4444" />
             <div className="w-1/5 text-gray-700 pl-3">
-              <span className="text-sm">51%</span>
+              <span className="text-sm">{overview.fives + "%"}</span>
             </div>
           </div>
           <div className="flex items-center mt-1">
             <div className="w-1/5 text-red-500 tracking-tighter">
               <span>4 star</span>
             </div>
-            <div className="w-3/5">
-              <div className="bg-gray-300 w-full rounded-lg h-2">
-                <div className="w-1/5 bg-red-600 rounded-lg h-2"></div>
-              </div>
-            </div>
+            <progress className="w-3/5 rounded" value={overview.fours} max={100} color="#EF4444" />
+
             <div className="w-1/5 text-gray-700 pl-3">
-              <span className="text-sm">17%</span>
+              <span className="text-sm">{overview.fours + "%"}</span>
             </div>
           </div>
           <div className="flex items-center mt-1">
             <div className="w-1/5 text-red-500 tracking-tighter">
               <span>3 star</span>
             </div>
-            <div className="w-3/5">
-              <div className="bg-gray-300 w-full rounded-lg h-2">
-                <div className=" w-3/12 bg-red-600 rounded-lg h-2"></div>
-              </div>
-            </div>
+            <progress className="w-3/5 rounded" value={overview.threes} max={100} color="#EF4444" />
+
             <div className="w-1/5 text-gray-700 pl-3">
-              <span className="text-sm">19%</span>
+              <span className="text-sm">{overview.threes + "%"}</span>
             </div>
           </div>
           <div className="flex items-center mt-1">
             <div className=" w-1/5 text-red-500 tracking-tighter">
               <span>2 star</span>
             </div>
-            <div className="w-3/5">
-              <div className="bg-gray-300 w-full rounded-lg h-2">
-                <div className=" w-1/5 bg-red-600 rounded-lg h-2"></div>
-              </div>
-            </div>
+            <progress className="w-3/5 rounded" value={overview.twos} max={100} color="#EF4444" />
+
             <div className="w-1/5 text-gray-700 pl-3">
-              <span className="text-sm">8%</span>
+              <span className="text-sm">{overview.twos + "%"}</span>
             </div>
           </div>
           <div className="flex items-center mt-1">
             <div className="w-1/5 text-red-500 tracking-tighter">
               <span>1 star</span>
             </div>
-            <div className="w-3/5">
-              <div className="bg-gray-300 w-full rounded-lg h-2">
-                <div className=" w-2/12 bg-red-600 rounded-lg h-2"></div>
-              </div>
-            </div>
+            <progress className="w-3/5 rounded" value={overview.ones} max={100} color="#EF4444" />
+
             <div className="w-1/5 text-gray-700 pl-3">
-              <span className="text-sm">5%</span>
+              <span className="text-sm">{overview.ones + "%"}</span>
             </div>
           </div>
         </div>
@@ -86,10 +69,11 @@ export default function PdpReviewCollapse(props) {
           <div className="w-full">
             <p>Email</p>
             <input
+              placeholder={`${error.type === "email" ? error.msg : ""}`}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"
-              className="border-2 pl-2 w-full text-xs py-2 rounded"
+              className="border-2 pl-2 w-full text-xs py-2 rounded placeholder:text-red-300"
             />
           </div>
         </div>
@@ -97,30 +81,33 @@ export default function PdpReviewCollapse(props) {
           <div className="w-full">
             <p>Name</p>
             <input
+              placeholder={`${error.type === "author" ? error.msg : ""}`}
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               type="text"
-              className="border-2 pl-2 w-full text-xs py-2 rounded"
+              className="border-2 pl-2 w-full text-xs py-2 rounded placeholder:text-red-300"
             />
           </div>
         </div>
         <div className="flex mt-2">
           <div className="w-full">
             <p>Rating</p>
-            <div className="mt-1">
+            <div className=" flex items-end">
               <ReviewsStars setRating={setRating} rating={rating} />
+              <div className="text-red-500 ml-2 text-xs">{error.type === "rating" ? error.msg : ""}</div>
             </div>
           </div>
         </div>
 
-        <div className="flex mt-2">
+        <div className="flex mt-3">
           <div className="w-full">
             <p>Title</p>
             <input
+              placeholder={`${error.type === "title" ? error.msg : ""}`}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               type="text"
-              className="border-2 pl-2 w-full text-xs py-2 rounded"
+              className="border-2 pl-2 w-full text-xs py-2 rounded placeholder:text-red-300"
             />
           </div>
         </div>

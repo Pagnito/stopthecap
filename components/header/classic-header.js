@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState } from "react";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
-import { toggleSearch, toggleCart } from "../../actions/app/app-actions";
+import { toggleSearch, toggleCart, toggleWishlist } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -177,6 +177,7 @@ const ClassicHeader = (props) => {
             />
 
             <RiHeartLine
+            onClick={() => dispatch(toggleWishlist())}
               className={`mr-7 my-icon-style flex rounded-full p-2 border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles} my-icon-style-heart`}
               color={state.headerIconStyles}
               size="43px"

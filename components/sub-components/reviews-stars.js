@@ -92,4 +92,3 @@ export default function Reviews({setRating, rating}) {
     </span>
   );
 }
-{/* <span className="text-gray-600 ml-3">4 Reviews</span> */}

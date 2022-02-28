@@ -4,7 +4,7 @@ import ReactCollapsible from "react-collapsible";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import PdpReviewCollapse from "./pdp-review-collapse";
 
-export default function PdpCollapsibles({ description }) {
+export default function PdpCollapsibles({ description, reviewOverview }) {
   let initState = JSON.parse(JSON.stringify(app.layout.data.pdp_collapsibles));
   let trigger = (word) => {
     return (
@@ -22,6 +22,14 @@ export default function PdpCollapsibles({ description }) {
       </div>
     );
   };
+  let shippingEl = () => {
+    return (
+      <div className="xxs:px-2 lg:px-5 description text-xs mt-5">
+        <p>This item will arrive between 3-7 days.</p>
+        <p className="mt-1">Delivery tracking is sent via email.</p>
+    </div>
+    )
+  }
   // let collapsibles = () => {
   //   let keys = Object.keys(initState);
   //   return keys.map((collapsible,ind) => {
@@ -53,7 +61,7 @@ export default function PdpCollapsibles({ description }) {
           className="border-solid border-red-500"
           trigger={trigger(collapsible)}
         >
-          {collapsible === "reviews" ? <PdpReviewCollapse /> : collapsible === "description" ? descriptionEl() : "shipping"}
+          {collapsible === "reviews" ? <PdpReviewCollapse overview={reviewOverview} /> : collapsible === "description" ? descriptionEl() : shippingEl()}
         </ReactCollapsible>
       );
     });

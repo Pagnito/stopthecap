@@ -101,7 +101,7 @@ function ProductCard(props) {
 function stateToProps(state) {
   return {
     cart: state.cart,
-    product: state.products.productCard,
+    product: state.product.productCard,
   };
 }
 export default connect(stateToProps, null)(ProductCard);
