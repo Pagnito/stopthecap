@@ -151,15 +151,18 @@ export default connect(stateToProps, null)(ProductPage);
 export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
   const recommendations = await shopify.getProductRecommendationsById(product.id);
-  let reviews = await mongo.getReviewsForProduct(product.handle);
+  console.log(recommendations.map(rec => rec.handle))
+  let recommendationsReviews = await mongo.getReviewsForProducts(recommendations.map(rec => rec.handle));
+  console.log('oo', recommendationsReviews)
+  let productReviews = await mongo.getReviewsForProduct(product.handle);
   let policies = await shopify.getDeliveryProfiles()
-  reviews = reviews.map((review) => {
+  productReviews = productReviews.map((review) => {
     review._id = review._id.toString();
     review.date = new Date(review.created_at);
     return review;
   });
-  reviews = sortArrayByKey(reviews, "date", false);
-  reviews = reviews.map((review) => {
+  productReviews = sortArrayByKey(productReviews, "date", false);
+  productReviews = productReviews.map((review) => {
     delete review.date;
     return review;
   });
@@ -177,9 +180,9 @@ export const getStaticProps = async ({ params }) => {
         product: {
           product: product,
           selectedVariant: firstVariant,
-          reviews: reviews,
-          reviewsSearchSource: reviews,
-          productCard: {
+          reviews: productReviews,
+          reviewsSearchSource: productReviews,
+          productQuickview: {
             selectedProduct: {},
             selectedVariant: {},
           },

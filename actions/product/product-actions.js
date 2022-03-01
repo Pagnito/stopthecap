@@ -5,8 +5,8 @@ export const selectVariantAction = (variant) => {
   return { type: types.PDP_SELECT_VARIANT, payload: variant};
 }
 
-export const selectVariantActionPC = (variant, product) => {
-  return { type: types.PC_SELECT_VARIANT, payload: {product, variantOption: variant}};
+export const selectVariantActionQV = (variant) => {
+  return { type: types.QV_SELECT_VARIANT, payload: variant};
 }
 
 export const submitReviewAction = (review) => async (dispatch) => {
@@ -31,3 +31,9 @@ export const setReviewsAction = (reviews) => {
   }
 }
 
+export const setQuickviewProduct = (product) => {
+  return {
+    type: types.SET_QUICKVIEW_PRODUCT,
+    payload: product
+  }
+}

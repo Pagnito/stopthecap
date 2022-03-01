@@ -37,7 +37,7 @@ export default function Review({ review }) {
       <div className="lg:ml-6">
         <div className="flex items-baseline w-full justify-between">
           <div>
-            <span className="text-gray-600 font-bold">{review.author}</span>
+            <span className="text-gray-600 text-sm font-bold">{review.author}</span>
             <span className="ml-2 text-green-600 text-xs">Verified Buyer</span>
           </div>
           <div className="text-xs">{review.created_at}</div>

@@ -24,7 +24,6 @@ export default function useReview() {
     let searched = reviewsSearchSource.filter((review) => {
       return review.title.indexOf(keyword) > -1 || review.body.indexOf(keyword) > -1;
     });
-    console.log(keyword);
     dispatch(setReviewsAction(searched));
   };
 

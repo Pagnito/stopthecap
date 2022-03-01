@@ -3,14 +3,14 @@ import styles from './layout.module.css';
 import Footer from './footer/classic-footer';
 import ClassicHeader from "./header/classic-header";
 import CartModal from "./cart/drawer-cart";
-import { toggleSearch, toggleCart, toggleWishlist } from "../actions/app/app-actions";
+import { toggleSearch, toggleCart, toggleWishlist, toggleProductQuickView } from "../actions/app/app-actions";
 import SearchModal from "./sub-components/search-modal";
 import {connect, useDispatch} from 'react-redux';
 import {loadCheckoutFromLocalStorage} from '../actions/cart/cart-actions';
 import useCart from '../use/useCart';
 import { useEffect } from 'react';
-import { setWishList } from '../actions/products/products-actions';
 import WishlistModal from './wishlist.js/wishlist';
+import ProductQuickView from './product-quick-view/product-quick-view';
 
 const Layout = ({ children, app }) => {
   let dispatch = useDispatch();
@@ -34,6 +34,7 @@ const Layout = ({ children, app }) => {
       {app.cartVisible ? <CartModal hideCartModal={() => dispatch(toggleCart())} open={app.cartVisible} /> : false}
       {app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} /> : false}
       {app.wishlistVisible ? <WishlistModal hideWishlistModal={() => dispatch(toggleWishlist())} open={app.searchVisible} /> : false}
+      {app.quickViewVisible ? <ProductQuickView hideQuickView={() => dispatch(toggleProductQuickView())} open={app.quickViewVisible} /> : false}
       <ClassicHeader />
       <div>
         <main>

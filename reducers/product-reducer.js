@@ -7,10 +7,10 @@ let init = {
   reviewsSearchSource: [],
   reviewOverview: null,
   shipping: null,
-  productCard: {
+  productQuickview: {
     selectedProduct: null,
     selectedVariant: null,
-  }
+  },
 };
 function selectVariant(currentSelectedOptions, variants, variantOption) {
   let selectedVariant;
@@ -31,6 +31,7 @@ function selectVariant(currentSelectedOptions, variants, variantOption) {
   }
   return selectedVariant.node;
 }
+
 const productReducer = (state = init, action) => {
   switch (action.type) {
     case types.PDP_SELECT_VARIANT:
@@ -40,30 +41,39 @@ const productReducer = (state = init, action) => {
         ...state,
         selectedVariant: selectVariant(currentSelectedOptionsPDP, variantsPDP, action.payload),
       };
-    // case "PC_SELECT_VARIANT":
-    //   // let productsWithEditedOptions = state.productCard.productsWithEditedOptions;
-    //   // let newProduct = productsWithEditedOptions.find((product) => product.id === action.payload.product.id);
-    //   let variantsPC = action.payload.product.variants.edges;
-    //   let currentSelectedOptionsPC = state.productCard.selectedVariant && action.payload.product.id === state.productCard.selectedProduct.id ?
-    //   state.productCard.selectedVariant.selectedOptions : action.payload.product.variants.edges[0].node.selectedOptions;
-    //   return {
-    //     ...state,
-    //     productCard: {
-    //       selectedProduct: action.payload.product,
-    //       selectedVariant: selectVariant(currentSelectedOptionsPC, variantsPC, action.payload.variantOption),
-    //     },
-    //   };
+    case types.QV_SELECT_VARIANT:
+      // let productsWithEditedOptions = state.productCard.productsWithEditedOptions;
+      // let newProduct = productsWithEditedOptions.find((product) => product.id === action.payload.product.id);
+      let variantsQV = action.payload.product.variants.edges;
+      let currentSelectedOptionsQV = state.productQuickview.selectedVariant.selectedOptions;
+      return {
+        ...state,
+        productQuickview: {
+          selectedProduct: action.payload.product,
+          selectedVariant: selectVariant(currentSelectedOptionsQV, variantsQV, action.payload.variantOption),
+        },
+      };
+    case types.SET_QUICKVIEW_PRODUCT:
+      return {
+        ...state,
+        productQuickview: {
+          selectedProduct: action.payload,
+          selectedVariant: action.payload.variants.edges[0].node
+        }
+
+      };
+
     case types.ADD_REVIEW:
       return {
         ...state,
         reviews: [action.payload, ...state.reviews],
-        reviewsSearchSource: [action.payload, ...state.reviews]
+        reviewsSearchSource: [action.payload, ...state.reviews],
       };
-      case types.SET_REVIEWS:
-        return {
-          ...state,
-          reviews: action.payload,
-        };
+    case types.SET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
     default:
       return state;
   }

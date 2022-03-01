@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { addToCartAction } from "../../actions/cart/cart-actions";
-import { selectVariantActionPC } from "../../actions/product/product-actions";
+import { setQuickviewProduct  } from "../../actions/product/product-actions";
 import { addToWishList } from "../../actions/products/products-actions";
+import { toggleProductQuickView} from "../../actions/app/app-actions";
 import useProduct from "../../use/useProduct";
 import Options from "./product-card-options";
 
@@ -30,6 +31,10 @@ function ProductCard(props) {
     dispatch(addToCartAction(props.product.selectedVariant, cart.items));
   };
 
+  let openQuickview = () => {
+    dispatch(toggleProductQuickView())
+    dispatch(setQuickviewProduct(props.data))
+  }
   return (
     <div className="relative pt-5 pb-5 flex flex-col items-center justify-center hover:scale-105 transition-transform">
       <div className="xxs:w-80 lg:w-11/12 xl:w-72 flex justify-center">
@@ -78,7 +83,7 @@ function ProductCard(props) {
                     <span>Add Cart</span>
                   </button> */}
                   <div className="w-full flex justify-center">
-                    <button className="transition mt-5 ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-white border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
+                    <button onClick={openQuickview} className="transition mt-5 ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-white border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
                       <svg xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke="white">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path
