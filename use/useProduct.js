@@ -4,6 +4,7 @@ import {updateWishlist} from '../actions/products/products-actions';
 export default function UseProduct(props) {
   let dispatch = useDispatch();
   let wishlistSearchSource = useSelector(({products}) => products.wishlistSearchSource);
+
   let searchWishlist = (keyword) => {
     let searched = wishlistSearchSource.filter((product) => {
       return product.title.indexOf(keyword) > -1 || product.handle.indexOf(keyword) > -1 || product.productType.indexOf(keyword) > -1 ||

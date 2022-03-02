@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
-import { selectVariantAction, } from "../../actions/product/product-actions";
+import { selectVariantAction } from "../../actions/product/product-actions";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import ProductCarousel from "../../components/sub-components/product-carousel";
 import ReviewStars from "../../components/sub-components/reviews-stars";
@@ -19,10 +19,11 @@ import Reviews from "../../components/reviews/reviews";
 import useProduct from "../../use/useProduct";
 import mongo from "../../use/use-mongo";
 import sortArrayByKey from "../../util/sortArrayByKey";
+import filterReviewsByProduct from "../../util/filterReviewsByProduct";
 import useReview from "../../use/useReview";
 
 function ProductPage(props) {
-  let {calcOverview} = useReview();
+  let { calcOverview } = useReview();
   let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary, formatter } = useProduct();
   let variants = props.product.product.variants.edges;
   let title = props.product.product.title;
@@ -38,7 +39,7 @@ function ProductPage(props) {
   let reviewsSearchSource = props.product.reviewsSearchSource;
   let product_id = props.product.product.id;
   let reviewOverview = useMemo(() => calcOverview(reviews));
-  
+
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
   }, []);
@@ -52,8 +53,6 @@ function ProductPage(props) {
   function selectVariant(variant) {
     dispatch(selectVariantAction(variant));
   }
-
-
 
   return (
     <div>
@@ -93,7 +92,7 @@ function ProductPage(props) {
               <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
               <div className="mt-5 text-4xl text-red-500 font-bold">{price}</div>
               <div className="mt-2 flex items-center">
-                <ReviewStars rating={reviewOverview.average}/>
+                <ReviewStars rating={reviewOverview.average} />
                 <span className="text-gray-600 ml-3 text-xs mt-2">{`${reviews.length} reviews`}</span>
               </div>
               <div className="mt-5 text-xs">{description}</div>
@@ -150,12 +149,17 @@ export default connect(stateToProps, null)(ProductPage);
 
 export const getStaticProps = async ({ params }) => {
   const product = await shopify.getProduct(params.product);
-  const recommendations = await shopify.getProductRecommendationsById(product.id);
-  console.log(recommendations.map(rec => rec.handle))
-  let recommendationsReviews = await mongo.getReviewsForProducts(recommendations.map(rec => rec.handle));
-  console.log('oo', recommendationsReviews)
+  let recommendations = await shopify.getProductRecommendationsById(product.id);
+  let recommendationsReviews = await mongo.getReviewsForProducts(recommendations.map((rec) => rec.handle));
+  let sortedRecomReviews = filterReviewsByProduct(recommendationsReviews);
+  recommendations = recommendations.map((rec) => {
+    if(sortedRecomReviews[rec.handle]){
+      rec.reviews = sortedRecomReviews[rec.handle];
+    }
+    return rec;
+  });
   let productReviews = await mongo.getReviewsForProduct(product.handle);
-  let policies = await shopify.getDeliveryProfiles()
+  // let policies = await shopify.getDeliveryProfiles()
   productReviews = productReviews.map((review) => {
     review._id = review._id.toString();
     review.date = new Date(review.created_at);
@@ -175,7 +179,7 @@ export const getStaticProps = async ({ params }) => {
         products: {
           recommendations,
           wishlist: [],
-          wishlistSearchSource: []
+          wishlistSearchSource: [],
         },
         product: {
           product: product,

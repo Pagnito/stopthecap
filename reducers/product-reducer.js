@@ -42,15 +42,16 @@ const productReducer = (state = init, action) => {
         selectedVariant: selectVariant(currentSelectedOptionsPDP, variantsPDP, action.payload),
       };
     case types.QV_SELECT_VARIANT:
+      console.log(action.payload)
       // let productsWithEditedOptions = state.productCard.productsWithEditedOptions;
       // let newProduct = productsWithEditedOptions.find((product) => product.id === action.payload.product.id);
-      let variantsQV = action.payload.product.variants.edges;
+      let variantsQV = state.productQuickview.selectedProduct.variants.edges;
       let currentSelectedOptionsQV = state.productQuickview.selectedVariant.selectedOptions;
       return {
         ...state,
         productQuickview: {
-          selectedProduct: action.payload.product,
-          selectedVariant: selectVariant(currentSelectedOptionsQV, variantsQV, action.payload.variantOption),
+          selectedProduct: state.productQuickview.selectedProduct,
+          selectedVariant: selectVariant(currentSelectedOptionsQV, variantsQV, action.payload),
         },
       };
     case types.SET_QUICKVIEW_PRODUCT:
