@@ -85,11 +85,11 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
     <div>
       {governingOptions()}
       {otherOptions()}
-      <div className="flex mt-8">
+      <div className="flex xxs:mt-5 lg:mt-8 xxs:flex-col lg:flex-row">
         <QuantityPicker setQuantity={setQuantity} variant={selectedVariant} quantity={quantity} />
         <button
           onClick={addToCartWithQty}
-          className="rounded transition-colors hover:bg-green-500 bg-red-500 pl-10 pr-10 ml-3 text-white"
+          className="rounded transition-colors hover:bg-green-500 bg-red-500 xxs:pt-5 xxs:pb-5 lg:pb-0 lg:pt-0 pl-10 pr-10 lg:ml-3 lg:mt-0 xxs:mt-5 text-white"
         >
           Add To Cart
         </button>

@@ -31,7 +31,7 @@ export default function QuantityPicker({variant, quantity, setQuantity}) {
     }
   }
   return (
-    <div className="inline-flex relative border-solid border-black border-2 rounded overflow-hidden">
+    <div className="inline-flex self-start relative border-solid border-black border-2 rounded overflow-hidden">
       {error ? (
         <div className="error absolute bg-red-500 h-full w-full flex text-center items-center text-white justify-center text-xs">
           {/* <RiErrorWarningLine size="35px" color="white" /> */}

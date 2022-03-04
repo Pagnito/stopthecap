@@ -86,7 +86,7 @@ function ProductPage(props) {
                 />
               </div>
             </div>
-            <div className="description lg:mt-0 xxs:mt-12 lg:p-10 lg:w-1/2">
+            <div className="description lg:mt-0 xxs:mt-8 lg:p-10 lg:w-1/2">
               <div className="breadcrumbs text-xs">{`Home > Car Gadgets > ${title}`}</div>
               <div className="mt-5 text-2xl font-bold">{title}</div>
               <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
