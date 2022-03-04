@@ -42,7 +42,6 @@ const productReducer = (state = init, action) => {
         selectedVariant: selectVariant(currentSelectedOptionsPDP, variantsPDP, action.payload),
       };
     case types.QV_SELECT_VARIANT:
-      console.log(action.payload)
       // let productsWithEditedOptions = state.productCard.productsWithEditedOptions;
       // let newProduct = productsWithEditedOptions.find((product) => product.id === action.payload.product.id);
       let variantsQV = state.productQuickview.selectedProduct.variants.edges;

@@ -23,7 +23,7 @@ export default function Wishlist(props) {
   let carouselOptions = filterVariantsByOption_ColorPrimary(variants);
   let primaryOptionIndex = determinePrimaryOptionIndex(selectedVariant.selectedOptions);
   let organizedOptions = organizeOptions(variants, primaryOptionIndex);
-  let reviewOverview = calcOverview(props.reviews);
+  let reviewOverview = calcOverview(props.reviews ? props.reviews : []);
   let title = viewedProduct.title;
   let price = formatter.format(selectedVariant.priceV2.amount);
   let description = viewedProduct.description;
@@ -34,6 +34,9 @@ export default function Wishlist(props) {
   function selectVariant(variant) {
     dispatch(selectVariantActionQV(variant));
   }
+  useEffect(() =>{
+    console.log(selectedVariant)
+  })
   return (
     <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full lg:p-20">
       <div onClick={props.hideQuickView} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
@@ -49,7 +52,7 @@ export default function Wishlist(props) {
               <ProductCarousel
                 options={carouselOptions}
                 primaryOptionIndex={primaryOptionIndex}
-                selectedVariant={selectedVariant}
+                preselected={selectedVariant}
                 selectVariant={selectVariant}
               />
             </div>
@@ -68,7 +71,7 @@ export default function Wishlist(props) {
               false
             )}
             <div className="mt-5 text-xs">{description}</div>
-            {variantsExist ? (
+           
               <ProductOptions
                 addToCart={addToCart}
                 primaryOptionIndex={primaryOptionIndex}
@@ -77,9 +80,7 @@ export default function Wishlist(props) {
                 selectVariant={selectVariant}
                 product={props}
               />
-            ) : (
-              false
-            )}
+            
           </div>
         </div>
       </div>

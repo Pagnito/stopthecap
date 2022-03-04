@@ -6,21 +6,20 @@ import "swiper/css";
 import "swiper/css/pagination";
 import SwiperCore, { Navigation, Pagination, Mousewheel } from "swiper";
 
-function ProductCarousel({ options, selected, selectVariant, primaryOptionIndex }) {
+function ProductCarousel({ options, preselected, selectVariant, primaryOptionIndex }) {
   let nextBtn = createRef();
   let [swiperHolder, setSwiper] = useState(null);
   let primaryOptionValues = options.map((variant) => variant.node.selectedOptions[primaryOptionIndex].value);
-
   let selectedVariant = {
-    name: selected.selectedOptions[primaryOptionIndex].name,
-    value: selected.selectedOptions[primaryOptionIndex].value 
+    name: preselected.selectedOptions[primaryOptionIndex].name,
+    value: preselected.selectedOptions[primaryOptionIndex].value 
   };
 
 
   useEffect(()=>{
-    let valueIndex = primaryOptionValues.indexOf(selected.selectedOptions[primaryOptionIndex].value);
+    let valueIndex = primaryOptionValues.indexOf(preselected.selectedOptions[primaryOptionIndex].value);
     swiperHolder && swiperHolder.slideTo(valueIndex+1);
-  }, [swiperHolder, selected.selectedOptions[primaryOptionIndex].value, primaryOptionIndex, primaryOptionValues, selected.selectedOptions]);
+  }, [swiperHolder, preselected.selectedOptions[primaryOptionIndex].value, primaryOptionIndex, primaryOptionValues, preselected.selectedOptions]);
 
   function selectCarouselOption(swiper) {
     let index = swiper.activeIndex > primaryOptionValues.length ? 1 : swiper.activeIndex < 1 ? primaryOptionValues.length : swiper.activeIndex;
@@ -63,9 +62,5 @@ function ProductCarousel({ options, selected, selectVariant, primaryOptionIndex 
     </div>
   );
 }
-function stateToProps(state) {
-  return {
-    selected: state.product.selectedVariant
-  };
-}
-export default connect(stateToProps, null)(ProductCarousel);
+
+export default (ProductCarousel);

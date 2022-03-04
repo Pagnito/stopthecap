@@ -150,6 +150,7 @@ const queries = {
                           altText
                         }
                         title
+                        sku
                         id
                         priceV2 {
                           amount

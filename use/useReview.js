@@ -16,7 +16,6 @@ export default function useReview() {
   let [author, setAuthor] = useState("");
   let [error, setError] = useState({ msg: null, type: null });
   let product = useSelector(({ product }) => product.product);
-  let reviews = useSelector(({ product }) => product.reviews);
   let reviewsSearchSource = useSelector(({ product }) => product.reviewsSearchSource);
   let keyStrokesForSearch = 0;
 
@@ -26,8 +25,8 @@ export default function useReview() {
     });
     dispatch(setReviewsAction(searched));
   };
-
-  let calcOverview = () => {
+  
+  let calcOverview = (reviews) => {
     let overview = {
       fives: 0,
       fours: 0,

@@ -1,6 +1,7 @@
 import Home from "./home/home";
+import mongo from '../use/use-mongo';
 import products from "../shopify/shopify-funcs";
-
+import filterReviewsByProduct from "../util/filterReviewsByProduct";
 function Body(props) {
   return (
     <>
@@ -15,16 +16,26 @@ export const getStaticProps = async () => {
   let { getCollection } = products;
   try {
     let collection = await getCollection("ADIDAS");
+    let collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
+    let sortedColReviews = filterReviewsByProduct(collectionReviews);
+    collection.products.edges = collection.products.edges.map((rec) => {
+      if(sortedColReviews[rec.node.handle]){
+        rec.node.reviews = sortedColReviews[rec.node.handle];
+      }
+      return rec;
+    });
     return {
       props: {
         initialReduxState: {
           products: {
             topProducts: Object.keys(collection).length > 0 ? collection : null,
           },
-          productCard: {
-            selectedProduct: null,
-            selectedVariant: null,
-          },
+          product: {
+            productQuickview: {
+              selectedProduct: {},
+              selectedVariant: {},
+            },
+          }
         },
       },
     };

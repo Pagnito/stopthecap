@@ -38,7 +38,7 @@ function ProductPage(props) {
   let reviews = props.product.reviews;
   let reviewsSearchSource = props.product.reviewsSearchSource;
   let product_id = props.product.product.id;
-  let reviewOverview = useMemo(() => calcOverview(reviews));
+  let reviewOverview = useMemo(() => calcOverview(reviews || []));
 
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
@@ -81,7 +81,7 @@ function ProductPage(props) {
                 <ProductCarousel
                   options={carouselOptions}
                   primaryOptionIndex={primaryOptionIndex}
-                  selectedVariant={selected}
+                  preselected={selected}
                   selectVariant={selectVariant}
                 />
               </div>
@@ -96,7 +96,7 @@ function ProductPage(props) {
                 <span className="text-gray-600 ml-3 text-xs mt-2">{`${reviews.length} reviews`}</span>
               </div>
               <div className="mt-5 text-xs">{description}</div>
-              {variantsExist ? (
+               
                 <PdpProductOptions
                   addToCart={addToCart}
                   primaryOptionIndex={primaryOptionIndex}
@@ -105,9 +105,7 @@ function ProductPage(props) {
                   selectVariant={selectVariant}
                   product={props.product.product}
                 />
-              ) : (
-                false
-              )}
+              
             </div>
           </div>
         </div>
