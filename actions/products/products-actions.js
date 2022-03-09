@@ -1,6 +1,5 @@
 import types from "./products-types";
 export const addToWishList = (product) => {
-  console.l
   let wishlist = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem('wishlist')) : [];
   let alrdyInWishlist = wishlist.find(item => item.id === product.id);
   if(!alrdyInWishlist) wishlist.push(product);

@@ -15,7 +15,7 @@ function ProductCard(props) {
   let handle = props.data.handle;
   let dispatch = useDispatch();
   let cart = props.cart;
-  let {formatter} = useProduct();
+  let {formatter, isItOnWishlist} = useProduct();
   let price =formatter.format(props.data.variants.edges[0].node.priceV2.amount);
   let [option, setOption] = useState({
     name: null,
@@ -35,6 +35,7 @@ function ProductCard(props) {
     dispatch(toggleProductQuickView())
     dispatch(setQuickviewProduct(props.data))
   }
+  let onWishlist = isItOnWishlist(props.data.id);
   return (
     <div className="relative pt-5 pb-5 flex flex-col items-center justify-center hover:scale-105 transition-transform">
       <div className="xxs:w-80 lg:w-11/12 xl:w-72 flex justify-center">
@@ -43,8 +44,8 @@ function ProductCard(props) {
             <div className="">
               <div className="relative h-62 w-full mb-3">
                 <div className="absolute flex flex-col -top-1 right-0 p-3">
-                  <button onClick={() => dispatch(addToWishList(props.data))} className="transition ease-in  hover:text-red-600 text-red-400  rounded-full w-8 h-8 text-center p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <button onClick={() => dispatch(addToWishList(props.data))} className={`transition ease-in  hover:text-red-600 ${onWishlist ? 'text-red-600' : 'text-red-400' } rounded-full w-8 h-8 text-center p-1`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill={onWishlist ? '#DC2626': 'none'} viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"

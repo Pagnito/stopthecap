@@ -1,37 +1,41 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { RiCloseFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setWishlist } from "../../actions/products/products-actions";
+import { useSelector, useDispatch } from "react-redux";
 import useProduct from "../../use/useProduct";
 import Link from "next/link";
 import router from "next/router";
 import { toggleWishlist } from "../../actions/app/app-actions";
+import { removeFromWishList } from "../../actions/products/products-actions";
+import { GoTrashcan } from "react-icons/go";
+
 export default function Wishlist(props) {
   let dispatch = useDispatch();
   let wishlist = useSelector(({ products }) => products.wishlist) || [];
   let { formatter, searchWishlist } = useProduct();
-  useEffect(() => {
-    dispatch(setWishlist());
-  }, []);
 
   let pushToProduct = (handle) => {
     dispatch(toggleWishlist());
     router.push("/product/" + handle);
   };
+  useEffect(() =>{
+    console.log(wishlist)
+  })
   let list = () => {
     return wishlist.map((product) => {
       let image = product.images.edges[0].node.originalSrc || product.images.edges[0].node.transformedSrc;
       return (
         <div
-          onClick={() => pushToProduct(product.handle)}
+  
           key={product.id}
           className="p-5 cursor-pointer hover:bg-zinc-100 transition-colors"
         >
-          <img className="" src={image}></img>
+          <img className="" onClick={() => pushToProduct(product.handle)} src={image}></img>
           <div>{product.title}</div>
-          <div className="text-red-500 text-sm">{formatter.format(product.variants.edges[0].node.priceV2.amount)}</div>
+          <div className="flex justify-between w-full items-center">
+            <div className="text-red-500 text-sm">{formatter.format(product.variants.edges[0].node.priceV2.amount)}</div>
+            <div onClick={() => dispatch(removeFromWishList(product.id))}><GoTrashcan className="hover:text-red-500 hover:scale-125 transition-all" size="18px"  color="black"/></div>
+          </div>
         </div>
       );
     });
@@ -44,7 +48,11 @@ export default function Wishlist(props) {
       <div className="w-0 h-full z-50 bg-white animate-width-open overflow-y-scroll overflow-x-hidden rounded">
         <div className="animate-down opacity-0 -translate-y-5 p-10">
           <div className="flex items-center sticky top-5 bg-white">
-            <input onChange={(e) => searchWishlist(e.target.value)} placeholder="Search products..." className="text-sm border-2 z-30 border-theme-blue rounded h-10 pl-3" />
+            <input
+              onChange={(e) => searchWishlist(e.target.value)}
+              placeholder="Search products..."
+              className="text-sm border-2 z-30 border-theme-blue rounded h-10 pl-3"
+            />
 
             <div className="absolute bg-white w-full flex items-center justify-center">
               <Image
@@ -57,9 +65,7 @@ export default function Wishlist(props) {
               />
             </div>
           </div>
-          <div className=" mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
-            {list()}
-          </div>
+          <div className=" mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">{list()}</div>
         </div>
       </div>
       <div className="flex fixed top-0 w-full h-screen">

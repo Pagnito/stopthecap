@@ -4,6 +4,7 @@ import Footer from './footer/classic-footer';
 import ClassicHeader from "./header/classic-header";
 import CartModal from "./cart/drawer-cart";
 import { toggleSearch, toggleCart, toggleWishlist, toggleProductQuickView } from "../actions/app/app-actions";
+import { setWishlist } from '../actions/products/products-actions';
 import SearchModal from "./sub-components/search-modal";
 import {connect, useDispatch} from 'react-redux';
 import {loadCheckoutFromLocalStorage} from '../actions/cart/cart-actions';
@@ -19,7 +20,8 @@ const Layout = ({ children, app }) => {
   useEffect(() => {
     let savedCheckout = getCheckoutFromLocalStorage();
     if(savedCheckout) {
-      dispatch(loadCheckoutFromLocalStorage(savedCheckout))
+      dispatch(loadCheckoutFromLocalStorage(savedCheckout));
+      dispatch(setWishlist());
     }
   },[])
   return (

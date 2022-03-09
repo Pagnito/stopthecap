@@ -40,14 +40,14 @@ function DrawerCart({ cart, hideCartModal }) {
   return (
     <div className={`fixed animate-opacity top-0 opacity-0 w-full h-screen bg-black-rgba-40 z-40 flex justify-end`}>
       <div className="max-w-md w-screen animate-tx-to-left translate-x-full flex flex-col justify-between bg-white h-full">
-        <div>
-          <div className="flex p-5 w-full justify-between">
+        <div className="overflow-y-scroll">
+          <div className="flex p-5 w-full justify-between sticky top-0 bg-white">
             <div className="">Shopping Cart</div>
             <div className="">
               <RiCloseFill onClick={hideCartModal} className="cursor-pointer my-icon-style" size="25px" color="black" />
             </div>
           </div>
-          <div className="px-5 overflow-y-scroll">
+          <div className="px-5">
             <div className="overflow-y-auto">{cartItems()}</div>
           </div>
         </div>
