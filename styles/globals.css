@@ -307,6 +307,11 @@ progress {
   padding: 1rem;
   border-bottom: 2px solid #e5e7eb;
 }
+.shop-filters-collapsible {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
 .collapsibles:last-child {
   border-bottom: none;
 }
