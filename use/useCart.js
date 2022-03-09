@@ -1,10 +1,7 @@
 import { useSelector } from "react-redux";
 export default function useCart(props) {
   let cart = useSelector(({cart}) => cart)
-  let getCheckoutFromLocalStorage = () => {
-    let checkout = JSON.parse(localStorage.getItem('checkout'));
-    return checkout;
-  }
+
   let subtotal = cart.items.length > 0
     ? cart.items.reduce((prev, curr) => {
         return {
@@ -16,7 +13,6 @@ export default function useCart(props) {
     : { priceV2: { amount: 0 } };
   
   return {
-    getCheckoutFromLocalStorage,
     subtotal
   }
 }

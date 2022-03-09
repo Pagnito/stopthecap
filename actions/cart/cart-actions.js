@@ -32,18 +32,19 @@ export const addToCartAction = (newItem, cart) => async (dispatch) => {
 export const removeCartItemAction =(itemToRemove) => async (dispatch) => {
   let cart = JSON.parse(localStorage.getItem('checkout'));
   const updatedCart = cart.items.filter(item => item.id !== itemToRemove.id);
+  dispatch({type: cartTypes.UPDATE_CART, payload: updatedCart});
   const newCheckout = await shopify.updateCheckout(cart.checkout_id, updatedCart);
   localStorage.setItem("checkout", JSON.stringify({items: updatedCart, checkout_id: newCheckout.id, checkout_url: newCheckout.webUrl}));
-  return dispatch({type: cartTypes.UPDATE_CART, payload: updatedCart});
 
   // if (cart.length === 1) {
   //   toggleCart()
   // }
 }
 
-export function loadCheckoutFromLocalStorage(payload) {
+export function loadCheckoutFromLocalStorage() {
+  let checkout = JSON.parse(localStorage.getItem('checkout'));
   return {
     type: cartTypes.LOAD_CHECKOUT,
-    payload: payload
+    payload: checkout
   }
 }

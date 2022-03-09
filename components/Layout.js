@@ -15,14 +15,12 @@ import ProductQuickView from './product-quick-view/product-quick-view';
 
 const Layout = ({ children, app }) => {
   let dispatch = useDispatch();
-  let {getCheckoutFromLocalStorage} = useCart();
   
   useEffect(() => {
-    let savedCheckout = getCheckoutFromLocalStorage();
-    if(savedCheckout) {
-      dispatch(loadCheckoutFromLocalStorage(savedCheckout));
+
+      dispatch(loadCheckoutFromLocalStorage());
       dispatch(setWishlist());
-    }
+    
   },[])
   return (
     <div className={styles.app}>

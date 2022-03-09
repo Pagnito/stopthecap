@@ -34,7 +34,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         'landing-slider-one': "url('/images/landing.jpg')",
-        'landing-slider-two': "url('/images/me.jpg')"
+        'landing-slider-two': "url('/images/me.jpg')",
+        'shop-banner': "url('/images/shop-banner.jpg')"
       },
       spacing: {
         '8xl': '96rem',
