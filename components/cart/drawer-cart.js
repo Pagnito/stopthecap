@@ -1,25 +1,17 @@
-import React, { createRef, useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { connect, useDispatch } from "react-redux";
 import useProduct from "../../use/useProduct";
 import { RiCloseFill } from "react-icons/ri";
 import { GoTrashcan } from "react-icons/go";
 import {removeCartItemAction} from '../../actions/cart/cart-actions';
+import useCart from "../../use/useCart";
 
-function DrawerCart({ app, cart, hideCartModal }) {
+function DrawerCart({ cart, hideCartModal }) {
   let {formatter} = useProduct();
+  let {subtotal} = useCart();
   let dispatch = useDispatch();
-  let visible = app.cartVisible;
-  let subtotal =
-    cart.items.length > 0
-      ? cart.items.reduce((prev, curr) => {
-          return {
-            priceV2: {
-              amount: Number(prev.priceV2.amount) + Number(curr.priceV2.amount),
-            },
-          };
-        })
-      : { priceV2: { amount: 0 } };
   let totalInUsd = formatter.format(subtotal.priceV2.amount);
+
   let cartItems = () => {
     if (cart.items.length === 0) {
       return <div className="w-full p-10 mt-10 text-zinc-500 text-sm text-center">Your Cart Is Empty.</div>;
@@ -83,7 +75,6 @@ function DrawerCart({ app, cart, hideCartModal }) {
 }
 function stateToProps(state) {
   return {
-    app: state.app,
     cart: state.cart,
   };
 }

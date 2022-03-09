@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import Image from "next/image";
+import React from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import useProduct from "../../use/useProduct";
-import router from "next/router";
 import ProductOptions from "../sub-components/pdp-product-options";
 import ProductCarousel from "../sub-components/product-carousel";
 import ReviewStars from "../sub-components/reviews-stars";
@@ -27,16 +25,14 @@ export default function Wishlist(props) {
   let title = viewedProduct.title;
   let price = formatter.format(selectedVariant.priceV2.amount);
   let description = viewedProduct.description;
-  let variantsExist = viewedProduct.variants.edges.length > 1 ? true : false;
+
   function addToCart(variant) {
     dispatch(addToCartAction(variant, cart));
   }
   function selectVariant(variant) {
     dispatch(selectVariantActionQV(variant));
   }
-  useEffect(() =>{
-    console.log(selectedVariant)
-  })
+
   return (
     <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full lg:p-20">
       <div onClick={props.hideQuickView} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">

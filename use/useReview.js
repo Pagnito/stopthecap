@@ -17,7 +17,6 @@ export default function useReview() {
   let [error, setError] = useState({ msg: null, type: null });
   let product = useSelector(({ product }) => product.product);
   let reviewsSearchSource = useSelector(({ product }) => product.reviewsSearchSource);
-  let keyStrokesForSearch = 0;
 
   let searchReviews = (keyword) => {
     let searched = reviewsSearchSource.filter((review) => {

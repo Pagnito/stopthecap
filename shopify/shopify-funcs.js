@@ -87,6 +87,7 @@ const products = {
   },
   createSubscription: async function (email) {
     const response = await ShopifyData(queries.createSubscription(email, true));
+    console.log(response)
     const success = response.data.customerCreate ? true : false;
     return success;
   },

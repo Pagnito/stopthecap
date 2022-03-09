@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 export default function ProductCardOptions({ setOption, options, selected, product }) {
   // let selected = useSelector((state) => state.products.pdp.selectedVariant);
   let optionNames = Object.keys(options);
