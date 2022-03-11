@@ -25,10 +25,10 @@ export default function Shop(props) {
       {/* <div className="w-full py-32 bg-shop-banner mt-10  bg-center"></div> */}
       
       <div className="catalog-container w-full p-10 flex">
-        <div className="filters w-1/4 sticky top-10">
+        <div className="filters w-1/5 sticky top-10">
           <ShopFilters />
         </div>
-        <div className="grid w-3/4 relative">
+        <div className="grid w-4/5 relative">
           <ShopGrid  />
         </div>
       </div>

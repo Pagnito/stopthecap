@@ -32,7 +32,7 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
                   onClick={() => selectVariant({ name: governingOptionName.toLowerCase(), value: option.toLowerCase() })}
                   className={`${isColorOrSize ? `text-${option} bg-${option}` : "p-2"}   ${
                     isColorOrSize ? "h-8 w-8 border-black" : "hover:border-black"
-                  } rounded transition-all border-solid border-2 `}
+                  } rounded transition-all border-solid border-2 text-sm`}
                 >
                   {governingOptionName.toLowerCase() !== "color" ? option : ""}
                 </button>
@@ -66,9 +66,9 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
                   <button
                     onClick={() => selectVariant({ name: name.toLowerCase(), value: option.toLowerCase() })}
                     key={option}
-                    className={`${name === "size" ? `text-${option} bg-${option}` : ""} ${
+                    className={`${name === "size" ? ` bg-${option}` : ""} ${
                       name === "size" ? "h-8 w-8 border-black" : "hover:border-black"
-                    } rounded transition-all border-solid border-2`}
+                    } rounded transition-all border-solid border-2 text-sm`}
                   >
                     {name !== "color" ? option : ""}
                   </button>
