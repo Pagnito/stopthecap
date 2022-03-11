@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 export default function QuantityPicker({variant, quantity, setQuantity}) {
   let [error, setError] = useState(false);
-  let validateOnChange = (value) => {
+  let validateOnChange = (e, value) => {
+    console.log(value)
     let regex = new RegExp("/^d+$/");
-    if (regex.test(value)) {
+    if (regex.test(value) ) {
       setQuantity(value);
     } else {
       setError('Enter A Number');
@@ -45,7 +46,7 @@ export default function QuantityPicker({variant, quantity, setQuantity}) {
       </div>
       <input
         className="p-4 border-none hover:border-r-0 w-12 text-center focus:outline-none"
-        onChange={(e) => validateOnChange(e.target.value)}
+        onChange={(e) => validateOnChange(e, e.target.value)}
         value={quantity}
       />
       <div onClick={increment} className="cursor-pointer p-4 border-l-2  anim-scale-child border-solid border-black">

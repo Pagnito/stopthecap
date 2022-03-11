@@ -69,6 +69,12 @@ const products = {
     const data = collection.data.collectionByHandle ? collection.data.collectionByHandle : {};
     return data;
   },
+  getCollections: async function () {
+    let collections = await ShopifyData(queries.getCollections());
+    const data = collections.data.collections ? collections.data.collections : {};
+   
+    return data;
+  },
   createCheckout: async function (id, quantity) {
     const response = await ShopifyData(queries.createCheckout(id, quantity));
     const checkout = response.data.checkoutCreate.checkout ? response.data.checkoutCreate.checkout : [];
@@ -128,6 +134,27 @@ const products = {
     } else {
       return data;
     }
+  },
+
+  shopCatalog: async function (cursor = "", initialRequest = true) {
+    let data;
+    let query;
+    if (cursor !== "") {
+      query = queries.shopRecursiveCatalogWithCursor();
+    } else {
+      query = queries.shopRecursiveCatalogWithoutCursor();
+    }
+
+    const response = await ShopifyData(query);
+    data = response.data.products.edges ? response.data.products.edges : [];
+
+    // if (response.data.products.pageInfo.hasNextPage) {
+    //   const num = response.data.products.edges.length;
+    //   const cursor = response.data.products.edges[num - 1].cursor;
+    //   return data.concat(await shopRecursiveCatalog(cursor));
+    // } else {
+      return data;
+    // }
   },
 };
 

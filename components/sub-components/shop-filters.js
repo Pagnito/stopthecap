@@ -1,25 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiSliderAlt } from "react-icons/bi";
 import { RiArrowDropRightLine, RiArrowDropDownLine } from "react-icons/ri";
 import ReactCollapsible from "react-collapsible";
+import { useSelector } from "react-redux";
+
+let PriceFilters = () => {
+  let [minPrice, setMinPrice] = useState("$ ");
+  let [maxPrice, setMaxPrice] = useState("$ ");
+  return (
+    <div className="border-none">
+      <div className="flex w-full my-2 pr-3">
+        <input
+          className="p-2 text-xs mr-2 border-2 rounded border-box min-w-0"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+        />
+        <input className="p-2 text-xs border-2 rounded border-box min-w-0" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+      </div>
+    </div>
+  );
+};
+
+let CategoryFilters = () => {
+  let collections = useSelector(({products}) => products.collections);
+  let categories = collections.map(collection => collection.node.title)
+  return (
+    <div className="border-none text-xs pr-3 pl-1">
+      {categories.map((category) => {
+        return (<div className="mt-4 flex items-center" key={category}>
+          <input className="text-red-500" type="checkbox" />
+          <div className="ml-2">{category}</div>
+        </div>)
+      })}
+    </div>
+  );
+};
 
 export default function ShopFilters(props) {
-  let filters = ["Price", "Colors", "Categories"];
+  let filters = ["Price", "Color", "Category"];
+
   let trigger = (word) => {
     return (
-      <div className="flex text-xs w-full justify-between items-center p-0 border-none">
+      <div className="flex text-sm w-full justify-between items-center p-0 border-none">
         <div>{word}</div>
         <RiArrowDropDownLine size="30px" />
       </div>
     );
   };
-  let PriceFilters = () => {
-    return (
-      <div className="border-none h-10">
-        Hello
-      </div>
-    );
-  };
+
   return (
     <div className="w-full">
       <div className="flex items-center">
@@ -39,7 +67,7 @@ export default function ShopFilters(props) {
             classParentString="shop-filters-collapsible"
             trigger={trigger(filter)}
           >
-            {filter === "Price" ? <PriceFilters  /> : ''}
+            {filter === "Price" ? <PriceFilters /> : filter === "Category" ? <CategoryFilters /> : ""}
           </ReactCollapsible>
         ))}
       </div>

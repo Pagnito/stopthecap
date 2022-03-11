@@ -4,6 +4,8 @@ let init = {
   recommendations: [],
   wishlist: [],
   wishlistSearchSource: [],
+  shop: [],
+  collections: []
 };
 
 const productsReducer = (state = init, action) => {
