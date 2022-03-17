@@ -46,6 +46,7 @@ export const getStaticProps = async () => {
           wishlist: [],
           wishlistSearchSource: [],
           shop: products,
+          unfilteredShop: products,
           collections: collections.edges
         },
       },

@@ -38,7 +38,7 @@ function ProductCard(props) {
   };
   let onWishlist = isItOnWishlist(props.data.id);
   return (
-    <div className="relative pb-10 flex flex-col items-center justify-center hover:scale-105 transition-transform">
+    <div className={`relative pb-10 flex flex-col items-center justify-center ${theme=== 'light' ? '': 'transition-transform hover:scale-105'}`}>
       <div className="xxs:w-80 lg:w-11/12 xl:w-72 flex justify-center">
         <div className={`max-w-md w-full ${theme === "light" ? "bg-white" : "bg-theme-blue shadow-lg p-4"} rounded-xl`}>
           <div className="flex flex-col">
@@ -47,7 +47,7 @@ function ProductCard(props) {
                 <div className="absolute flex flex-col -top-1 right-0 p-3">
                   <button
                     onClick={() => dispatch(addToWishList(props.data))}
-                    className={`transition ease-in  hover:text-red-600 ${
+                    className={`transition ease-in z-10 hover:text-red-600 ${
                       onWishlist ? "text-red-600" : "text-red-400"
                     } rounded-full w-8 h-8 text-center p-1`}
                   >
@@ -67,7 +67,7 @@ function ProductCard(props) {
                     </svg>
                   </button>
                 </div>
-                <img src={image} alt="Just a flower" className="w-full object-fill rounded-xl" />
+                <img src={image} alt="Just a flower" className={`w-full object-fill rounded-xl ${theme==='light' ? 'hover:scale-110 transition-transform': ''}`} />
               </div>
               <div className="flex-auto justify-evenly">
                 <div className="flex flex-wrap ">

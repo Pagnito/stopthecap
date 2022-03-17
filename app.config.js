@@ -115,7 +115,8 @@ module.exports = {
           number_of_columns: 4
         },
         featured_product: {
-          id: "1234",
+          id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc1NzQ2OTk1MDc5NjM=",
+          handle: "adidas-classic-backpack"
         },
         video: {
           url: "",

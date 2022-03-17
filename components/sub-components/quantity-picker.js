@@ -3,7 +3,6 @@ import { RiErrorWarningLine } from "react-icons/ri";
 export default function QuantityPicker({variant, quantity, setQuantity}) {
   let [error, setError] = useState(false);
   let validateOnChange = (e, value) => {
-    console.log(value)
     let regex = new RegExp("/^d+$/");
     if (regex.test(value) ) {
       setQuantity(value);

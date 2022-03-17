@@ -146,8 +146,9 @@ const products = {
     }
 
     const response = await ShopifyData(query);
-    data = response.data.products.edges ? response.data.products.edges : [];
+    console.log(response)
 
+    data = response.data.products.edges ? response.data.products.edges : [];
     // if (response.data.products.pageInfo.hasNextPage) {
     //   const num = response.data.products.edges.length;
     //   const cursor = response.data.products.edges[num - 1].cursor;

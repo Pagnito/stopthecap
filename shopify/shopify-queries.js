@@ -46,6 +46,25 @@ const queries = {
             descriptionHtml
             productType
             tags
+            compareAtPriceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            collections(first: 30) {
+              edges {
+                node {
+                  handle
+                  title
+                  id
+                }
+              }
+            }
             variants(first: 100) {
               edges {
                   cursor
@@ -65,6 +84,10 @@ const queries = {
                       priceV2 {
                           amount
                           currencyCode
+                      }
+                      compareAtPriceV2 {
+                        amount
+                        currencyCode
                       }
                   }
               }
@@ -98,7 +121,26 @@ const queries = {
             handle
             descriptionHtml
             productType
-            tags
+            tags 
+            compareAtPriceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            collections(first: 30) {
+              edges {
+                node {
+                  handle
+                  title
+                  id
+                }
+              }
+            }
             variants(first: 100) {
               edges {
                   cursor
@@ -118,6 +160,10 @@ const queries = {
                       priceV2 {
                           amount
                           currencyCode
+                      }
+                      compareAtPriceV2 {
+                        amount
+                        currencyCode
                       }
                   }
               }
@@ -148,6 +194,16 @@ const queries = {
           descriptionHtml
           productType
           tags
+          compareAtPriceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
           images(first: 5) {
             edges {
               node {
@@ -176,6 +232,10 @@ const queries = {
                           amount
                           currencyCode
                       }
+                      compareAtPriceV2 {
+                        amount
+                        currencyCode
+                      }
                   }
               }
           }
@@ -191,6 +251,16 @@ const queries = {
         handle
         productType
         tags
+        compareAtPriceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+          maxVariantPrice {
+            amount
+            currencyCode
+          }
+        }
         images(first: 5) {
           edges {
             node {
@@ -218,6 +288,10 @@ const queries = {
                   priceV2 {
                       amount
                       currencyCode
+                  }
+                  compareAtPriceV2 {
+                    amount
+                    currencyCode
                   }
               }
           }

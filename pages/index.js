@@ -2,6 +2,7 @@ import Home from "./home/home";
 import mongo from '../use/use-mongo';
 import products from "../shopify/shopify-funcs";
 import filterReviewsByProduct from "../util/filterReviewsByProduct";
+import appConfig from "../app.config";
 function Body(props) {
   return (
     <>
@@ -13,8 +14,10 @@ function Body(props) {
 export default Body;
 
 export const getStaticProps = async () => {
-  let { getCollection } = products;
+  let { getCollection, getProduct } = products;
+  let featuredProductHandle = appConfig.app.layout.data.featured_product.handle;
   try {
+    let featuredProduct = await getProduct(featuredProductHandle);
     let collection = await getCollection("ADIDAS");
     let collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
     let sortedColReviews = filterReviewsByProduct(collectionReviews);
@@ -30,7 +33,8 @@ export const getStaticProps = async () => {
           products: {
             topProducts: Object.keys(collection).length > 0 ? collection : null,
             wishlist: [],
-            wishlistSearchSource: []
+            wishlistSearchSource: [],
+            featuredProduct
           },
           product: {
             productQuickview: {
