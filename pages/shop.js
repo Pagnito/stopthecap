@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import shopify from '../shopify/shopify-funcs';
+import shopify from "../shopify/shopify-funcs";
 import ShopGrid from "../components/sub-components/shop-grid";
 import ShopFilters from "../components/sub-components/shop-filters";
 
@@ -23,13 +23,13 @@ export default function Shop(props) {
         </Link>
       </div>
       {/* <div className="w-full py-32 bg-shop-banner mt-10  bg-center"></div> */}
-      
+
       <div className="catalog-container w-full p-10 flex justify-center max-w-screen-2xl">
-        <div className="filters w-1/5 sticky top-10">
+        <div className="filters w-1/5 sticky top-20 left-5 self-start">
           <ShopFilters />
         </div>
         <div className="grid w-4/5 relative">
-          <ShopGrid  />
+          <ShopGrid />
         </div>
       </div>
     </div>
@@ -51,12 +51,12 @@ export const getStaticProps = async () => {
           shopFilters: {
             price: {
               lowestPrice: 0,
-              highestPrice: 0
+              highestPrice: 0,
             },
-            categories: []
+            categories: [],
           },
         },
       },
     },
   };
-}
+};
