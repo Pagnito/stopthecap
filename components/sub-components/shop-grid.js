@@ -8,7 +8,7 @@ export default function ShopGrid(props){
     <ProductCard theme='light' key={product.node.id} data={product.node} />
   ))
   return (
-    <div className='flex flex-wrap justify-between pl-10 pr-5'>
+    <div className='grid justify-start grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3  xl:gap-x-8 pl-10 pr-5'>
       {productsMap}
    </div>
    )

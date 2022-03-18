@@ -5,7 +5,15 @@ let init = {
   wishlist: [],
   wishlistSearchSource: [],
   shop: [],
-  collections: []
+  unfilteredShop: [],
+  shopFilters: {
+    price: {
+      lowestPrice: 0,
+      highestPrice: 0
+    },
+    categories: []
+  },
+  collections: [],
 };
 
 const productsReducer = (state = init, action) => {
@@ -38,6 +46,16 @@ const productsReducer = (state = init, action) => {
       return {
         ...state,
         wishlist: action.payload,
+      };
+    case types.UPDATE_SHOP_CATALOG:
+      return {
+        ...state,
+        shop: action.payload,
+      };
+    case types.UPDATE_SHOP_FILTERS:
+      return {
+        ...state,
+        shopFilters: action.payload,
       };
     default:
       return state;

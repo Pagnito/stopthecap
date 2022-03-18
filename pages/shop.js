@@ -7,7 +7,7 @@ import ShopFilters from "../components/sub-components/shop-filters";
 
 export default function Shop(props) {
   return (
-    <div className="min-h-screen pt-20 flex flex-wrap">
+    <div className="min-h-screen pt-20 flex flex-wrap justify-center">
       <div className="flex w-full justify-center items-center -mt-1">
         <Link href="/" passHref>
           <div>
@@ -24,7 +24,7 @@ export default function Shop(props) {
       </div>
       {/* <div className="w-full py-32 bg-shop-banner mt-10  bg-center"></div> */}
       
-      <div className="catalog-container w-full p-10 flex">
+      <div className="catalog-container w-full p-10 flex justify-center max-w-screen-2xl">
         <div className="filters w-1/5 sticky top-10">
           <ShopFilters />
         </div>
@@ -47,7 +47,14 @@ export const getStaticProps = async () => {
           wishlistSearchSource: [],
           shop: products,
           unfilteredShop: products,
-          collections: collections.edges
+          collections: collections.edges,
+          shopFilters: {
+            price: {
+              lowestPrice: 0,
+              highestPrice: 0
+            },
+            categories: []
+          },
         },
       },
     },

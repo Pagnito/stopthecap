@@ -3,7 +3,9 @@ import { BiSliderAlt } from "react-icons/bi";
 import { RiArrowDropRightLine, RiArrowDropDownLine } from "react-icons/ri";
 import Switch from "./switch";
 import ReactCollapsible from "react-collapsible";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import useShop from '../../use/useShop';
+import { updateShopFilters } from "../../actions/products/products-actions";
 
 let PriceFilters = () => {
   let [minPrice, setMinPrice] = useState("$ ");
@@ -23,7 +25,7 @@ let PriceFilters = () => {
   );
 };
 
-let CategoryFilters = () => {
+let CategoryFilters = ({updateCategoryFilters}) => {
   let collections = useSelector(({ products }) => products.collections);
   let categories = collections.map((collection) => collection.node.title);
   return (
@@ -31,7 +33,7 @@ let CategoryFilters = () => {
       {categories.map((category) => {
         return (
           <div className="mt-4 flex items-center" key={category}>
-            <input className="text-red-500 bg-red-500" type="checkbox" />
+            <input onClick={() => updateCategoryFilters(category)} className="text-red-500 bg-red-500" type="checkbox" />
             <div className="ml-2">{category}</div>
           </div>
         );
@@ -41,11 +43,31 @@ let CategoryFilters = () => {
 };
 
 export default function ShopFilters(props) {
-  let filters = ["Price", "Color", "Category"];
-  let [onSale, showOnSale] = useState(true);
-  let [all, showAll] = useState(true);
+  let filterTypes = ["Price", "Category"];
+  let dispatch = useDispatch();
+  let [onSale, showOnSale] = useState(false);
+  let {filterShop} = useShop();
+  let filters = useSelector(({products}) => products.shopFilters);
+  let [lowestPrice,setLowestPrice] = useState(filters.price.lowestPrice);
+  let [highestPrice, setHighestPrice] = useState(filters.price.highestPrice);
 
 
+
+  let updateCategoryFilters = (category) => {
+    let indexOfCategory = filters.categories.indexOf(category)
+    if(indexOfCategory>-1){
+      filters.categories.splice(indexOfCategory, 1);
+    } else {
+      filters.categories = [...filters.categories, category];
+    }  
+    let clone = JSON.parse(JSON.stringify(filters))
+    dispatch(updateShopFilters(clone));
+  }
+
+  useEffect(() => {
+    filterShop();
+  }, [filters.price, filters.categories]);
+  
   let trigger = (word) => {
     return (
       <div className="flex text-sm w-full justify-between items-center p-0 border-none">
@@ -71,7 +93,7 @@ export default function ShopFilters(props) {
         <Switch active={onSale} setActive={showOnSale}/>
       </div>
       <div className="mt-4">
-        {filters.map((filter) => (
+        {filterTypes.map((filter) => (
           <ReactCollapsible
             open={filter === "price" ? true : false}
             easing="ease-in-out"
@@ -81,7 +103,7 @@ export default function ShopFilters(props) {
             classParentString="shop-filters-collapsible"
             trigger={trigger(filter)}
           >
-            {filter === "Price" ? <PriceFilters /> : filter === "Category" ? <CategoryFilters /> : ""}
+            {filter === "Price" ? <PriceFilters /> : filter === "Category" ? <CategoryFilters updateCategoryFilters={updateCategoryFilters} /> : ""}
           </ReactCollapsible>
         ))}
       </div>
