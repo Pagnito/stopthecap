@@ -1,14 +1,22 @@
-import React from "react";
+import React, { createRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import shopify from "../shopify/shopify-funcs";
 import ShopGrid from "../components/sub-components/shop-grid";
 import ShopFilters from "../components/sub-components/shop-filters";
+import { useSelector } from "react-redux";
 
 export default function Shop(props) {
+  let filters = useSelector(({products}) => products.shopFilters);
+  let logo = createRef();
+  useEffect(() => {
+    if(logo.current!== null) {
+      logo.current.scrollIntoView({behavior: "smooth", block: "start"});
+    }
+  },[filters.price, filters.categories]);
   return (
     <div className="min-h-screen pt-20 flex flex-wrap justify-center">
-      <div className="flex w-full justify-center items-center -mt-1">
+      <div ref={logo} className="flex w-full justify-center items-center -mt-1">
         <Link href="/" passHref>
           <div>
             <Image
@@ -28,7 +36,7 @@ export default function Shop(props) {
         <div className="filters w-1/5 sticky top-20 left-5 self-start">
           <ShopFilters />
         </div>
-        <div className="grid w-4/5 relative">
+        <div  className="grid w-4/5 relative">
           <ShopGrid />
         </div>
       </div>

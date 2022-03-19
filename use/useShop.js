@@ -7,27 +7,18 @@ function useShop() {
   let filters = useSelector(({ products }) => products.shopFilters);
   let dispatch = useDispatch();
   let filterShop = () => {
-   let filtered =  unfilteredShop.filter((item) => {
-      let itemPasses = true;
+    let filtered = unfilteredShop.filter((item) => {
       let categoriesItemIsPartOf = item.node.collections.edges.map((edge) => edge.node.title);
       let price = Number(item.node.variants.edges[0].node.priceV2.amount);
-      if (filters.categories.length > 0) {
-        let pass = categoriesItemIsPartOf.some(category => filters.categories.includes(category));
-        itemPasses = pass;
-      } else {
-        itemPasses = true
-      }
-      if (filters.price.highestPrice !== 0 || filters.price.lowestPrice !== 0) {
-        if (filters.price.lowestPrice >= price && filters.price.highestPrice <= price) {
-          console.log('here')
-          itemPasses = false;
-        }
-      }
-      if (itemPasses) {
-        return item;
-      }
+      let catPass = categoriesItemIsPartOf.some((category) => filters.categories.includes(category));
+      return (filters.categories.length > 0
+        ? catPass
+        : true) && (filters.price.lowestPrice !== 0
+        ? filters.price.lowestPrice <= price
+        : true) && (filters.price.highestPrice !==0
+        ? filters.price.highestPrice >= price
+        : true);
     });
-    console.log(filtered)
     dispatch(updateShopCatalog(filtered));
   };
 
