@@ -87,6 +87,16 @@ export default function ShopFilters(props) {
     dispatch(updateShopFilters(clone));
   };
 
+  let showOnlyOnSaleItems = (onSale) => {
+    let clone = JSON.parse(JSON.stringify(filters));
+    clone.onSale = onSale;
+    dispatch(updateShopFilters(clone));
+  }
+
+  useEffect(() => {
+    showOnlyOnSaleItems(onSale);
+  }, [onSale]);
+
   useEffect(() => {
     filterShop();
   }, [filters.price, filters.categories]);

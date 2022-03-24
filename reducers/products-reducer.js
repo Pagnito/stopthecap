@@ -11,7 +11,8 @@ let init = {
       lowestPrice: 0,
       highestPrice: 0
     },
-    categories: []
+    categories: [],
+    onSale: false
   },
   collections: [],
 };

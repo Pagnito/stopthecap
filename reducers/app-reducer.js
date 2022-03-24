@@ -1,9 +1,10 @@
-import types from '../actions/app/app-types'
+import types from "../actions/app/app-types";
 let init = {
   searchVisible: false,
   cartVisible: false,
   wishlistVisible: false,
-  quickViewVisible: false
+  quickViewVisible: false,
+  mobileNavVisible: false,
 };
 
 const appReducer = (state = init, action) => {
@@ -27,6 +28,11 @@ const appReducer = (state = init, action) => {
       return {
         ...state,
         quickViewVisible: state.quickViewVisible ? false : true,
+      };
+    case types.TOGGLE_MOBILE_NAV:
+      return {
+        ...state,
+        mobileNavVisible: state.mobileNavVisible ? false : true,
       };
     default:
       return state;

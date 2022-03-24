@@ -1,12 +1,13 @@
 import React, { createRef, useEffect } from "react";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
+import { CgMenuRound } from "react-icons/cg";
 import { toggleSearch, toggleCart, toggleWishlist } from "../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import useHeader from "../../use/useHeader";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const ClassicHeader = () => {
+const ClassicHeader = ({openMobileNav}) => {
   let router = useRouter();
   let header = createRef();
   let dispatch = useDispatch();
@@ -32,7 +33,7 @@ const ClassicHeader = () => {
   return (
     <header ref={header} className={`${state.headerStyles} w-full pt-4 pb-4 fixed top-0 z-10`}>
       <div className="flex justify-between">
-        <div className="flex">
+        <div className="flex  xxs:hidden sm:flex">
           <Link href="/" passHref>
             <div
               className={`ml-3 cursor-pointer hover:text-red-500 hover:border-red-500 transition-colors border-white border-2 ${state.headerButtonStyles} rounded-full pt-2 pb-2 pr-3 pl-3`}
@@ -61,6 +62,14 @@ const ClassicHeader = () => {
               Shop
             </div>
           </Link>
+        </div>
+        <div className="xxs:block sm:hidden">
+          <CgMenuRound
+            onClick={openMobileNav}
+            className={`my-icon-style ml-3 flex rounded-full p-2 border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}
+            color={state.headerIconStyles}
+            size="43px"
+          />
         </div>
         <div></div>
         <div className="sm:w-1/3">
