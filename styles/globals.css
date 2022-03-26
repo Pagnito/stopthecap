@@ -121,6 +121,9 @@ a {
 .h-screen-1\/4 {
   height: 25vh;
 }
+.h-screen-2\/3 {
+  height: 33vh;
+}
 .min-h-20 {
   min-height: 4rem;
 }

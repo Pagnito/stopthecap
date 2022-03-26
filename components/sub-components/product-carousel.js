@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import SwiperCore, { Navigation, Pagination, Mousewheel } from "swiper";
 
-function ProductCarousel({ options, preselected, selectVariant, primaryOptionIndex }) {
+function ProductCarousel({ options, preselected, selectVariant, primaryOptionIndex, dimensions }) {
   let nextBtn = createRef();
   let [swiperHolder, setSwiper] = useState(null);
   let primaryOptionValues = options.map((variant) => variant.node.selectedOptions[primaryOptionIndex].value);

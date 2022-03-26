@@ -73,7 +73,8 @@ const ClassicHeader = ({openMobileNav}) => {
         </div>
         <div></div>
         <div className="sm:w-1/3">
-          <div className={`${app.searchVisible || app.cartVisible || app.wishlistVisible || app.quickViewVisible ? 'pr-14px' : ''} flex justify-end align-middle xxs:pr-1`}>
+        {/* ${app.searchVisible || app.cartVisible || app.wishlistVisible || app.quickViewVisible ? 'pr-14px' : ''} */}
+          <div className={`flex justify-end align-middle xxs:pr-1`}>
             <RiSearchLine
               onClick={() => dispatch(toggleSearch())}
               className={`my-icon-style mr-7 flex rounded-full p-2 border-2 hover:border-red-500 transition-colors cursor-pointer ${state.headerButtonStyles}`}

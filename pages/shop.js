@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from "react";
+import React, { createRef, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import shopify from "../shopify/shopify-funcs";
@@ -9,11 +9,18 @@ import { useSelector } from "react-redux";
 export default function Shop(props) {
   let filters = useSelector(({products}) => products.shopFilters);
   let logo = createRef();
+  let pageLoaded = useRef(false);
+
   useEffect(() => {
-    if(logo.current!== null) {
+    if(logo.current!== null && pageLoaded.current!==null && pageLoaded.current === true) {
       logo.current.scrollIntoView({behavior: "smooth", block: "start"});
     }
   },[filters.price, filters.categories]);
+
+  useEffect(() => {
+    pageLoaded.current=true;
+  },[]);
+  
   return (
     <div className="min-h-screen pt-20 flex flex-wrap justify-center">
       <div ref={logo} className="flex w-full justify-center items-center -mt-1">
