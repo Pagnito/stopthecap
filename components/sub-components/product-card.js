@@ -38,22 +38,22 @@ function ProductCard(props) {
   };
   let onWishlist = isItOnWishlist(props.data.id);
   return (
-    <div className={`relative pb-10 flex flex-col items-center ${theme=== 'light' ? '': 'transition-transform hover:scale-105'}`}>
-      <div className="xxs:w-80 lg:w-11/12 xl:w-72 flex justify-center">
+    <div className={`relative flex flex-col items-center ${theme=== 'light' ? '': 'transition-transform hover:scale-105'}`}>
+      <div className="xxs:w-28 xs:w-48 sm:w-60 md:w-72 lg:w-11/12 xl:w-72 flex justify-center">
         <div className={`max-w-md w-full ${theme === "light" ? "bg-white" : "bg-theme-blue shadow-lg p-4"} rounded-xl`}>
           <div className="flex flex-col">
             <div className="">
-              <div className="relative h-62 w-full mb-3">
-                <div className="absolute flex flex-col -top-1 right-0 p-3">
+              <div className="relative w-full mb-3">
+                <div className="absolute flex flex-col -top-1 right-0 xxs:p-1 sm:p-3">
                   <button
                     onClick={onWishlist ? () => dispatch(removeFromWishList(props.data.id)) : () => dispatch(addToWishList(props.data))}
                     className={`transition ease-in  hover:text-red-600 ${
                       onWishlist ? "text-red-600" : "text-red-400"
-                    } rounded-full w-8 h-8 text-center p-1`}
+                    } rounded-full  text-center p-1`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-7 w-7"
+                      className="xxs:w-5 xxs:h-5 xs:w-7 xs:h-7"
                       fill={onWishlist ? "#DC2626" : "none"}
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -67,7 +67,7 @@ function ProductCard(props) {
                     </svg>
                   </button>
                 </div>
-                <img src={image} alt="Just a flower" className={`w-full object-fill rounded-xl ${theme==='light' ? '': ''}`} />
+                <img src={image} alt={props.data.title} className={`max-w-full object-fill rounded-xl ${theme==='light' ? '': ''}`} />
               </div>
               <div className="flex-auto justify-evenly">
                 <div className="flex flex-wrap ">
@@ -83,7 +83,7 @@ function ProductCard(props) {
                       <h2
                         className={`${
                           theme === "light" ? "text-theme-blue" : "text-gray-300"
-                        } text-lg mr-auto cursor-pointer hover:text-red-500 truncate`}
+                        } xxs:text-xs sm:text-lg mr-auto cursor-pointer hover:text-red-500 truncate`}
                       >
                         {title}
                       </h2>
@@ -91,7 +91,7 @@ function ProductCard(props) {
                   </div>
                   <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 mt-1 rounded">INSTOCK</div>
                 </div>
-                <div className={`text-xl text-white font-semibold mt-1 ${theme === "light" ? "text-red-500" : "text-white"}`}>{price}</div>
+                <div className={`xxs:text-md sm:text-xl text-white font-semibold mt-1 ${theme === "light" ? "text-red-500" : "text-white"}`}>{price}</div>
                 {/* <Options setOption={setOption} options={optionsArrays} selected={props.product} product={props.data} /> */}
                 <div className="flex space-x-2 text-sm font-medium justify-start">
                   {/* <button
@@ -103,8 +103,8 @@ function ProductCard(props) {
                   <div className="w-full flex justify-center">
                     <button
                       onClick={openQuickview}
-                      className={`transition-all mt-5 ease-in duration-300  border-2 ${theme === 'light' ? 'border-black' : 'border-white'}
-                       hover:text-white  hover:scale-110 hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2`}
+                      className={`transition-all xxs:mt-2 sm:mt-5 ease-in duration-300  border-2 ${theme === 'light' ? 'border-black' : 'border-white'}
+                       hover:text-white  hover:scale-110 hover:shadow-lg text-gray-400 rounded-full xxs:w-7 xxs:h-7 xs:w-9 xs:h-9 text-center p-2`}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke={`${theme === 'light' ? 'black' : 'white'}`}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
