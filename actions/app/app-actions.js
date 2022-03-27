@@ -38,3 +38,11 @@ export const toggleMobileNav = () => {
         type: appTypes.TOGGLE_MOBILE_NAV
     }
 }
+
+export const toggleMobileShopFilters = () => {
+    // document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'unset' : 'hidden';
+    // document.body.style.marginRight = document.body.style.marginRight === '10px' ? 'unset' : '10px';
+    return {
+        type: appTypes.TOGGLE_MOBILE_SHOP_FILTERS
+    }
+}

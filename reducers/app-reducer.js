@@ -5,6 +5,7 @@ let init = {
   wishlistVisible: false,
   quickViewVisible: false,
   mobileNavVisible: false,
+  mobileShopFiltersVisible: false,
 };
 
 const appReducer = (state = init, action) => {
@@ -33,6 +34,11 @@ const appReducer = (state = init, action) => {
       return {
         ...state,
         mobileNavVisible: state.mobileNavVisible ? false : true,
+      };
+    case types.TOGGLE_MOBILE_SHOP_FILTERS:
+      return {
+        ...state,
+        mobileShopFiltersVisible: state.mobileShopFiltersVisible ? false : true,
       };
     default:
       return state;

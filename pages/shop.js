@@ -4,23 +4,41 @@ import Image from "next/image";
 import shopify from "../shopify/shopify-funcs";
 import ShopGrid from "../components/sub-components/shop-grid";
 import ShopFilters from "../components/sub-components/shop-filters";
-import { useSelector } from "react-redux";
+import MobileShopFilters from "../components/sub-components/mobile-shop-filters";
+import { toggleMobileShopFilters } from "../actions/app/app-actions";
+import { BiSliderAlt } from "react-icons/bi";
+import { RiArrowDropRightLine } from "react-icons/ri";
+import { BsSquareFill, BsFillGridFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Shop(props) {
-  let filters = useSelector(({products}) => products.shopFilters);
+  let filters = useSelector(({ products }) => products.shopFilters);
   let logo = createRef();
   let pageLoaded = useRef(false);
+  let dispatch = useDispatch();
 
   useEffect(() => {
-    if(logo.current!== null && pageLoaded.current!==null && pageLoaded.current === true) {
-      logo.current.scrollIntoView({behavior: "smooth", block: "start"});
+    if (logo.current !== null && pageLoaded.current !== null && pageLoaded.current === true) {
+      logo.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  },[filters.price, filters.categories]);
+  }, [filters.price, filters.categories]);
 
   useEffect(() => {
-    pageLoaded.current=true;
-  },[]);
-  
+    pageLoaded.current = true;
+  }, []);
+  let mobileShopFilterLinks = (
+    <div className="lg:hidden z-10 flex px-5 pb-5 justify-between ">
+      <div onClick={() => dispatch(toggleMobileShopFilters())} className="flex items-center">
+        <BiSliderAlt size="20px" />
+        <div className="ml-1 flex items-center">Filters</div>
+        <RiArrowDropRightLine size="31px" className="ml-2 cursor-pointer" />
+      </div>
+      <div className="flex items-center justify-center">
+        <BsSquareFill className="mr-2" size="19px" />
+        <BsFillGridFill size="20px" />
+      </div>
+    </div>
+  );
   return (
     <div className="min-h-screen pt-20 flex flex-wrap justify-center">
       <div ref={logo} className="flex w-full justify-center items-center -mt-1">
@@ -39,11 +57,12 @@ export default function Shop(props) {
       </div>
       {/* <div className="w-full py-32 bg-shop-banner mt-10  bg-center"></div> */}
 
-      <div className="catalog-container w-full p-2 lg:p-10 flex justify-center max-w-screen-2xl">
+      <div className="catalog-container w-full p-2 lg:p-10 flex xxs:flex-col lg:flex-row justify-center max-w-screen-2xl">
         <div className="filters w-1/5 sticky top-20 left-5 self-start xxs:hidden lg:block">
           <ShopFilters />
         </div>
-        <div  className="grid xxs:w-full lg:w-4/5 relative pb-20">
+        {mobileShopFilterLinks}
+        <div className="grid xxs:w-full lg:w-4/5 relative pb-20">
           <ShopGrid />
         </div>
       </div>
@@ -69,7 +88,7 @@ export const getStaticProps = async () => {
               highestPrice: 0,
             },
             categories: [],
-            onSale: false
+            onSale: false,
           },
         },
       },

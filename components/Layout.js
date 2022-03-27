@@ -3,7 +3,7 @@ import styles from './layout.module.css';
 import Footer from './footer/classic-footer';
 import ClassicHeader from "./header/classic-header";
 import CartModal from "./cart/drawer-cart";
-import { toggleSearch, toggleCart, toggleWishlist, toggleProductQuickView, toggleMobileNav } from "../actions/app/app-actions";
+import { toggleSearch, toggleCart, toggleWishlist, toggleProductQuickView, toggleMobileNav, toggleMobileShopFilters } from "../actions/app/app-actions";
 import { setWishlist } from '../actions/products/products-actions';
 import SearchModal from "./sub-components/search-modal";
 import {connect, useDispatch} from 'react-redux';
@@ -11,6 +11,7 @@ import {loadCheckoutFromLocalStorage} from '../actions/cart/cart-actions';
 import { useEffect } from 'react';
 import WishlistModal from './wishlist.js/wishlist';
 import ProductQuickView from './product-quick-view/product-quick-view';
+import MobileShopFilters from './sub-components/mobile-shop-filters';
 import MobileNav from './header/mobile-nav';
 
 const Layout = ({ children, app }) => {
@@ -36,7 +37,7 @@ const Layout = ({ children, app }) => {
       {app.wishlistVisible ? <WishlistModal hideWishlistModal={() => dispatch(toggleWishlist())} open={app.searchVisible} /> : false}
       {app.quickViewVisible ? <ProductQuickView hideQuickView={() => dispatch(toggleProductQuickView())} open={app.quickViewVisible} /> : false}
       {app.mobileNavVisible ?  <MobileNav closeMobileNav={() => dispatch(toggleMobileNav())} /> : false}
-
+      {app.mobileShopFiltersVisible ? <MobileShopFilters closeMobileShopFilters={() => dispatch(toggleMobileShopFilters())} /> : false}
       <ClassicHeader openMobileNav={() => dispatch(toggleMobileNav())} />
       <div>
         <main>
