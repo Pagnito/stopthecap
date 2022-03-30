@@ -13,7 +13,7 @@ export default function SearchModal(props) {
   return (
     <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full">
       <div onClick={props.hideSearchModal} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
-        <RiCloseFill size="50px" color="white" />
+        <RiCloseFill size="35px" color="white" />
       </div>
 
       <div className="w-3/4 z-50 flex justify-center">
