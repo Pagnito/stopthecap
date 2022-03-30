@@ -17,13 +17,11 @@ import FeaturedProduct from "../../components/featured-product/hero";
 import FeaturedCollection from "../../components/featured-collection/classic-featured-collection";
 import AutoPlayVideoHero from "../../components/video/auto-play";
 import Newsletter from "../../components/newsletter/edgy-newsletter";
-import { connect, useDispatch } from "react-redux";
+// import { connect} from "react-redux";
 
 
 
 function Home(props) {
-  let app = props.app;
-  let dispatch = useDispatch();
   return (
     <div className="home">
       <EdgyHeader />
@@ -37,9 +35,9 @@ function Home(props) {
   );
 }
 
-function stateToProps(state) {
-  return {
-    app: state.app,
-  };
-}
-export default connect(stateToProps, null)(Home);
+// function stateToProps(state) {
+//   return {
+//     app: state.app,
+//   };
+// }
+export default Home;

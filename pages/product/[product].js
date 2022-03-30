@@ -32,9 +32,9 @@ function ProductPage(props) {
   let description = htmlParser(props.product.product.descriptionHtml);
   let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
   let variantsExist = props.product.product.variantsExist;
-  let carouselOptions = useMemo(() => filterVariantsByOption_ColorPrimary(variants));
-  let primaryOptionIndex = useMemo(() => determinePrimaryOptionIndex(selected.selectedOptions));
-  let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex));
+  let carouselOptions = useMemo(() => filterVariantsByOption_ColorPrimary(variants), [variants]);
+  let primaryOptionIndex = useMemo(() => determinePrimaryOptionIndex(selected.selectedOptions), [selected.selectedOptions]);
+  let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex), [variants]);
   let reviews = props.product.reviews;
   let reviewsSearchSource = props.product.reviewsSearchSource;
   let product_id = props.product.product.id;

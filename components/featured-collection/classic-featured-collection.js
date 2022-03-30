@@ -5,7 +5,7 @@ import { app } from "../../app.config";
 
 const FeaturedCollection = (props) => {
   let products =
-    props.products !== null && props.products.topProducts
+    props.products !== null && props.products.topProducts.products
       ? props.products.topProducts.products.edges
       : [];
 
