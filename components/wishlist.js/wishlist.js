@@ -41,20 +41,20 @@ export default function Wishlist(props) {
     });
   };
   return (
-    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full p-20">
-      <div onClick={props.hideWishlistModal} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
-        <RiCloseFill size="50px" color="white" />
+    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full xxs:p-0 lg:p-20">
+      <div onClick={props.hideWishlistModal} className="xxs:text-black lg:text-white cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
+        <RiCloseFill size="50px" />
       </div>
-      <div className="w-0 h-full z-50 bg-white animate-width-open overflow-y-scroll overflow-x-hidden rounded">
+      <div className="w-0 h-full z-40 bg-white animate-width-open overflow-y-scroll overflow-x-hidden rounded">
         <div className="animate-down opacity-0 -translate-y-5 p-10">
-          <div className="flex items-center sticky top-5 bg-white">
+          <div className="flex xxs:flex-col-reverse lg:flex-row items-center sticky top-5 bg-white">
             <input
               onChange={(e) => searchWishlist(e.target.value)}
               placeholder="Search products..."
               className="text-sm border-2 z-30 border-theme-blue rounded h-10 pl-3"
             />
 
-            <div className="absolute bg-white w-full flex items-center justify-center">
+            <div className="absolute bg-white w-full flex items-center justify-center xxs:hidden lg:flex">
               <Image
                 alt="Brand Logo"
                 width={80}
