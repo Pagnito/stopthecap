@@ -37,7 +37,6 @@ export default function EdgyCarousel() {
         autoPlay
         renderIndicator={couraselIndicator}
         showStatus={false}
-        swipeable={true}
         showThumbs={false}
         animationHandler={""}
         infiniteLoop={true}

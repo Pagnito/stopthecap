@@ -18,9 +18,7 @@ export default function Wishlist(props) {
     dispatch(toggleWishlist());
     router.push("/product/" + handle);
   };
-  useEffect(() =>{
-    console.log(wishlist)
-  })
+
   let list = () => {
     return wishlist.map((product) => {
       let image = product.images.edges[0].node.originalSrc || product.images.edges[0].node.transformedSrc;

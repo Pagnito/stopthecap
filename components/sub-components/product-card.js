@@ -16,6 +16,7 @@ function ProductCard(props) {
   let dispatch = useDispatch();
   let cart = props.cart;
   let theme = props.theme;
+  let dimensions = props.dimensions;
   let { formatter, isItOnWishlist } = useProduct();
   let price = formatter.format(props.data.variants.edges[0].node.priceV2.amount);
   let [option, setOption] = useState({
@@ -37,9 +38,10 @@ function ProductCard(props) {
     dispatch(setQuickviewProduct(props.data));
   };
   let onWishlist = isItOnWishlist(props.data.id);
+
   return (
     <div className={`relative flex flex-col items-center ${theme=== 'light' ? '': 'transition-transform hover:scale-105'}`}>
-      <div className="xxs:w-28 xs:w-48 sm:w-60 md:w-72 lg:w-11/12 xl:w-72 flex justify-center">
+      <div className={`${dimensions} flex justify-center`}>
         <div className={`max-w-md w-full ${theme === "light" ? "bg-white" : "bg-theme-blue shadow-lg p-4"} rounded-xl`}>
           <div className="flex flex-col">
             <div className="">

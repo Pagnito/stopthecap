@@ -15,9 +15,9 @@ const recommendations = (props) => {
           You may also like
         </h2>
         {products.length > 0 ? (
-          <div className="mt-6 grid grid-cols-1 gap-y-2 gap-x-20 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
+          <div className="mt-6 grid grid-cols-1 gap-y-2 gap-x-20 xxs:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
             {products.map((product) => (
-              <ProductCard key={product.id} data={product} />
+              <ProductCard dimensions="xxs:w-36 xs:w-48 sm:w-60 md:w-72 lg:w-11/12 xl:w-72" key={product.id} data={product} />
             ))}
           </div>
         ) : (
