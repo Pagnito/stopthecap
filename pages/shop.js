@@ -3,8 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import shopify from "../shopify/shopify-funcs";
 import ShopGrid from "../components/sub-components/shop-grid";
-import ShopFilters from "../components/sub-components/shop-filters";
-import MobileShopFilters from "../components/sub-components/mobile-shop-filters";
+import ShopFilters from "../components/sub-components/shop-filters/shop-filters";
 import { toggleMobileShopFilters } from "../actions/app/app-actions";
 import { BiSliderAlt } from "react-icons/bi";
 import { RiArrowDropRightLine } from "react-icons/ri";
@@ -18,14 +17,20 @@ export default function Shop(props) {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    if (logo.current !== null && pageLoaded.current !== null && pageLoaded.current === true) {
-      logo.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (logo.current !== null && window !== null) {
+      console.log('huh?')
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
-  }, [filters.price, filters.categories]);
+  }, [filters]);
+
 
   useEffect(() => {
     pageLoaded.current = true;
   }, []);
+
   let mobileShopFilterLinks = (
     <div className="lg:hidden z-10 flex px-5 pb-5 justify-between ">
       <div onClick={() => dispatch(toggleMobileShopFilters())} className="flex items-center">

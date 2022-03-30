@@ -66,6 +66,17 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #372a5a;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}
+.hide-scrollbar::-webkit-scrollbar-track {
+  display: none;
+}
+
 /*////////////////////////////////////////// MARGINS////////////////////////////////////////*/
 
 .m-w-2\/3 {
@@ -126,6 +137,9 @@ a {
 }
 .min-h-20 {
   min-height: 4rem;
+}
+.max-h-screen-minus-100px {
+  max-height: calc(100vh - 135px);
 }
 /*//////////////////////////////////////////^^^ HEIGHTS ////////////////////////////////////////*/
 

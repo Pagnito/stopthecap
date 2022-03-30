@@ -40,7 +40,7 @@ export default function Wishlist(props) {
       <div onClick={props.hideQuickView} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="50px" color="white" />
       </div>
-      <div className="w-0 min-h-full z-50 bg-white animate-width-open overflow-y-scroll overflow-x-hidden lg:rounded flex justify-center">
+      <div className="w-0 min-h-full z-50 bg-white animate-width-open overflow-y-scroll overflow-x-hidden lg:rounded flex justify-center hide-scrollbar">
         <div className="flex w-full min-h-full lg:p-10 xxs:pt-0 lg:pt-10 xxs:p-5  xxs:flex-col lg:flex-row max-w-screen-2xl -translate-y-5 opacity-0 animate-down">
           <div onClick={props.hideQuickView} className="lg:hidden cursor-pointer z-50 scale-0 animate-close-x absolute top-3 right-5">
             <RiCloseFill size="50px" color="black" />

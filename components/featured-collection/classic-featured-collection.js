@@ -16,7 +16,7 @@ const FeaturedCollection = (props) => {
           New Products
         </h2>
         {products.length > 0 ? (
-          <div className="lg:mt-12 xxs:mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
+          <div className="lg:mt-12 xxs:mt-6 grid grid-cols-1 gap-y-10 gap-x-6 xxs:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">
             {products.map((product) => (
               <ProductCard key={product.node.id} data={product.node} />
             ))}
