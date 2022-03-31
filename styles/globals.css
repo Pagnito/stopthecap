@@ -67,15 +67,14 @@ a {
   background: #372a5a;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
+}
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.hide-scrollbar::-webkit-scrollbar-thumb {
-  display: none;
-}
-.hide-scrollbar::-webkit-scrollbar-track {
-  display: none;
-}
+
 
 /*////////////////////////////////////////// MARGINS////////////////////////////////////////*/
 

@@ -35,7 +35,7 @@ export default function ShopFilters(props) {
   };
 
   return (
-    <div className="w-full max-h-screen-minus-100px overflow-scroll hide-scrollbar">
+    <div className="w-full max-h-screen-minus-100px overflow-y-scroll hide-scrollbar">
       <div className="xxs:hidden lg:flex items-center">
         <BiSliderAlt size="20px" />
         <div className="ml-1">Filters</div>

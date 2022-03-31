@@ -46,6 +46,7 @@ function ProductCard(props) {
           <div className="flex flex-col">
             <div className="">
               <div className="relative w-full mb-3">
+                <Link href={`/product/${handle}`} passHref><div className="cursor-pointer w-full absolute bottom-0 xxs:h-3/5 sm:h-4/5"></div></Link>
                 <div className="absolute flex flex-col -top-1 right-0 xxs:p-1 sm:p-3">
                   <button
                     onClick={onWishlist ? () => dispatch(removeFromWishList(props.data.id)) : () => dispatch(addToWishList(props.data))}
@@ -106,7 +107,7 @@ function ProductCard(props) {
                     <button
                       onClick={openQuickview}
                       className={`transition-all xxs:mt-2 sm:mt-5 ease-in duration-300  border-2 ${theme === 'light' ? 'border-black' : 'border-white'}
-                       hover:text-white  hover:scale-110 hover:shadow-lg text-gray-400 rounded-full xxs:w-7 xxs:h-7 xs:w-9 xs:h-9 text-center p-2`}
+                       hover:text-white  hover:scale-110 hover:shadow-lg text-gray-400 rounded-full xxs:w-7 xxs:h-7 xs:w-9 xs:h-9 text-center xxs:p-1 sm:p-2`}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke={`${theme === 'light' ? 'black' : 'white'}`}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

@@ -35,6 +35,7 @@ export default function EdgyCarousel() {
     <div className="relative top-0">
       <Carousel
         autoPlay
+        swipeable={false}
         renderIndicator={couraselIndicator}
         showStatus={false}
         showThumbs={false}

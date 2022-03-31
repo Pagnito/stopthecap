@@ -44,7 +44,7 @@ function DrawerCart({ cart, hideCartModal }) {
           <div className="flex p-5 w-full justify-between sticky top-0 bg-white">
             <div className="">Shopping Cart</div>
             <div className="">
-              <RiCloseFill onClick={hideCartModal} className="cursor-pointer my-icon-style" size="25px" color="black" />
+              <RiCloseFill onClick={hideCartModal} className="cursor-pointer my-icon-style" size="35px" color="black" />
             </div>
           </div>
           <div className="px-5">
