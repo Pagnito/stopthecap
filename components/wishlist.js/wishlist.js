@@ -2,17 +2,19 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { RiCloseFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import useProduct from "../../use/useProduct";
 import Link from "next/link";
 import router from "next/router";
 import { toggleWishlist } from "../../actions/app/app-actions";
 import { removeFromWishList } from "../../actions/cart/cart-actions";
 import { GoTrashcan } from "react-icons/go";
+import useCart from "../../use/useCart";
+import useProduct from "../../use/useProduct";
 
 export default function Wishlist(props) {
   let dispatch = useDispatch();
   let wishlist = useSelector(({ cart }) => cart.wishlist) || [];
-  let { formatter, searchWishlist } = useProduct();
+  let { searchWishlist } = useCart();
+  let { formatter } = useProduct();
 
   let pushToProduct = (handle) => {
     dispatch(toggleWishlist());

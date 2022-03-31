@@ -1,22 +1,4 @@
-import { useDispatch, useSelector} from "react-redux";
-import {updateWishlist} from '../actions/cart/cart-actions';
-
 export default function UseProduct(props) {
-  let dispatch = useDispatch();
-  let wishlistSearchSource = useSelector(({products}) => products.wishlistSearchSource) || [];
-  
-  let isItOnWishlist = (id) => {
-    let item = wishlistSearchSource.find(item => item.id === id);
-    return item ? true : false;
-  } 
-  let searchWishlist = (keyword) => {
-    let searched = wishlistSearchSource.filter((product) => {
-      return product.title.indexOf(keyword) > -1 || product.handle.indexOf(keyword) > -1 || product.productType.indexOf(keyword) > -1 ||
-      product.tags.indexOf(keyword) > -1;
-    });
-    dispatch(updateWishlist(searched));
-  };
-
   let determinePrimaryOptionIndex = (options) => {
     let colorIndex = options.findIndex((option) => option.name.toLowerCase() === "color");
     return colorIndex > -1 ? colorIndex : 0;
@@ -76,11 +58,9 @@ export default function UseProduct(props) {
   });
   return {
     formatter,
-    searchWishlist,
     findIndexOfOption,
     organizeOptions,
     determinePrimaryOptionIndex,
     filterVariantsByOption_ColorPrimary,
-    isItOnWishlist
   };
 }

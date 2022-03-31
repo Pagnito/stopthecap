@@ -6,8 +6,9 @@ import { addToCartAction } from "../../actions/cart/cart-actions";
 import { setQuickviewProduct } from "../../actions/product/product-actions";
 import { addToWishList, removeFromWishList } from "../../actions/cart/cart-actions";
 import { toggleProductQuickView } from "../../actions/app/app-actions";
-import useProduct from "../../use/useProduct";
+import useCart from "../../use/useCart";
 import Options from "./product-card-options";
+import useProduct from "../../use/useProduct";
 
 function ProductCard(props) {
   let title = props.data.title;
@@ -17,7 +18,8 @@ function ProductCard(props) {
   let cart = props.cart;
   let theme = props.theme;
   let dimensions = props.dimensions;
-  let { formatter, isItOnWishlist } = useProduct();
+  let { isItOnWishlist } = useCart();
+  let { formatter } = useProduct()
   let price = formatter.format(props.data.variants.edges[0].node.priceV2.amount);
   let [option, setOption] = useState({
     name: null,
