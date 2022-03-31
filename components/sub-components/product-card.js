@@ -4,7 +4,7 @@ import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import { setQuickviewProduct } from "../../actions/product/product-actions";
-import { addToWishList, removeFromWishList } from "../../actions/products/products-actions";
+import { addToWishList, removeFromWishList } from "../../actions/cart/cart-actions";
 import { toggleProductQuickView } from "../../actions/app/app-actions";
 import useProduct from "../../use/useProduct";
 import Options from "./product-card-options";

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector} from "react-redux";
-import {updateWishlist} from '../actions/products/products-actions';
+import {updateWishlist} from '../actions/cart/cart-actions';
 
 export default function UseProduct(props) {
   let dispatch = useDispatch();

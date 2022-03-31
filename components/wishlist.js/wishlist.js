@@ -6,7 +6,7 @@ import useProduct from "../../use/useProduct";
 import Link from "next/link";
 import router from "next/router";
 import { toggleWishlist } from "../../actions/app/app-actions";
-import { removeFromWishList } from "../../actions/products/products-actions";
+import { removeFromWishList } from "../../actions/cart/cart-actions";
 import { GoTrashcan } from "react-icons/go";
 
 export default function Wishlist(props) {
