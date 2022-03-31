@@ -5,7 +5,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import PdpReviewCollapse from "./pdp-review-collapse";
 
 export default function PdpCollapsibles({ description, reviewOverview }) {
-  let initState = JSON.parse(JSON.stringify(app.layout.data.pdp_collapsibles));
+  let initState = JSON.parse(JSON.stringify(app.data.pdp_collapsibles));
   let trigger = (word) => {
     return (
       <div className="flex w-full justify-between pl-2 pr-2">
