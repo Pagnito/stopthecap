@@ -20,11 +20,10 @@ export default function Shop(props) {
     if (logo.current !== null && window !== null) {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
-      })
+        behavior: "smooth",
+      });
     }
   }, [filters]);
-
 
   useEffect(() => {
     pageLoaded.current = true;
