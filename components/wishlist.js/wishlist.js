@@ -11,7 +11,7 @@ import { GoTrashcan } from "react-icons/go";
 
 export default function Wishlist(props) {
   let dispatch = useDispatch();
-  let wishlist = useSelector(({ products }) => products.wishlist) || [];
+  let wishlist = useSelector(({ cart }) => cart.wishlist) || [];
   let { formatter, searchWishlist } = useProduct();
 
   let pushToProduct = (handle) => {

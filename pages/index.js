@@ -15,7 +15,7 @@ export default Body;
 
 export const getStaticProps = async () => {
   let { getCollection, getProduct } = products;
-  let featuredProductHandle = appConfig.app.layout.data.featured_product.handle;
+  let featuredProductHandle = appConfig.app.data.featured_product.handle;
   try {
     let featuredProduct = await getProduct(featuredProductHandle);
     let collection = await getCollection("ADIDAS");
@@ -32,8 +32,6 @@ export const getStaticProps = async () => {
         initialReduxState: {
           products: {
             topProducts: Object.keys(collection).length > 0 ? collection : null,
-            wishlist: [],
-            wishlistSearchSource: [],
             featuredProduct
           },
           product: {

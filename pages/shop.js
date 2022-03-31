@@ -18,7 +18,6 @@ export default function Shop(props) {
 
   useEffect(() => {
     if (logo.current !== null && window !== null) {
-      console.log('huh?')
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -82,8 +81,6 @@ export const getStaticProps = async () => {
       initialReduxState: {
         products: {
           recommendations: [],
-          wishlist: [],
-          wishlistSearchSource: [],
           shop: products,
           unfilteredShop: products,
           collections: collections.edges,

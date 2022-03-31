@@ -176,8 +176,6 @@ export const getStaticProps = async ({ params }) => {
       initialReduxState: {
         products: {
           recommendations,
-          wishlist: [],
-          wishlistSearchSource: [],
         },
         product: {
           product: product,

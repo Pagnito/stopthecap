@@ -13,7 +13,7 @@ export default function Footer(props) {
           <div>
             <h1 className="text-2xl text-red-500">Info</h1>
             <ul>
-              <li className="hover:text-red-500">Terms And Conditions</li>
+              <li className="hover:text-red-500 cursor-pointer transition-colors">Terms And Conditions</li>
               <li className="hover:text-red-500 cursor-pointer transition-colors">
                 Privacy Policy
               </li>

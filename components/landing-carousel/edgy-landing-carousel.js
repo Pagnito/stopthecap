@@ -8,7 +8,7 @@ const SlideTwo = dynamic(() => import("./slides/slide-two"));
 
 export default function EdgyCarousel() {
   let slides = () => {
-    return app.layout.data.carousel.slides.map((obj) => {
+    return app.data.carousel.slides.map((obj) => {
       return obj.type === "one" ? (
         <SlideOne key={obj.type} data={obj} />
       ) : (

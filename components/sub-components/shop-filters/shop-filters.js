@@ -12,9 +12,9 @@ import useShop from "../../../use/useShop";
 
 export default function ShopFilters(props) {
   let filterTypes = ["Price", "Category"];
-  let [onSale, showOnSale] = useState(false);
   let { filterShop, updateCategoryFilters,updateLowestPriceFilters, updateHighestPriceFilters, showOnlyOnSaleItems } = useShop();
   let filters = useSelector(({ products }) => products.shopFilters);
+  let [onSale, showOnSale] = useState(filters.onSale);
 
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function ShopFilters(props) {
       <div className="xxs:hidden lg:flex items-center">
         <BiSliderAlt size="20px" />
         <div className="ml-1">Filters</div>
-        <RiArrowDropRightLine size="31px" className="ml-2 cursor-pointer" />
+        {/* <RiArrowDropRightLine size="31px" className="ml-2 cursor-pointer" /> */}
       </div>
       {/* <div className="text-xs mt-4 flex items-center justify-between pr-1">
         <div>Show All</div>

@@ -1,13 +1,13 @@
-import cartTypes from './cart-types';
+import types from './cart-types';
 import shopify from '../../shopify/shopify-funcs';
 import { toggleCart } from "../app/app-actions";
 
 export const addToCartAction = (newItem, cart) => async (dispatch) => {
   if(cart.items.length === 0) {
     const checkout = await shopify.createCheckout(newItem.id, 1);
-    dispatch({type: cartTypes.CREATE_CHECKOUT, payload: checkout});
+    dispatch({type: types.CREATE_CHECKOUT, payload: checkout});
     localStorage.setItem("checkout", JSON.stringify({items: [newItem], checkout_id: checkout.id, checkout_url: checkout.webUrl}));
-    return dispatch({type: cartTypes.ADD_TO_CART, payload: newItem})
+    return dispatch({type: types.ADD_TO_CART, payload: newItem})
   } else {
     let newCart = []
     let added = false
@@ -25,14 +25,14 @@ export const addToCartAction = (newItem, cart) => async (dispatch) => {
 
     const newCheckout = await shopify.updateCheckout(cart.checkout_id, newCart)
     localStorage.setItem("checkout", JSON.stringify({items: newCart, checkout_id: newCheckout.id, checkout_url: newCheckout.webUrl}))
-    return dispatch({type: cartTypes.UPDATE_CART, payload: newCart});
+    return dispatch({type: types.UPDATE_CART, payload: newCart});
   }
 }
 
 export const removeCartItemAction =(itemToRemove) => async (dispatch) => {
   let cart = JSON.parse(localStorage.getItem('checkout'));
   const updatedCart = cart.items.filter(item => item.id !== itemToRemove.id);
-  dispatch({type: cartTypes.UPDATE_CART, payload: updatedCart});
+  dispatch({type: types.UPDATE_CART, payload: updatedCart});
   const newCheckout = await shopify.updateCheckout(cart.checkout_id, updatedCart);
   localStorage.setItem("checkout", JSON.stringify({items: updatedCart, checkout_id: newCheckout.id, checkout_url: newCheckout.webUrl}));
 
@@ -44,7 +44,48 @@ export const removeCartItemAction =(itemToRemove) => async (dispatch) => {
 export function loadCheckoutFromLocalStorage() {
   let checkout = JSON.parse(localStorage.getItem('checkout'));
   return {
-    type: cartTypes.LOAD_CHECKOUT,
+    type: types.LOAD_CHECKOUT,
     payload: checkout
   }
+}
+
+export const addToWishList = (product) => {
+  let wishlist = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem('wishlist')) : [];
+  let alrdyInWishlist = wishlist.find(item => item.id === product.id);
+  if(!alrdyInWishlist) wishlist.push(product);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  return {
+    type: types.ADD_TO_WISHLIST,
+    payload: wishlist,
+  };
+};
+
+export const removeFromWishList = (product_id) => {
+  let wishlist = JSON.parse(localStorage.getItem("wishlist"));
+  wishlist = wishlist.filter((product) => product.id !== product_id);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  return {
+    type: types.REMOVE_FROM_WISHLIST,
+    payload: wishlist,
+  };
+};
+export const deleteWishList = () => {
+  localStorage.removeItem("wishlist");
+  return {
+    type: types.DELETE_WISHLIST,
+  };
+};
+export const setWishlist = () => {
+  let wishlist = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem("wishlist")) : [];
+  return {
+    type: types.SET_WISHLIST,
+    payload: wishlist,
+  };
+};
+
+export const updateWishlist = (wishlist) => {
+  return {
+    type: types.UPDATE_WISHLIST,
+    payload: wishlist,
+  };
 }

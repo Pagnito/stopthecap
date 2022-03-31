@@ -17,7 +17,7 @@ const EdgyTransparentHeader = (props) => {
   return (
     <header className="z-10 w-full bg-gray-dark flex justify-between absolute">
       <div className="flex flex-col w-1/3">
-        <div className="animate-down opacity-0 -translate-y-3 xxs:w-1/3 sm:w-1/5 transition-colors  cursor-pointer flex border-l-2  border-solid border-red-500 hover:text-white text-red-500 p-2 m-4">
+        <div className="invisible animate-down opacity-0 -translate-y-3 xxs:w-1/3 sm:w-1/5 transition-colors  cursor-pointer flex border-l-2  border-solid border-red-500 hover:text-white text-red-500 p-2 m-4">
           <div className="">USD</div>
           <div className="ml-2 font-super-bold -rotate-90 font-xs">{"<"}</div>
         </div>

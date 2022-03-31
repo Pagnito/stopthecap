@@ -1,28 +1,33 @@
-import Head from 'next/head';
-import styles from './layout.module.css';
-import Footer from './footer/classic-footer';
+import Head from "next/head";
+import styles from "./layout.module.css";
+import Footer from "./footer/classic-footer";
 import ClassicHeader from "./header/classic-header";
 import CartModal from "./cart/drawer-cart";
-import { toggleSearch, toggleCart, toggleWishlist, toggleProductQuickView, toggleMobileNav, toggleMobileShopFilters } from "../actions/app/app-actions";
-import { setWishlist } from '../actions/products/products-actions';
+import {
+  toggleSearch,
+  toggleCart,
+  toggleWishlist,
+  toggleProductQuickView,
+  toggleMobileNav,
+  toggleMobileShopFilters,
+} from "../actions/app/app-actions";
+import { setWishlist } from "../actions/cart/cart-actions";
 import SearchModal from "./sub-components/search-modal";
-import {connect, useDispatch} from 'react-redux';
-import {loadCheckoutFromLocalStorage} from '../actions/cart/cart-actions';
-import { useEffect } from 'react';
-import WishlistModal from './wishlist.js/wishlist';
-import ProductQuickView from './product-quick-view/product-quick-view';
-import MobileShopFilters from './sub-components/mobile-shop-filters';
-import MobileNav from './header/mobile-nav';
+import { connect, useDispatch } from "react-redux";
+import { loadCheckoutFromLocalStorage } from "../actions/cart/cart-actions";
+import { useEffect } from "react";
+import WishlistModal from "./wishlist.js/wishlist";
+import ProductQuickView from "./product-quick-view/product-quick-view";
+import MobileShopFilters from "./sub-components/mobile-shop-filters";
+import MobileNav from "./header/mobile-nav";
 
 const Layout = ({ children, app }) => {
   let dispatch = useDispatch();
-  
-  useEffect(() => {
 
-      dispatch(loadCheckoutFromLocalStorage());
-      dispatch(setWishlist());
-    
-  },[])
+  useEffect(() => {
+    dispatch(loadCheckoutFromLocalStorage());
+    dispatch(setWishlist());
+  }, []);
   return (
     <div className={styles.app}>
       <Head>
@@ -35,23 +40,24 @@ const Layout = ({ children, app }) => {
       {app.cartVisible ? <CartModal hideCartModal={() => dispatch(toggleCart())} open={app.cartVisible} /> : false}
       {app.searchVisible ? <SearchModal hideSearchModal={() => dispatch(toggleSearch())} open={app.searchVisible} /> : false}
       {app.wishlistVisible ? <WishlistModal hideWishlistModal={() => dispatch(toggleWishlist())} open={app.searchVisible} /> : false}
-      {app.quickViewVisible ? <ProductQuickView hideQuickView={() => dispatch(toggleProductQuickView())} open={app.quickViewVisible} /> : false}
-      {app.mobileNavVisible ?  <MobileNav closeMobileNav={() => dispatch(toggleMobileNav())} /> : false}
+      {app.quickViewVisible ? (
+        <ProductQuickView hideQuickView={() => dispatch(toggleProductQuickView())} open={app.quickViewVisible} />
+      ) : (
+        false
+      )}
+      {app.mobileNavVisible ? <MobileNav closeMobileNav={() => dispatch(toggleMobileNav())} /> : false}
       {app.mobileShopFiltersVisible ? <MobileShopFilters closeMobileShopFilters={() => dispatch(toggleMobileShopFilters())} /> : false}
       <ClassicHeader openMobileNav={() => dispatch(toggleMobileNav())} />
       <div>
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </div>
-  
     </div>
-  )
-}
+  );
+};
 function stateToProps(state) {
   return {
-    app: state.app
-  }
+    app: state.app,
+  };
 }
 export default connect(stateToProps, null)(Layout);

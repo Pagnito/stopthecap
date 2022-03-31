@@ -3,7 +3,7 @@ import { app } from "../../app.config";
 
 export default function Incentives(props) {
   let activeIncentives = () => {
-    return app.layout.data.incentives.active_incentives.map(
+    return app.data.incentives.active_incentives.map(
       (incentiveInfo, ind) => {
         return (
           <div

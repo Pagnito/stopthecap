@@ -3,7 +3,7 @@ import {updateWishlist} from '../actions/products/products-actions';
 
 export default function UseProduct(props) {
   let dispatch = useDispatch();
-  let wishlistSearchSource = useSelector(({products}) => products.wishlistSearchSource);
+  let wishlistSearchSource = useSelector(({products}) => products.wishlistSearchSource) || [];
   
   let isItOnWishlist = (id) => {
     let item = wishlistSearchSource.find(item => item.id === id);
