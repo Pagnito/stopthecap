@@ -25,16 +25,14 @@ export default function Wishlist(props) {
     return wishlist.map((product) => {
       let image = product.images.edges[0].node.originalSrc || product.images.edges[0].node.transformedSrc;
       return (
-        <div
-  
-          key={product.id}
-          className="p-5 cursor-pointer hover:bg-zinc-100 transition-colors"
-        >
+        <div key={product.id} className="p-5 cursor-pointer hover:bg-zinc-100 transition-colors">
           <img className="" onClick={() => pushToProduct(product.handle)} src={image}></img>
           <div>{product.title}</div>
           <div className="flex justify-between w-full items-center">
             <div className="text-red-500 text-sm">{formatter.format(product.variants.edges[0].node.priceV2.amount)}</div>
-            <div onClick={() => dispatch(removeFromWishList(product.id))}><GoTrashcan className="hover:text-red-500 hover:scale-125 transition-all" size="18px"  color="black"/></div>
+            <div onClick={() => dispatch(removeFromWishList(product.id))}>
+              <GoTrashcan className="hover:text-red-500 hover:scale-125 transition-all" size="18px" color="black" />
+            </div>
           </div>
         </div>
       );
@@ -42,7 +40,10 @@ export default function Wishlist(props) {
   };
   return (
     <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full xxs:p-0 lg:p-20">
-      <div onClick={props.hideWishlistModal} className="xxs:text-black lg:text-white cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
+      <div
+        onClick={props.hideWishlistModal}
+        className="xxs:text-black lg:text-white cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5"
+      >
         <RiCloseFill size="35px" />
       </div>
       <div className="w-0 h-full z-40 bg-white animate-width-open overflow-y-scroll overflow-x-hidden rounded">
@@ -65,7 +66,11 @@ export default function Wishlist(props) {
               />
             </div>
           </div>
-          <div className=" mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">{list()}</div>
+          {wishlist.length > 0 ? (
+            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-8">{list()}</div>
+          ) : (
+            <div className="w-full h-56 flex justify-center items-center text-gray-400 z-50">Your Wishlist is empty</div>
+          )}
         </div>
       </div>
       <div className="flex fixed top-0 w-full h-screen">

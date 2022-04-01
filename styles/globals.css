@@ -24,6 +24,12 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Frank" !important;
+
+}
+:root {
+  scrollbar-width: 5px;
+  scrollbar-track-color: white;
+  scrollbar-arrow-color: #180f2e;
 }
 ::-moz-selection {
   /* Code for Firefox */
@@ -43,12 +49,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
 ::-webkit-scrollbar {
   width: 10px;
   border-top-right-radius: 5px ;
   border-bottom-right-radius: 5px ;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
   border-top-right-radius: 5px ;
@@ -75,6 +81,9 @@ a {
   display: none;
 }
 
+a, div, button {
+  -webkit-tap-highlight-color: transparent;
+}
 
 /*////////////////////////////////////////// MARGINS////////////////////////////////////////*/
 
