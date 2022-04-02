@@ -15,7 +15,6 @@ function ProductCarousel({ options, preselected, selectVariant, primaryOptionInd
     value: preselected.selectedOptions[primaryOptionIndex].value 
   };
 
-
   useEffect(()=>{
     let valueIndex = primaryOptionValues.indexOf(preselected.selectedOptions[primaryOptionIndex].value);
     swiperHolder && swiperHolder.slideTo(valueIndex+1);
@@ -41,7 +40,7 @@ function ProductCarousel({ options, preselected, selectVariant, primaryOptionInd
     <div className="h-full w-full">
       <Swiper
         mousewheel
-        onScroll={(swiper) => selectCarouselOption(swiper)}
+        onSlideChange={(swiper) => selectCarouselOption(swiper)}
         onInit={(swiper) => {
           swiper.params.navigation.nextEl = nextBtn.current;
           swiper.navigation.init();

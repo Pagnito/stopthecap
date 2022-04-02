@@ -25,7 +25,7 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
               <div
                 className={`${isColorOrSize ? "h-10 w-10" : ""} ${
                   selectedGoverningOption === option ? "border-black" : ""
-                } transition-all border-2 flex items-center justify-center hover:border-zinc-600 border-white mt-3 ml-3 rounded-lg`}
+                } transition-all border-2 flex items-center justify-center md:hover:border-zinc-600 border-white mt-3 ml-3 rounded-lg`}
                 key={option}
               >
                 <button
