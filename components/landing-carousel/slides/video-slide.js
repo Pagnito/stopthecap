@@ -17,7 +17,7 @@ export default function VideoSlide(props) {
           </div>
         </div>
       </div>
-      <video
+      {/* <video
         autoPlay={true}
         muted={true}
         loop={true}
@@ -27,7 +27,7 @@ export default function VideoSlide(props) {
           src={video_url}
           type="video/mp4"
         />
-      </video>
+      </video> */}
     </div>
   );
 }
