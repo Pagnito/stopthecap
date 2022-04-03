@@ -229,6 +229,9 @@ a, div, button {
 .pr-10px {
   padding-right: 10px !important;
 }
+.pb-100\% {
+  padding-bottom: 100%
+}
 
 /*//////////////////////////////////////////^^^ PADDINGS ////////////////////////////////////////*/
 

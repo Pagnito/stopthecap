@@ -1,9 +1,17 @@
 import React from "react";
+import Image from 'next/image';
 
 export default function SlideOne({data}) {
   
   return (
-    <div className={`top-0 w-full bg-landing-slider-one bg-center bg-cover h-screen flex items-center sm:justify-end xs:pr-10 xs:pl-10`}>
+    <div className={`top-0 w-full bg-center bg-cover h-screen flex items-center sm:justify-end xs:pr-10 xs:pl-10`}>
+      <Image
+        src="/images/landing.jpg"
+        alt="Landing Image"
+        loading="eager"
+        layout="fill"
+        objectFit="cover"
+       />
       <div className="p-5 mt-10 text-left text-white font-sans sm:mr-20 flex flex-col justify-start items-start">
         <div className="animate-text-one opacity-0 -translate-x-8 xxs: text-lg sm:text-2xl">{data.text_one}</div>
         <div className="animate-text-two opacity-0 -translate-x-8 font-serif xxs:text-4xl sm:text-5xl mt-4">{data.text_two}</div>

@@ -19,7 +19,7 @@ export default function AutoPlayVideoHero(props) {
         </div>
       </div>
 
-      {/* <video
+      <video
         width="400"
         autoPlay={true}
         muted={true}
@@ -30,7 +30,7 @@ export default function AutoPlayVideoHero(props) {
           src="/videos/video-one.mp4"
           type="video/mp4"
         />
-      </video> */}
+      </video>
     </div>
   );
 }
