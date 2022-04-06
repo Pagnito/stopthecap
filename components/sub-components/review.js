@@ -89,7 +89,7 @@ export default function Review({ review }) {
         </div> */}
         <div className="mt-3">
           <span className="font-bold">{review.title}</span>
-          <div className="mt-1 text-xs">{body}</div>
+          <div className="mt-1 text-md font-bold font-rajdhani-md">{body}</div>
         </div>
         <div className="flex items-center justify-between mt-4 text-sm text-gray-600 fill-current">
           <button className="flex items-center"></button>

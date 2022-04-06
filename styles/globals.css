@@ -14,8 +14,15 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "TheFarmer";
-  src: url("/fonts/TheFarmer.ttf");
+  font-family: "Dosis";
+  src: url("/fonts/Dosis.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rajdhani-md";
+  src: url("/fonts/Rajdhani-Medium.ttf");
   font-style: normal;
   font-display: swap;
 }
@@ -24,7 +31,12 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Frank" !important;
-
+}
+.font-dosis {
+  font-family: 'Dosis';
+}
+.font-rajdhani-md {
+  font-family: 'Rajdhani-md';
 }
 :root {
   scrollbar-width: 5px;
@@ -141,7 +153,10 @@ a, div, button {
   height: 25vh;
 }
 .h-screen-2\/3 {
-  height: 33vh;
+  height: 66vh;
+}
+.h-screen-4\/5 {
+  height: 80vh;
 }
 .min-h-20 {
   min-height: 4rem;
@@ -290,9 +305,16 @@ a, div, button {
 
 /*------------------------------------------------------------------------------------------------*/
 
+.box-shadow {
+  box-shadow:7px 7px 25px 5px rgba(0, 0, 0, 0.5);
 
-
-
+}
+.white-box-shadow {
+  box-shadow:-5px -5px 30px 10px rgba(255, 255, 255, 1);
+}
+.text-shadow {
+  text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+}
 /*///////////////////////////// HEADER STYLES //////////////////////////////////////*/
 /* background: */
 progress::-webkit-progress-bar {

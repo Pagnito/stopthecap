@@ -95,7 +95,7 @@ function ProductPage(props) {
                 <ReviewStars rating={reviewOverview.average} />
                 <span className="text-gray-600 ml-3 text-xs mt-2">{`${reviews.length} reviews`}</span>
               </div>
-              <div className="mt-5 text-xs">{description}</div>
+              <div className="mt-5 text-md font-bold font-rajdhani-md">{description}</div>
                
                 <PdpProductOptions
                   addToCart={addToCart}

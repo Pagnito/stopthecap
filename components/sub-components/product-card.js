@@ -76,7 +76,7 @@ function ProductCard(props) {
                 </div>
                 {/* <img src={image} alt={props.data.title} className={`max-w-full object-fill rounded-xl ${theme==='light' ? '': ''}`} /> */}
                 {/* <div className="xxs:h-20 xs:h-32 sm:h-40 md:h-60 lg:h-44 xl:h-60 h-"> */}
-                <div className="w-full pb-100% rounded-lg overflow-hidden">
+                <div className="w-full pb-100% rounded-lg overflow-hidden relative">
                   <Image src={image} alt={props.data.title} layout="fill" objectFit="cover" className={`rounded-lg`} />
                 </div>
               </div>

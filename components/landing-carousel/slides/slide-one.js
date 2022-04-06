@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function SlideOne({data}) {
   
   return (
-    <div className={`top-0 w-full bg-center bg-cover h-screen flex items-center sm:justify-end xs:pr-10 xs:pl-10`}>
+    <div className={`top-0 w-full bg-center bg-cover h-screen flex items-center sm:justify-end xs:pr-10 xs:pl-10 relative`}>
       <Image
         src="/images/landing.jpg"
         alt="Landing Image"

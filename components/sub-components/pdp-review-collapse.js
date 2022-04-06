@@ -63,7 +63,7 @@ export default function PdpReviewCollapse({overview}) {
       </div>
       <div className="w-full px-4">
         <h3 className="font-medium tracking-tight">Review this item</h3>
-        <p className="text-gray-700 text-sm py-1">give your opinion about this item.</p>
+        <p className="text-gray-700 ext-md font-bold font-rajdhani-md py-1">Give your opinion about this item.</p>
 
         <div className="flex mt-2">
           <div className="w-full">
