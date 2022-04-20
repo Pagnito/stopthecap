@@ -1,14 +1,14 @@
 import queries from "./shopify-queries";
+import app from '../app.config';
 
 async function ShopifyData(query) {
-  const URL = `https://stopthecapp.myshopify.com/api/2021-10/graphql.json`;
-  const adminURL = `https://stopthecapp.myshopify.com/admin/api/2022-01/graphql.json`
+  const URL = app.app.shopify.storeFrontApiUrl;
 
   const options = {
     endpoint: URL,
     method: "POST",
     headers: {
-      "X-Shopify-Storefront-Access-Token": "e7f8a502ce01fd0ba1a61f3c50607a88",
+      "X-Shopify-Storefront-Access-Token": app.app.shopify.storeFrontAccessToken,
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -27,13 +27,13 @@ async function ShopifyData(query) {
 }
 
 async function adminShopifyData(query){
-  const URL = `https://stopthecapp.myshopify.com/admin/api/2022-01/graphql.json`
+  const URL = app.app.shopify.adminApiUrl;
 
   const options = {
     endpoint: URL,
     method: "POST",
     headers: {
-      "X-Shopify-Access-Token": "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",
+      "X-Shopify-Access-Token": app.app.shopify.adminAccessToken,
       Accept: "application/json",
       "Content-Type": "application/json",
     },
