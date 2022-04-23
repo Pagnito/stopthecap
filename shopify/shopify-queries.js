@@ -479,6 +479,19 @@ const queries = {
       }
     }`;
   },
+  getPolicy: (type) => {
+    return `
+    {
+      shop {
+        ${type} {
+          body
+          title
+          handle
+        }
+      }
+    }
+    `
+  }
 };
 
 export default queries;

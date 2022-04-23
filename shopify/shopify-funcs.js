@@ -3,7 +3,6 @@ import app from '../app.config';
 
 async function ShopifyData(query) {
   const URL = app.app.shopify.storeFrontApiUrl;
-
   const options = {
     endpoint: URL,
     method: "POST",
@@ -93,7 +92,6 @@ const products = {
   },
   createSubscription: async function (email) {
     const response = await ShopifyData(queries.createSubscription(email, true));
-    console.log(response)
     const success = response.data.customerCreate ? true : false;
     return success;
   },
@@ -106,6 +104,12 @@ const products = {
     }
    
     // return page
+  },
+  getPolicy: async (type) => {
+    const response = await ShopifyData(queries.getPolicy(type));
+    const policy = response.data.shop;
+    console.log(policy)
+    return policy
   },
   getDeliveryProfiles: async (id) => {
     const response = await adminShopifyData(queries.getDeliveryProfile());

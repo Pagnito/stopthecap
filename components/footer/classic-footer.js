@@ -5,6 +5,7 @@ import {
   RiYoutubeFill,
 } from "react-icons/ri";
 import { FaTiktok } from "react-icons/fa";
+import Link from "next/link";
 export default function Footer(props) {
   return (
     <div className="bg-theme-blue lg:pt-20 lg:pl-20 lg:pr-20">
@@ -15,7 +16,10 @@ export default function Footer(props) {
             <ul>
               <li className="hover:text-red-500 cursor-pointer transition-colors">Terms And Conditions</li>
               <li className="hover:text-red-500 cursor-pointer transition-colors">
+                <Link href="/policy" passHref>
                 Privacy Policy
+                </Link>
+            
               </li>
               <li className="hover:text-red-500 cursor-pointer transition-colors">
                 Shipping And Delivery

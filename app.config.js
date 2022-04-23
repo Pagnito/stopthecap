@@ -6,9 +6,9 @@ module.exports = {
     },
     shopify: {
       storeFrontAccessToken: "e7f8a502ce01fd0ba1a61f3c50607a88",
+      storeFrontApiUrl: "https://stopthecapp.myshopify.com/api/2021-10/graphql.json",
       adminAccessToken: "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",
       adminApiUrl: "https://stopthecapp.myshopify.com/admin/api/2022-01/graphql.json",
-      storeFrontApiUrl: "https://stopthecapp.myshopify.com/api/2021-10/graphql.json"
 
     },
     data: {
