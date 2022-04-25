@@ -1,20 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import shopify from "../shopify/shopify-funcs";
+import htmlParser from "html-react-parser";
+
 
  
-export default function Policy(props){ 
+export default function ShippingPolicy(){ 
+  let policies = useSelector(({info}) => info.policies);
   return (
-    <div className=''>
-
+    <div className='min-h-screen xxs:p-10 lg:p-20 font-rajdhani-md'>
+      <div className='text-center text-3xl mt-10'>{policies.shippingPolicy.shippingPolicy.title}</div>
+      <div className='mt-10 px-32'>{htmlParser(policies.shippingPolicy.shippingPolicy.body)}</div>
    </div>
    )
  }
 
  export const getStaticProps = async () => {
   let { getPolicy } = shopify;
-  let termsOfService = await getPolicy('termsOfService');
-  let refundPolicy = await getPolicy('refundPolicy');
-  let privacyPolicy = await getPolicy('privacyPolicy');
   let shippingPolicy = await getPolicy('shippingPolicy');
 
   try {
@@ -24,9 +26,6 @@ export default function Policy(props){
         initialReduxState: {
           info: {
             policies: {
-              termsOfService,
-              privacyPolicy,
-              refundPolicy,
               shippingPolicy
             }
           }
