@@ -28,6 +28,10 @@ export default function ShippingPolicy(){
             policies: {
               shippingPolicy
             }
+          },
+          products: {
+            allProducts: [],
+            searchedProducts:[]
           }
 
         },

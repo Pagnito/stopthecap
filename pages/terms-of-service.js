@@ -28,6 +28,10 @@ export default function TermsOfService(){
             policies: {
               termsOfService,
             }
+          },
+          products: {
+            allProducts: [],
+            searchedProducts:[]
           }
 
         },

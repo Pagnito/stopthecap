@@ -5,7 +5,7 @@ import EdgyHeader from "../../components/header/edgy-transparent";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
-const Incentives = dynamic(() => import("../../components/banner-row/incentives"));
+const Incentives = dynamic(() => import("../../components/incentives/incentives"));
 const FeaturedProduct = dynamic(() => import("../../components/featured-product/hero"));
 const FeaturedCollection = dynamic(() => import("../../components/featured-collection/classic-featured-collection"));
 const AutoPlayVideoHero = dynamic(() => import("../../components/video/auto-play"));

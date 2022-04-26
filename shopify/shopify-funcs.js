@@ -1,7 +1,7 @@
 import queries from "./shopify-queries";
 import app from '../app.config';
 
-async function ShopifyData(query) {
+async function frontStoreShopifyData(query) {
   const URL = app.app.shopify.storeFrontApiUrl;
   const options = {
     endpoint: URL,
@@ -52,30 +52,33 @@ async function adminShopifyData(query){
 }
 
 const products = {
-  getAllProducts: () => {},
+  getAllProducts: async () => {
+    let response = await frontStoreShopifyData(queries.getAllProducts());
+    const products = response.data.products ? response.data.products : [];
+    return products;
+  },
   getProduct: async function (handle) {
-    let product = await ShopifyData(queries.getProductByHandle(handle));
-    const data = product.data.productByHandle ? product.data.productByHandle : {};
-    return data;
+    let response = await frontStoreShopifyData(queries.getProductByHandle(handle));
+    const product = response.data.productByHandle ? response.data.productByHandle : {};
+    return product;
   },
   getProductRecommendationsById: async (id) => {
-    let product = await ShopifyData(queries.getProductRecommendationsById(id));
-    const data = product.data.productRecommendations ? product.data.productRecommendations : {};
-    return data;
+    let response = await frontStoreShopifyData(queries.getProductRecommendationsById(id));
+    const recommendations = response.data.productRecommendations ? response.data.productRecommendations : {};
+    return recommendations;
   },
   getCollection: async function (name) {
-    let collection = await ShopifyData(queries.getCollection(name));
-    const data = collection.data.collectionByHandle ? collection.data.collectionByHandle : {};
-    return data;
+    let response = await frontStoreShopifyData(queries.getCollection(name));
+    const collection = response.data.collectionByHandle ? response.data.collectionByHandle : {};
+    return collection;
   },
   getCollections: async function () {
-    let collections = await ShopifyData(queries.getCollections());
-    const data = collections.data.collections ? collections.data.collections : {};
-   
-    return data;
+    let response = await frontStoreShopifyData(queries.getCollections());
+    const collections = response.data.collections ? response.data.collections : {};
+    return collections;
   },
   createCheckout: async function (id, quantity) {
-    const response = await ShopifyData(queries.createCheckout(id, quantity));
+    const response = await frontStoreShopifyData(queries.createCheckout(id, quantity));
     const checkout = response.data.checkoutCreate.checkout ? response.data.checkoutCreate.checkout : [];
     return checkout;
   },
@@ -86,12 +89,12 @@ const products = {
         quantity:  ${item.variantQuantity}
       }`
     });
-    const response = await ShopifyData(queries.updateCheckout(id, lineItemsObject));
+    const response = await frontStoreShopifyData(queries.updateCheckout(id, lineItemsObject));
     const checkout = response.data.checkoutLineItemsReplace.checkout ? response.data.checkoutLineItemsReplace.checkout : []
     return checkout
   },
   createSubscription: async function (email) {
-    const response = await ShopifyData(queries.createSubscription(email, true));
+    const response = await frontStoreShopifyData(queries.createSubscription(email, true));
     const success = response.data.customerCreate ? true : false;
     return success;
   },
@@ -106,7 +109,7 @@ const products = {
     // return page
   },
   getPolicy: async (type) => {
-    const response = await ShopifyData(queries.getPolicy(type));
+    const response = await frontStoreShopifyData(queries.getPolicy(type));
     const policy = response.data.shop;
     console.log(policy)
     return policy
@@ -128,7 +131,7 @@ const products = {
       query = queries.recursiveCatalogWithoutCursor();
     }
 
-    const response = await ShopifyData(query);
+    const response = await frontStoreShopifyData(query);
     data = response.data.products.edges ? response.data.products.edges : [];
 
     if (response.data.products.pageInfo.hasNextPage) {
@@ -149,7 +152,7 @@ const products = {
       query = queries.shopRecursiveCatalogWithoutCursor();
     }
 
-    const response = await ShopifyData(query);
+    const response = await frontStoreShopifyData(query);
     console.log(response)
 
     data = response.data.products.edges ? response.data.products.edges : [];

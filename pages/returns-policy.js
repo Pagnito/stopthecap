@@ -27,6 +27,10 @@ export default function RefundPolicy(){
             policies: {
               refundPolicy,
             }
+          },
+          products: {
+            allProducts: [],
+            searchedProducts:[]
           }
 
         },

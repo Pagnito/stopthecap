@@ -28,6 +28,10 @@ export default function PrivacyPolicy(){
             policies: {
               privacyPolicy,
             }
+          },
+          products: {
+            allProducts: [],
+            searchedProducts:[]
           }
 
         },

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchedProducts } from "../actions/products/products-actions";
 
 export default function useHeader(router) {
   let scrollEventCreated = false;
@@ -18,7 +19,11 @@ export default function useHeader(router) {
   let [state, setState] = useState(initState);
   let [cartItemsAmount, setCartItemsAmount] = useState(0);
   let cart = useSelector((state) => state.cart);
-
+  let allProducts = useSelector(({products}) => products.allProducts);
+  let dispatch = useDispatch();
+  let setScrollState = () => {
+    didScroll = true;
+  };
 
   // run hasScrolled() and reset didScroll status
   let toggleWindowScrollEvent = (pathname) => {
@@ -110,16 +115,26 @@ export default function useHeader(router) {
 
     lastScrollTop = viewPosition;
   }
+  const searchProducts = (keyword) => {
+    let keywords = keyword.toLowerCase().split(' ');
+    let searched = allProducts.filter((product) => {
+      let title = product.node.title.replace('|','').toLowerCase();
+      let match = keywords.find(word => {
+        return title.indexOf(word) > -1 || product.node.productType.toLowerCase().indexOf(word) > -1 ||
+        product.node.tags.indexOf(word) > -1;
+      })
+      return match
+    });
+    dispatch(setSearchedProducts(searched));
+  }
 
-  let setScrollState = () => {
-    didScroll = true;
-  };
 
   return {
     toggleHeaderWatcher,
     toggleWindowScrollEvent,
     handleRouteChange,
     state,
-    cartItemsAmount
+    cartItemsAmount,
+    searchProducts
   }
 }

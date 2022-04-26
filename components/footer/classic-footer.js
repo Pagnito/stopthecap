@@ -35,10 +35,26 @@ export default function Footer(props) {
           <div className="lg:ml-16 xxs:mt-10 lg:mt-0">
             <h1 className="text-2xl text-red-500">Menu</h1>
             <ul>
-              <li className="hover:text-red-500 cursor-pointer transition-colors">Home</li>
-              <li className="hover:text-red-500 cursor-pointer transition-colors">About</li>
-              <li className="hover:text-red-500 cursor-pointer transition-colors">Contact</li>
-              <li className="hover:text-red-500 cursor-pointer transition-colors">Shop</li>
+              <li className="hover:text-red-500 cursor-pointer transition-colors">
+                <Link href="/" passHref>
+                  Home
+                </Link>
+              </li>
+              <li className="hover:text-red-500 cursor-pointer transition-colors">
+                <Link href="/about" passHref>
+                  About
+                </Link>
+              </li>
+              <li className="hover:text-red-500 cursor-pointer transition-colors">
+                <Link href="/contact" passHref>
+                  Contact
+                </Link>
+              </li>
+              <li className="hover:text-red-500 cursor-pointer transition-colors">
+                <Link href="/shop" passHref>
+                  Shop
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="lg:ml-16 xxs:mt-10 lg:mt-0">

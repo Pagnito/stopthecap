@@ -32,7 +32,9 @@ export const getStaticProps = async () => {
         initialReduxState: {
           products: {
             topProducts: Object.keys(collection).length > 0 ? collection : null,
-            featuredProduct
+            featuredProduct,
+            allProducts: [],
+            searchedProducts:[]
           },
           product: {
             productQuickview: {

@@ -1,5 +1,7 @@
 import types from "../actions/products/products-types";
 let init = {
+  allProducts: [],
+  searchedProducts: [],
   topProducts: [],
   recommendations: [],
   wishlist: [],
@@ -19,6 +21,16 @@ let init = {
 
 const productsReducer = (state = init, action) => {
   switch (action.type) {
+    case types.SET_ALL_PRODUCTS:
+      return {
+        ...state,
+        allProducts: action.payload,
+      }
+    case types.SET_SEARCHED_PRODUCTS:
+      return {
+        ...state,
+        searchedProducts: action.payload
+      }
     case types.UPDATE_SHOP_CATALOG:
       return {
         ...state,

@@ -83,6 +83,8 @@ export const getStaticProps = async () => {
           shop: products,
           unfilteredShop: products,
           collections: collections.edges,
+          allProducts: [],
+          searchedProducts:[],
           shopFilters: {
             price: {
               lowestPrice: 0,

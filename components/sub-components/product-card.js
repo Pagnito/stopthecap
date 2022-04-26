@@ -51,10 +51,13 @@ function ProductCard(props) {
                 <Link href={`/product/${handle}`} passHref>
                   <div className="cursor-pointer w-full absolute bottom-0 xxs:h-3/5 sm:h-4/5 z-40"></div>
                 </Link>
+                <div className="w-full pb-100% rounded-lg overflow-hidden relative">
+                  <Image src={image} alt={props.data.title} layout="fill" objectFit="cover" className={`rounded-lg`} />
+                </div>
                 <div className="absolute flex flex-col -top-1 right-0 xxs:p-1 sm:p-3">
                   <button
                     onClick={onWishlist ? () => dispatch(removeFromWishList(props.data.id)) : () => dispatch(addToWishList(props.data))}
-                    className={`transition ease-in z-30 hover:text-red-600 ${
+                    className={`transition ease-in  hover:text-red-600 ${
                       onWishlist ? "text-red-600" : "text-red-400"
                     } rounded-full  text-center p-1`}
                   >
@@ -76,9 +79,7 @@ function ProductCard(props) {
                 </div>
                 {/* <img src={image} alt={props.data.title} className={`max-w-full object-fill rounded-xl ${theme==='light' ? '': ''}`} /> */}
                 {/* <div className="xxs:h-20 xs:h-32 sm:h-40 md:h-60 lg:h-44 xl:h-60 h-"> */}
-                <div className="w-full pb-100% rounded-lg overflow-hidden relative">
-                  <Image src={image} alt={props.data.title} layout="fill" objectFit="cover" className={`rounded-lg`} />
-                </div>
+             
               </div>
               <div className="flex-auto justify-evenly">
                 <div className="flex flex-wrap ">

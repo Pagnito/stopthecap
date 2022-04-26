@@ -185,6 +185,53 @@ const queries = {
     }
     `;
   },
+  getAllProducts: () => {
+    return `
+    {
+      products(first: 200) {
+        edges {
+          cursor
+            node {
+            id
+            title
+            handle
+            descriptionHtml
+            productType
+            tags 
+            priceRange {
+              minVariantPrice {
+                  amount
+                  currencyCode
+              }
+              maxVariantPrice {
+                  amount
+                  currencyCode
+              }
+            }
+            compareAtPriceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+            }      
+            images(first: 5) {
+              edges {
+                node {
+                  originalSrc
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    `
+  },
   getProductByHandle: (handle) => {
     return `{
       productByHandle(handle: "${handle}") {
