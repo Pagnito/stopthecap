@@ -16,22 +16,36 @@ export default Body;
 export const getStaticProps = async () => {
   let { getCollection, getProduct } = products;
   let featuredProductHandle = appConfig.app.data.featured_product.handle;
+  let featuredCollection = appConfig.app.data.featured_collection.collection
   try {
-    let featuredProduct = await getProduct(featuredProductHandle);
-    let collection = await getCollection("ADIDAS");
-    let collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
-    let sortedColReviews = filterReviewsByProduct(collectionReviews);
-    collection.products.edges = collection.products.edges.map((rec) => {
-      if(sortedColReviews[rec.node.handle]){
-        rec.node.reviews = sortedColReviews[rec.node.handle];
-      }
-      return rec;
-    });
+    let collection;
+    let collectionReviews;
+    let sortedColReviews;
+    let featuredProduct;
+    try {
+      let collection = await getCollection(featuredCollection);
+      collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
+      sortedColReviews = filterReviewsByProduct(collectionReviews);
+      collection.products.edges = collection.products.edges.map((rec) => {
+        if(sortedColReviews[rec.node.handle]){
+          rec.node.reviews = sortedColReviews[rec.node.handle];
+        }
+        return rec;
+      });
+    } catch (err) {
+      collection = []
+    }
+    try {
+      featuredProduct = await getProduct(featuredProductHandle);
+    } catch (err) {
+      featuredProduct = null;
+    }
+
     return {
       props: {
         initialReduxState: {
           products: {
-            topProducts: Object.keys(collection).length > 0 ? collection : null,
+            topProducts: Object.keys(collection).length > 0 ? collection : [],
             featuredProduct,
             allProducts: [],
             searchedProducts:[]
