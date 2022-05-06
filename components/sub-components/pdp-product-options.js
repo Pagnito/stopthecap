@@ -4,13 +4,17 @@ import QuantityPicker from "./quantity-picker";
 export default function PdpProductOptions({ product, options, selectedVariant, selectVariant, primaryOptionIndex, addToCart }) {
   let selectedOptions = selectedVariant.selectedOptions;
   let governingOptionName = selectedOptions[primaryOptionIndex].name.toLowerCase();
-  let [quantity, setQuantity] = useState(1);
+
+  let [quantity, setQuantity] = useState(selectedVariant.quantityAvailable > 0 ? 1 : 0);
 
   let addToCartWithQty = () => {
-    selectedVariant.variantQuantity = quantity;
-    selectedVariant.name = product.title;
-    addToCart(selectedVariant);
+    if(selectVariant.quantityAvailable >= quantity){
+      selectedVariant.variantQuantity = quantity;
+      selectedVariant.name = product.title;
+      addToCart(selectedVariant);
+    }
   }
+
   let governingOptions = () => {
     let governingOptions = Object.keys(options);
     let isColorOrSize = governingOptionName.toLowerCase() === "size" || governingOptionName === "color";
@@ -24,8 +28,8 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
             return (
               <div
                 className={`${isColorOrSize ? "h-10 w-10" : ""} ${
-                  selectedGoverningOption === option ? "border-black" : ""
-                } transition-all border-2 flex items-center justify-center md:hover:border-zinc-600 border-white mt-3 ml-3 rounded-lg`}
+                  selectedGoverningOption === option ? "border-black" : "border-white"
+                } transition-all border-2 flex items-center justify-center md:hover:border-black mt-3 ml-3 rounded-lg`}
                 key={option}
               >
                 <button
@@ -59,8 +63,8 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
               return (
                 <div
                   className={`${name === "size" ? "h-10 w-10 " : ""} ${
-                    selectedOption.toLowerCase() === option.toLowerCase() ? "border-black" : ""
-                  } transition-all border-2 flex items-center justify-center h-10 w-10 hover:border-zinc-600 border-white mt-3 ml-3 rounded-lg`}
+                    selectedOption.toLowerCase() === option.toLowerCase() ? "border-black" : "border-white"
+                  } transition-all border-2 flex items-center justify-center h-10 w-10 hover:border-black  mt-3 ml-3 rounded-lg`}
                   key={option}
                 >
                   <button
@@ -89,7 +93,7 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
         <QuantityPicker setQuantity={setQuantity} variant={selectedVariant} quantity={quantity} />
         <button
           onClick={addToCartWithQty}
-          className="rounded transition-colors hover:bg-green-500 bg-red-500 xxs:pt-5 xxs:pb-5 lg:pb-0 lg:pt-0 pl-10 pr-10 lg:ml-3 lg:mt-0 xxs:mt-5 text-white"
+          className={`${selectVariant.quantityAvailable > 0 ? 'bg-red-500 hover:bg-green-500' : 'bg-gray-500 cursor-default'} rounded transition-colors xxs:pt-5 xxs:pb-5 lg:pb-0 lg:pt-0 pl-10 pr-10 lg:ml-3 lg:mt-0 xxs:mt-5 text-white`}
         >
           Add To Cart
         </button>

@@ -9,6 +9,8 @@ import { BiSliderAlt } from "react-icons/bi";
 import { RiArrowDropRightLine } from "react-icons/ri";
 import { BsSquareFill, BsFillGridFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import mongo from '../use/use-mongo';
+import filterReviewsByProduct from "../util/filterReviewsByProduct";
 
 export default function Shop(props) {
   let filters = useSelector(({ products }) => products.shopFilters);
@@ -43,8 +45,8 @@ export default function Shop(props) {
     </div>
   );
   return (
-    <div className="min-h-screen pt-20 flex flex-wrap justify-center">
-      <div ref={logo} className="flex w-full justify-center items-center -mt-1">
+    <div className="min-h-screen pt-20 flex flex-col justify-start items-center">
+      <div ref={logo} className="flex w-full justify-center items-start just -mt-1">
         <Link href="/" passHref>
           <div>
             <Image
@@ -75,6 +77,20 @@ export default function Shop(props) {
 export const getStaticProps = async () => {
   let products = await shopify.shopCatalog();
   let collections = await shopify.getCollections();
+  let productHandles = products.map(product => product.node.handle);
+  let reviews = await mongo.getReviewsForProducts(productHandles);
+  reviews.forEach(review => {
+    review._id = review._id.toString();
+    let match = products.findIndex(product => product.node.handle === review.product_handle);
+    if(match > -1){
+      if(products[match].node.reviews) {
+        products[match].node.reviews.push(review);
+      } else {
+        products[match].node.reviews = [review];
+      }
+    }
+
+  })
   return {
     props: {
       initialReduxState: {

@@ -39,6 +39,8 @@ function ProductPage(props) {
   let reviewsSearchSource = props.product.reviewsSearchSource;
   let product_id = props.product.product.id;
   let reviewOverview = useMemo(() => calcOverview(reviews || []));
+  console.log(reviewOverview)
+  let mainCollection = props.product.product.collections.edges[0].node.title;
 
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
@@ -87,7 +89,7 @@ function ProductPage(props) {
               </div>
             </div>
             <div className="description lg:mt-0 xxs:mt-8 lg:p-10 lg:w-1/2">
-              <div className="breadcrumbs text-xs">{`Home > Car Gadgets > ${title}`}</div>
+              <div className="breadcrumbs text-xs">{`Home > ${mainCollection} > ${title}`}</div>
               <div className="mt-5 text-2xl font-bold">{title}</div>
               <div className="mt-5 text-xs font-light text-gray-400">{`SKU: ${selected.sku}`}</div>
               <div className="mt-5 text-4xl text-red-500 font-bold">{price}</div>
@@ -95,7 +97,7 @@ function ProductPage(props) {
                 <ReviewStars rating={reviewOverview.average} />
                 <span className="text-gray-600 ml-3 text-xs mt-2">{`${reviews.length} reviews`}</span>
               </div>
-              <div className="mt-5 text-md font-bold font-rajdhani-md">{description}</div>
+              {/* <div className="mt-5 text-md font-bold font-rajdhani-md">{description}</div> */}
                
                 <PdpProductOptions
                   addToCart={addToCart}
@@ -176,6 +178,8 @@ export const getStaticProps = async ({ params }) => {
       initialReduxState: {
         products: {
           recommendations,
+          allProducts: [],
+          searchedProducts:[]
         },
         product: {
           product: product,

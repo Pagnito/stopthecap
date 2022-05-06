@@ -5,10 +5,10 @@ module.exports = {
       email: "info@stopthecap.com",
     },
     shopify: {
-      storeFrontAccessToken: "e7f8a502ce01fd0ba1a61f3c50607a88",
-      storeFrontApiUrl: "https://stopthecapp.myshopify.com/api/2021-10/graphql.json",
-      adminAccessToken: "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",
-      adminApiUrl: "https://stopthecapp.myshopify.com/admin/api/2022-01/graphql.json",
+      storeFrontAccessToken: "0eec386946e1b882ce774f651fbb4b2e",
+      storeFrontApiUrl: "https://arkeytypeclothing.myshopify.com/api/2021-10/graphql.json",
+      adminAccessToken: "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",
+      adminApiUrl: "https://arkeytypeclothing.myshopify.com/admin/api/2022-01/graphql.json",
 
     },
     data: {
@@ -68,7 +68,7 @@ module.exports = {
       },
       featured_product: {
         id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc1NzQ2OTk1MDc5NjM=",
-        handle: "adidas-classic-backpack",
+        handle: "stop-the-cap-hoodie",
         text_one: "Awesome Time",
         text_two: "Whenever",
         text_three: "Grab It Out Of Your Pocket!",
@@ -104,6 +104,18 @@ module.exports = {
         ],
       },
     },
-    colors: {},
+    colors: {
+      "orange": "bg-orange-500",
+      "red": "bg-red-500",
+      "black": "bg-black",
+      "white": "bg-white",
+      "pink": "bg-pink-500",
+      "yellow": "bg-yellow-500",
+      "green": "bg-green-500",
+      "grey": "bg-gray-500",
+      "gray": "bg-gray-500",
+      "blue": "bg-blue-300",
+      "lightblue": "bg-blue-500"
+    },
   },
 };

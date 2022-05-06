@@ -8,6 +8,7 @@ import { addToWishList, removeFromWishList } from "../../actions/cart/cart-actio
 import { toggleProductQuickView } from "../../actions/app/app-actions";
 import useCart from "../../use/useCart";
 import Options from "./product-card-options";
+import useReview from "../../use/useReview";
 import useProduct from "../../use/useProduct";
 
 function ProductCard(props) {
@@ -20,7 +21,10 @@ function ProductCard(props) {
   let dimensions = props.dimensions;
   let { isItOnWishlist } = useCart();
   let { formatter } = useProduct();
+  let { calcOverview } = useReview();
   let price = formatter.format(props.data.variants.edges[0].node.priceV2.amount);
+  let reviewOverview = useMemo(() => calcOverview(props.data.reviews || []));
+  let available = props.data.totalInventory > 0;
   let [option, setOption] = useState({
     name: null,
     value: null,
@@ -49,7 +53,7 @@ function ProductCard(props) {
             <div className="">
               <div className="relative w-full mb-3">
                 <Link href={`/product/${handle}`} passHref>
-                  <div className="cursor-pointer w-full absolute bottom-0 xxs:h-3/5 sm:h-4/5 z-40"></div>
+                  <div className="cursor-pointer w-full absolute bottom-0 xxs:h-3/5 sm:h-4/5 z-30"></div>
                 </Link>
                 <div className="w-full pb-100% rounded-lg overflow-hidden relative">
                   <Image src={image} alt={props.data.title} layout="fill" objectFit="cover" className={`rounded-lg`} />
@@ -87,7 +91,7 @@ function ProductCard(props) {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
-                    <span className="text-gray-400 whitespace-nowrap mr-3">4.60</span>
+                    <span className="text-gray-400 whitespace-nowrap mr-3">{reviewOverview.average ? reviewOverview.average : 'No Reviews'}</span>
                     {/* <span className="mr-2 text-gray-400">India</span> */}
                   </div>
                   <div className="flex items-center w-full justify-between min-w-0 ">
@@ -95,13 +99,14 @@ function ProductCard(props) {
                       <h2
                         className={`${
                           theme === "light" ? "text-theme-blue" : "text-gray-300"
-                        } xxs:text-xs sm:text-lg mr-auto cursor-pointer hover:text-red-500 truncate`}
+                        } xxs:text-xs sm:text-lg mr-auto cursor-pointer hover:text-green-500 truncate`}
                       >
                         {title}
                       </h2>
                     </Link>
                   </div>
-                  <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 mt-1 rounded">INSTOCK</div>
+                  {available ? <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 mt-1 rounded">IN STOCK</div> :
+                  <div className="flex items-center bg-red-500 text-white text-xs px-2 py-1 mt-1 rounded">SOLD OUT</div>}
                 </div>
                 <div
                   className={`xxs:text-md sm:text-xl text-white font-semibold mt-1 ${theme === "light" ? "text-red-500" : "text-white"}`}

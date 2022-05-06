@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function SelfAds(props) {
   return (
-    <div className="flex z-20 p-10 h-full w-full">
+    <div className="flex z-20 p-10 h-full w-full animate-down opacity-0 -translate-y-5">
       <div className="w-1/2 h-full relative m-5 rounded overflow-hidden flex justify-center items-center flex-col">
       <div className="relative z-50 text-red-500 text-3xl">
           Be Whole Now

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { RiCloseFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import Link from "next/link";
 import router from "next/router";
 import { toggleWishlist } from "../../actions/app/app-actions";
 import { removeFromWishList } from "../../actions/cart/cart-actions";
@@ -56,14 +55,14 @@ export default function Wishlist(props) {
             />
 
             <div className="absolute bg-white w-full flex items-center justify-center xxs:hidden lg:flex">
-              <Image
+              {/* <Image
                 alt="Brand Logo"
                 width={80}
                 height={80}
                 className="m-1 cursor-pointer"
                 src="/images/StopTheCapLogo-Black.png"
                 objectFit="contain"
-              />
+              /> */}
             </div>
           </div>
           {wishlist.length > 0 ? (

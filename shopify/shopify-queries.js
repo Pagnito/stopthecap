@@ -46,6 +46,7 @@ const queries = {
             descriptionHtml
             productType
             tags
+            totalInventory
             compareAtPriceRange {
               minVariantPrice {
                 amount
@@ -122,6 +123,7 @@ const queries = {
             descriptionHtml
             productType
             tags 
+            totalInventory
             compareAtPriceRange {
               minVariantPrice {
                 amount
@@ -256,6 +258,16 @@ const queries = {
               node {
                 originalSrc
                 altText
+              }
+            }
+          }
+          totalInventory
+          collections(first: 30) {
+            edges {
+              node {
+                handle
+                title
+                id
               }
             }
           }

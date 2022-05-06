@@ -2,14 +2,15 @@ import React from "react";
 import { RiCloseFill, RiArrowDropRightLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import Link from "next/link";
+import router from "next/router";
 import useProduct from "../../use/useProduct";
 import ProductOptions from "../sub-components/pdp-product-options";
 import ProductCarousel from "../sub-components/product-carousel";
 import ReviewStars from "../sub-components/reviews-stars";
 import useReview from "../../use/useReview";
 import { addToCartAction } from "../../actions/cart/cart-actions";
-import { selectVariantActionQV } from "../../actions/product/product-actions";
+import { selectVariantActionQV, t } from "../../actions/product/product-actions";
+import {toggleProductQuickView} from '../../actions/app/app-actions';
 
 export default function Wishlist(props) {
   let dispatch = useDispatch();
@@ -34,6 +35,11 @@ export default function Wishlist(props) {
   function selectVariant(variant) {
     dispatch(selectVariantActionQV(variant));
   }
+  
+  let pushToProduct = () => {
+    props.hideQuickView();
+    router.push("/product/" + handle);
+  };
 
   return (
     <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full lg:p-20">
@@ -80,14 +86,12 @@ export default function Wishlist(props) {
                 product={props}
               />
               <div className="mt-5 mb-5 cursor-pointer  text-red-500 hover:text-green-500">
-                <Link href={`/product/${handle}`} passHref>
                   <div className="flex items-center">
-                    <div onClick={props.hideQuickView} className="mr-1">
+                    <div onClick={() => pushToProduct()} className="mr-1">
                       See More
                     </div>
                     <RiArrowDropRightLine size="30px" />
                   </div>
-                </Link>
               </div>
             </div>
           </div>
