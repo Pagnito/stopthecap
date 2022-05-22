@@ -33,11 +33,12 @@ export const getStaticProps = async () => {
         return rec;
       });
     } catch (err) {
-      collection = []
+      collection = [];
     }
     try {
       featuredProduct = await getProduct(featuredProductHandle);
     } catch (err) {
+      console.log('wtf', err)
       featuredProduct = {};
     }
 
