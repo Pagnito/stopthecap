@@ -29,7 +29,6 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
             option = option.toLowerCase();
             let color;
             if(isColor){
-              console.log(option)
               color = option.replace(' ', '').replace('-', '');
             }
             return (
