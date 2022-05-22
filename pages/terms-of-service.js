@@ -8,7 +8,7 @@ import htmlParser from "html-react-parser";
 export default function TermsOfService(){ 
   let policies = useSelector(({info}) => info.policies);
   let title = policies.termsOfService.termsOfService ? policies.termsOfService.termsOfService.title : null;
-  let body = policies.termsOfService.termsOfService ? policies.termsOfService.termsOfService.body : null;
+  let body = policies.termsOfService.termsOfService ? policies.termsOfService.termsOfService.body : '';
   return (
     <div className='min-h-screen xxs:p-10 lg:p-20 font-rajdhani-md'>
       <div className='text-center text-3xl mt-10'>{title}</div>
