@@ -25,22 +25,26 @@ import useReview from "../../use/useReview";
 function ProductPage(props) {
   let { calcOverview } = useReview();
   let { organizeOptions, determinePrimaryOptionIndex, filterVariantsByOption_ColorPrimary, formatter } = useProduct();
-  let variants = props.product.product.variants.edges;
-  let title = props.product.product.title;
-  let selected = props.product.selectedVariant;
-  let price = formatter.format(selected.priceV2.amount);
-  let description = htmlParser(props.product.product.descriptionHtml);
-  let images = props.product.product.images.edges.map((obj) => obj.node.originalSrc);
-  let variantsExist = props.product.product.variantsExist;
-  let carouselOptions = useMemo(() => filterVariantsByOption_ColorPrimary(variants), [variants]);
-  let primaryOptionIndex = useMemo(() => determinePrimaryOptionIndex(selected.selectedOptions), [selected.selectedOptions]);
-  let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex), [variants]);
+
+  let product = props.product.product;
+  let product_id = product!==null ? product.id : null;
+  let variants = product!==null ? product.variants.edges : null;
+  let title = product!==null ? product.title : null;
+  let selected = product!==null ? props.product.selectedVariant : null;
+  let price = product!==null ? formatter.format(selected.priceV2.amount) : null;
+  let description = product!==null ? htmlParser(product.descriptionHtml) : null;
+  let mainCollection = product!==null && product.collections.edges.length ? product.collections.edges[0].node.title : null;
+  let images = product!==null ? product.images.edges.map((obj) => obj.node.originalSrc) : null;
+  // let carouselOptions =  useMemo(() => filterVariantsByOption_ColorPrimary(variants), [variants]);
+  // let primaryOptionIndex = useMemo(() => determinePrimaryOptionIndex(selected.selectedOptions, [selected.selectedOptions]));
+  // let organizedOptions = useMemo(() => organizeOptions(variants, primaryOptionIndex), [variants]);
+  let carouselOptions = product!==null ? filterVariantsByOption_ColorPrimary(variants) : null;
+  let primaryOptionIndex = product !== null ? determinePrimaryOptionIndex(selected.selectedOptions) : null;
+  let organizedOptions =  product !==null ? organizeOptions(variants, primaryOptionIndex) : null;
+
   let reviews = props.product.reviews;
   let reviewsSearchSource = props.product.reviewsSearchSource;
-  let product_id = props.product.product.id;
-  let reviewOverview = useMemo(() => calcOverview(reviews || []));
-  console.log(reviewOverview)
-  let mainCollection = props.product.product.collections.edges[0].node.title;
+  let reviewOverview = useMemo(() => calcOverview(reviews || []) );
 
   useEffect(() => {
     document.body.firstChild.firstChild.scrollTo(0, 0);
@@ -77,7 +81,7 @@ function ProductPage(props) {
 
             <div className="ml-5 h-2px bg-theme-blue w-1/3 rounded-full"></div>
           </div>
-          <div className="flex w-full h-full  mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
+          {props.product.product ? <div className="flex w-full h-full  mt-3 xxs:flex-col lg:flex-row max-w-screen-2xl">
             <div className="images lg:w-1/2 xxs:w-full">
               <div className="w-full xxs:h-96 lg:h-full lg:p-10">
                 <ProductCarousel
@@ -109,8 +113,11 @@ function ProductPage(props) {
                 />
               
             </div>
-          </div>
+          </div> : <div className="h-screen-4/5 flex items-center">Product Failed To Load.</div>}
+          
         </div>
+        {props.product.product ? <>
+      
         <div className="w-full flex flex-col mt-5 items-center">
           <div className="flex xxs:flex-col w-full  lg:flex-row max-w-screen-2xl">
             <div className="xxs:w-full lg:w-1/2 lg:px-10">
@@ -131,6 +138,7 @@ function ProductPage(props) {
         <div className="related products">
           <Recommendations />
         </div>
+        </> : false}
       </div>
       <Newsletter />
     </div>
@@ -148,31 +156,51 @@ function stateToProps(state) {
 export default connect(stateToProps, null)(ProductPage);
 
 export const getStaticProps = async ({ params }) => {
-  const product = await shopify.getProduct(params.product);
-  let recommendations = await shopify.getProductRecommendationsById(product.id);
-  let recommendationsReviews = await mongo.getReviewsForProducts(recommendations.map((rec) => rec.handle));
-  let sortedRecomReviews = filterReviewsByProduct(recommendationsReviews);
-  recommendations = recommendations.map((rec) => {
-    if(sortedRecomReviews[rec.handle]){
-      rec.reviews = sortedRecomReviews[rec.handle];
-    }
-    return rec;
-  });
-  let productReviews = await mongo.getReviewsForProduct(product.handle);
-  // let policies = await shopify.getDeliveryProfiles()
-  productReviews = productReviews.map((review) => {
-    review._id = review._id.toString();
-    review.date = new Date(review.created_at);
-    return review;
-  });
-  productReviews = sortArrayByKey(productReviews, "date", false);
-  productReviews = productReviews.map((review) => {
-    delete review.date;
-    return review;
-  });
-  product.variantsExist = product.variants.edges.length > 1 ? true : false;
-  let firstVariant = product.variants.edges[0].node;
-  firstVariant.carouselIndex = 0;
+  let product;
+  let productReviews;
+  let recommendations;
+  let recommendationsReviews;
+  let sortedRecomReviews;
+  let firstVariant;
+  try {
+    product = await shopify.getProduct(params.product);;
+    firstVariant = product.variants.edges[0].node;
+    firstVariant.carouselIndex = 0;
+  } catch(err) {
+    product = null;
+    firstVariant = null;
+  }
+  try {
+    productReviews = await mongo.getReviewsForProduct(product.handle);
+    productReviews = productReviews.map((review) => {
+      review._id = review._id.toString();
+      review.date = new Date(review.created_at);
+      return review;
+    });
+    productReviews = sortArrayByKey(productReviews, "date", false);
+    productReviews = productReviews.map((review) => {
+      delete review.date;
+      return review;
+    });
+  } catch(err) {
+    productReviews = [];
+  }
+
+  try {
+    recommendations = await shopify.getProductRecommendationsById(product.id);
+    recommendationsReviews = await mongo.getReviewsForProducts(recommendations.map((rec) => rec.handle));
+    sortedRecomReviews = filterReviewsByProduct(recommendationsReviews);
+    recommendations = recommendations.map((rec) => {
+      if(sortedRecomReviews[rec.handle]){
+        rec.reviews = sortedRecomReviews[rec.handle];
+      }
+      return rec;
+    });
+  } catch (err) {
+    recommendations = [];
+    recommendationsReviews = [];
+  }
+
   return {
     props: {
       initialReduxState: {

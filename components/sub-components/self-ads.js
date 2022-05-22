@@ -9,7 +9,7 @@ export default function SelfAds(props) {
           Be Whole Now
         </div>
         <div className="relative z-50 font-serif text-white text-6xl">
-          Wear your reminders
+          Wear your mottos
         </div>
         <Image layout="fill" objectFit="cover" src="/images/self-ad-image-one.jpg"></Image>
       </div>

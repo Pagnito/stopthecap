@@ -10,7 +10,6 @@ import { RiArrowDropRightLine } from "react-icons/ri";
 import { BsSquareFill, BsFillGridFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import mongo from '../use/use-mongo';
-import filterReviewsByProduct from "../util/filterReviewsByProduct";
 
 export default function Shop(props) {
   let filters = useSelector(({ products }) => products.shopFilters);
@@ -75,22 +74,34 @@ export default function Shop(props) {
   );
 }
 export const getStaticProps = async () => {
-  let products = await shopify.shopCatalog();
-  let collections = await shopify.getCollections();
-  let productHandles = products.map(product => product.node.handle);
-  let reviews = await mongo.getReviewsForProducts(productHandles);
-  reviews.forEach(review => {
-    review._id = review._id.toString();
-    let match = products.findIndex(product => product.node.handle === review.product_handle);
-    if(match > -1){
-      if(products[match].node.reviews) {
-        products[match].node.reviews.push(review);
-      } else {
-        products[match].node.reviews = [review];
+  let products;
+  let collections;
+  let reviews;
+  try {
+    products = await shopify.shopCatalog();
+  } catch (err) {
+    products = [];
+  }
+  try {
+    collections = await shopify.getCollections();
+    let productHandles = products.map(product => product.node.handle);
+    reviews = await mongo.getReviewsForProducts(productHandles);
+    reviews.forEach(review => {
+      review._id = review._id.toString();
+      let match = products.findIndex(product => product.node.handle === review.product_handle);
+      if(match > -1){
+        if(products[match].node.reviews) {
+          products[match].node.reviews.push(review);
+        } else {
+          products[match].node.reviews = [review];
+        }
       }
-    }
+    })
+  } catch (err) {
+    collections = [];
+  }
 
-  })
+
   return {
     props: {
       initialReduxState: {

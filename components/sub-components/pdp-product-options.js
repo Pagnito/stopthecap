@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import QuantityPicker from "./quantity-picker";
+import {app} from "../../app.config";
 
 export default function PdpProductOptions({ product, options, selectedVariant, selectVariant, primaryOptionIndex, addToCart }) {
   let selectedOptions = selectedVariant.selectedOptions;
@@ -17,7 +18,8 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
 
   let governingOptions = () => {
     let governingOptions = Object.keys(options);
-    let isColorOrSize = governingOptionName.toLowerCase() === "size" || governingOptionName === "color";
+    let isColorOrSize = governingOptionName.toLowerCase() === "size" || governingOptionName.toLowerCase() === "color";
+    let isColor = governingOptionName.toLowerCase() === "color";
     let selectedGoverningOption = selectedOptions[primaryOptionIndex].value.toLowerCase();
     return (
       <div>
@@ -25,6 +27,11 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
         <div className="flex flex-wrap">
           {governingOptions.map((option) => {
             option = option.toLowerCase();
+            let color;
+            if(isColor){
+              console.log(option)
+              color = option.replace(' ', '').replace('-', '');
+            }
             return (
               <div
                 className={`${isColorOrSize ? "h-10 w-10" : ""} ${
@@ -33,9 +40,10 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
                 key={option}
               >
                 <button
+                  style={{backgroundColor: app.colors[color]}}
                   onClick={() => selectVariant({ name: governingOptionName.toLowerCase(), value: option.toLowerCase() })}
-                  className={`${isColorOrSize ? `text-${option} bg-${option}` : "p-2"}   ${
-                    isColorOrSize ? "h-8 w-8 border-black" : "hover:border-black"
+                  className={`${
+                    isColorOrSize ? "h-8 w-8 border-black" : "hover:border-black p-2"
                   } rounded transition-all border-solid border-2 text-sm`}
                 >
                   {governingOptionName.toLowerCase() !== "color" ? option : ""}
