@@ -7,10 +7,12 @@ import htmlParser from "html-react-parser";
  
 export default function ShippingPolicy(){ 
   let policies = useSelector(({info}) => info.policies);
+  let title = policies.shippingPolicy.shippingPolicy ? policies.shippingPolicy.shippingPolicy.title : null;
+  let body = policies.shippingPolicy.shippingPolicy ? policies.shippingPolicy.shippingPolicy.body : null
   return (
     <div className='min-h-screen xxs:p-10 lg:p-20 font-rajdhani-md'>
-      <div className='text-center text-3xl mt-10'>{policies.shippingPolicy.shippingPolicy.title}</div>
-      <div className='mt-10 px-32'>{htmlParser(policies.shippingPolicy.shippingPolicy.body)}</div>
+      <div className='text-center text-3xl mt-10'>{title}</div>
+      <div className='mt-10 px-32'>{htmlParser(body)}</div>
    </div>
    )
  }
