@@ -69,7 +69,7 @@ module.exports = {
       featured_product: {
         id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc1NzQ2OTk1MDc5NjM=",
         handle: "stop-the-cap-hoodie",
-        text_one: "Let them know",
+        text_one: "Let'em know",
         text_two: "cappin'",
         text_three: "is not an option!",
         feature_one: "Variety of fabrics",

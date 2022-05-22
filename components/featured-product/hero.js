@@ -7,8 +7,7 @@ import Link from "next/link";
 export default function FeaturedProduct(props) {
   let texts = config.app.data.featured_product;
   let featuredProduct = useSelector(({products}) => products.featuredProduct);
-  console.log('bruh', featuredProduct)
-  let image = featuredProduct.images.edges[0].node.originalSrc;
+  let image = featuredProduct ? featuredProduct.images.edges[0].node.originalSrc : null;
   return (
     <div className="xxs:flex-col-reverse lg:flex-row flex xxs:items-center xxs:p-5 md:p-20 z-20 w-full -mt-3 clip-path-one bg-white">
       <div className="flex text-left flex-col items-center xxs:w-full md:w-1/2 md:ml-10">
