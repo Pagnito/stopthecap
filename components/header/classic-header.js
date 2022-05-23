@@ -31,7 +31,7 @@ const ClassicHeader = ({openMobileNav}) => {
   }, []);
 
   return (
-    <header ref={header} className={`${state.headerStyles} w-full pt-4 pb-4 fixed top-0 z-10`}>
+    <header ref={header} className={`${state.headerStyles} w-full pt-4 pb-4 fixed top-0 z-40`}>
       <div className="flex justify-between">
         <div className="flex  xxs:hidden sm:flex">
           <Link href="/" passHref>

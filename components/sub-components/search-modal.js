@@ -34,7 +34,7 @@ export default function SearchModal(props) {
     searchProducts(search);
   }
   return (
-    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full xxs:py-20 sm:p-20">
+    <div className="fixed z-50 top-0 flex flex-col justify-center items-center h-screen w-full xxs:py-20 sm:p-20">
       <div onClick={props.hideSearchModal} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="35px" color="white" />
       </div>
@@ -42,7 +42,7 @@ export default function SearchModal(props) {
         <input
           ref={input}
           autoFocus={true}
-          className="caret-red-500 py-1 bg-white text-2xl animate-width-open text-center no-outline w-0 text-black border-solid border-2 rounded"
+          className="caret-red-500 bg-white py-2 text-xl animate-width-open text-center no-outline w-0 text-black  rounded"
           value={search}
           onChange={(e) => searchProductsOnInput(e.target.value)}
         />
