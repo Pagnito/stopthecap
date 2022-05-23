@@ -34,11 +34,11 @@ export default function SearchModal(props) {
     searchProducts(search);
   }
   return (
-    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full p-20">
+    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full xxs:py-20 sm:p-20">
       <div onClick={props.hideSearchModal} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="35px" color="white" />
       </div>
-      <div className="w-full px-14 z-50 flex justify-center">
+      <div className="w-full xxs:px-5 sm:px-14 z-50 flex justify-center">
         <input
           ref={input}
           autoFocus={true}
@@ -48,7 +48,7 @@ export default function SearchModal(props) {
         />
       </div>
       {search.length > 0 ? (
-        <div className="w-full h-full z-40 hide-scrollbar overflow-y-scroll overflow-x-hidden rounded mt-10 px-20">{products}</div>
+        <div className="w-full h-full z-40 hide-scrollbar overflow-y-scroll overflow-x-hidden rounded mt-10 xxs:px-5 sm:px-20">{products}</div>
       ) : (
         <SelfAds />
       )}

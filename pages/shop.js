@@ -31,7 +31,7 @@ export default function Shop(props) {
   }, []);
 
   let mobileShopFilterLinks = (
-    <div className="lg:hidden z-10 flex px-5 pb-5 justify-between ">
+    <div className="lg:hidden  flex px-5 pb-5 justify-between ">
       <div onClick={() => dispatch(toggleMobileShopFilters())} className="flex items-center">
         <BiSliderAlt size="20px" />
         <div className="ml-1 flex items-center">Filters</div>
