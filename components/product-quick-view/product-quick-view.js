@@ -42,7 +42,7 @@ export default function Wishlist(props) {
   };
 
   return (
-    <div className="fixed z-40 top-0 flex flex-col justify-center items-center h-screen w-full lg:p-20">
+    <div className="fixed z-50 top-0 flex flex-col justify-center items-center h-screen w-full lg:p-20">
       <div onClick={props.hideQuickView} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="35px" color="white" />
       </div>

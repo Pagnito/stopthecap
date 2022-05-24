@@ -1,6 +1,48 @@
-import React from "react";
+import React, {useState} from "react";
 import { app } from "../app.config";
+import emailjs, { init } from "emailjs-com";
+init("user_7TRpE1ETxxdlRHzpPATZ1");
+
 export default function Contact(props) {
+  let [name, setName] = useState("");
+  let [email, setEmail] = useState("");
+ 
+  let [message, setMessage] = useState("");
+
+  let [nameError, setNameError] = useState("");
+  let [emailError, setEmailError] = useState("");
+  let [subjectError, setSubjectError] = useState("");
+  let [messageError, setMessageError] = useState("");
+  
+  const sendEmail = () => {
+    const templateParams = {
+      name: name,
+      email: email,
+      subject: "Stop The Cap Inquiry",
+      message: message,
+    };
+
+    emailjs
+      .send("service_xlskzx7", "template_0u1j27d", templateParams)
+      .then(function () {
+        let animation = document.getElementById("contact-form-sent-ani");
+        animation.classList.add("sent-ani");
+
+        setTimeout(() => {
+          setFormCounter(1);
+          setMessageError("");
+          setName("");
+          setEmail("");
+          setSubject("");
+          setMessage("");
+          animation.classList.remove("sent-ani");
+        }, 2000);
+      })
+      .catch(function (error) {
+        alert("Oops... " + JSON.stringify(error));
+      });
+  }
+
   return (
     <div className="relative flex items-top justify-center min-h-screen xxs:items-center sm:pt-0">
       <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -103,15 +145,11 @@ export default function Contact(props) {
               </div>
 
               <div className="flex flex-col mt-2">
-                <label htmlFor="tel" className="hidden">
-                  Number
-                </label>
-                <input
-                  type="tel"
-                  name="tel"
-                  id="tel"
+
+                <textarea
+                  id="message"
                   placeholder="Message"
-                  className="w-100 mt-2 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none"
+                  className="h-16 w-100 mt-2 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 

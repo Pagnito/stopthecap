@@ -18,12 +18,14 @@ let PriceFilters = ({ updateHighestPriceFilters, updateLowestPriceFilters, price
       <div className="flex w-full my-2 pr-3">
         <input
           type="number"
+          min="0"
           className="p-2 text-xs mr-2 border-2 rounded border-box min-w-0"
           value={lowestPrice}
           onChange={onChangeLowestPrice}
         />
         <input
-          
+        type="number"
+          min="0"
           className="p-2 text-xs border-2 rounded border-box min-w-0"
           value={highestPrice}
           onChange={onChangeHighestPrice}
