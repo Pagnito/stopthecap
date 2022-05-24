@@ -33,6 +33,7 @@ export default function EdgyCarousel() {
 
   return (
     <div className="relative top-0">
+      <div className="fixed p-2 bg-red-500 text-white top-0 left-1/3 z-50">In Development</div>
       <Carousel
         autoPlay
         swipeable={false}
