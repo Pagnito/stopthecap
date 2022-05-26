@@ -10,8 +10,13 @@ const useReviews = {
     return result.reviews ? result.reviews : [];
   },
   createReview: async (review) => {
-    let inserted = await user.functions.CreateOrUpdateReview(review);
-    return inserted;
+    try {
+      let inserted = await user.functions.CreateOrUpdateReview(review);
+      return inserted;
+    } catch (err) {
+      return {status: 500, message: 'Failed to upload review. Try again'};
+    }
+
   },
   updateReview: async (review) => {
     let updated = await user.functions.CreateOrUpdateReview(review);
