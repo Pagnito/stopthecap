@@ -19,8 +19,15 @@ export const submitReviewAction = (review) => async (dispatch) => {
   } else {
     dispatch({
       type: types.ERROR,
-      payload: 'Could not submit review, try again.'
+      payload: {review: submitted.message}
     })
+    setTimeout(() => {
+      dispatch({
+          type: types.ERROR,
+          payload: {}
+        }
+      )
+    },5000)
   }
 }
 

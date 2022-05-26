@@ -5,7 +5,6 @@ import { useState } from "react";
 import { submitReviewAction } from "../actions/product/product-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { setReviewsAction } from "../actions/product/product-actions";
-import shopify from "../shopify/shopify-funcs";
 
 export default function useReview() {
   let dispatch = useDispatch();
@@ -15,6 +14,7 @@ export default function useReview() {
   let [rating, setRating] = useState(0);
   let [author, setAuthor] = useState("");
   let [error, setError] = useState({ msg: null, type: null });
+  let pageErrors = useSelector(({product}) => product.errors);
   let product = useSelector(({ product }) => product.product);
   let reviewsSearchSource = useSelector(({ product }) => product.reviewsSearchSource);
 
@@ -24,7 +24,7 @@ export default function useReview() {
     });
     dispatch(setReviewsAction(searched));
   };
-  
+
   let calcOverview = (reviews) => {
     let overview = {
       fives: 0,
@@ -81,8 +81,25 @@ export default function useReview() {
     return { status: true };
   };
 
-  let submitReview = () => {
+  // let verifyEmailForOrder = async (email, productName) => {
+  //   if(!orders) {
+  //     return { status: false, type: 'order', msg: "Could not verify order, try again." }
+  //   }
+  //   let orderOfItemFound = false;
+  //   for (const order of orders) {
+  //     for (const item of order.node.lineItems) {
+  //       if (item.name.includes(productName)) {
+  //         orderOfItemFound = true;
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   return orderOfItemFound ? { status: true, type: 'order' } : { status: false, type: 'order', msg: "There is no order for this item associated with this email." };
+  // };
+
+  let submitReview = async () => {
     let reviewObj = {
+      product_title: product.title,
       product_id: product.id,
       product_handle: product.handle,
       author,
@@ -142,5 +159,6 @@ export default function useReview() {
     rating,
     author,
     calcOverview,
+    pageErrors
   };
 }

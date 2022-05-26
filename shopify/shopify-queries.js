@@ -487,14 +487,22 @@ const queries = {
     `;
   },
 
-  getOrdersByEmail: (email) => {
+  getOrders: () => {
     return `
     {
-      orders(first: 30, query: "email:${email}") {
+      orders(first: 1) {
         edges {
           node {
             id
-          }
+            email
+            lineItems(first: 30) {
+              edges {
+                node {
+                  name
+                }
+              }
+            }
+          } 
         }
       }
     }

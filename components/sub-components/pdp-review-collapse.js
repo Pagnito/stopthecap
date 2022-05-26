@@ -3,8 +3,9 @@ import useReview from "../../use/useReview";
 import ReviewsStars from "./reviews-stars";
 
 export default function PdpReviewCollapse({overview}) {
-  let { submitReview, setAuthor, setBody, setEmail, setRating, setTitle, email, body, title, author, rating, error} =
+  let { submitReview, setAuthor, setBody, setEmail, setRating, setTitle, email, body, title, author, rating, error, pageErrors} =
     useReview();
+  
   return (
     <div className="bg-whiterounded-lg w-full ">
       <div className="mb-1 tracking-wide px-4 py-4">
@@ -69,7 +70,7 @@ export default function PdpReviewCollapse({overview}) {
           <div className="w-full">
             <p>Email</p>
             <input
-              placeholder={`${error.type === "email" ? error.msg : ""}`}
+              placeholder={`${error.type === "email" || error.type === 'order' ? error.msg : ""}`}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"
@@ -121,6 +122,7 @@ export default function PdpReviewCollapse({overview}) {
         </div>
       </div>
       <div className="px-4">
+        <div className="text-red-500">{pageErrors.review ? pageErrors.review : false}</div>
         <button
           onClick={submitReview}
           className="border-2 bg-theme-blue border-theme-blue px-3 py-1 rounded hover:bg-green-500 hover:border-green-500 transition-colors text-white mt-2"

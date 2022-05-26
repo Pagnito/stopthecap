@@ -218,6 +218,7 @@ export const getStaticProps = async ({ params }) => {
             selectedProduct: {},
             selectedVariant: {},
           },
+          errors: {}
         },
       },
     },

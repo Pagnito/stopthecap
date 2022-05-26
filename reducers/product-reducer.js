@@ -11,6 +11,7 @@ let init = {
     selectedProduct: null,
     selectedVariant: null,
   },
+  errors: null
 };
 function selectVariant(currentSelectedOptions, variants, variantOption) {
   let selectedVariant;
@@ -74,6 +75,11 @@ const productReducer = (state = init, action) => {
         ...state,
         reviews: action.payload,
       };
+    case types.ERROR:
+      return {
+        ...state,
+        errors: action.payload
+      }
     default:
       return state;
   }

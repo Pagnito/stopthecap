@@ -7,7 +7,7 @@ let reviews = {
       rating: 5,
       title: "Color Name: Green only case",
       author: "I***k",
-      email: "cool@example.mail",
+      email: "pagnito@gmai.com",
       location: "UA",
       body: "<p>Cool cover, but turnkey Lexus NX does not fit</p>",
       reply: "",

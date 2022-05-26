@@ -11,7 +11,7 @@ const useReviews = {
   },
   createReview: async (review) => {
     let inserted = await user.functions.CreateOrUpdateReview(review);
-    return inserted.status === 200 ? inserted : false;
+    return inserted;
   },
   updateReview: async (review) => {
     let updated = await user.functions.CreateOrUpdateReview(review);
