@@ -1,5 +1,8 @@
 module.exports = {
   app: {
+    facebook: {
+      pixelId: "210051741159119"
+    },
     contact: {
       number: "774-360-2363",
       email: "info@stopthecap.com",

@@ -1,8 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import config from '../../../app.config';
 
-export default function SlideOne({ data }) {
+export default function SlideOne(/*{ data }*/) {
+  let data = config.app.data.carousel.slides[0]
   return (
     <div className={`top-0 w-full bg-center bg-cover h-screen flex items-center sm:justify-end xs:pr-10 xs:pl-10 relative`}>
       <Image src="/images/landing.jpg" alt="Landing Image" loading="eager" layout="fill" objectFit="cover" />

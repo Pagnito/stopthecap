@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import useInView from "react-cool-inview";
+// import useInView from "react-cool-inview";
 import EdgyHeader from "../../components/header/edgy-transparent";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
+// const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
+const Landing = dynamic(() => import('../../components/landing-carousel/slides/slide-one'));
 const Incentives = dynamic(() => import("../../components/incentives/incentives"));
 const FeaturedProduct = dynamic(() => import("../../components/featured-product/hero"));
 const FeaturedCollection = dynamic(() => import("../../components/featured-collection/classic-featured-collection"));
@@ -25,7 +26,7 @@ function Home(props) {
   return (
     <div className="home">
       <EdgyHeader />
-      <EdgyCarousel />
+      <Landing />
       <Incentives />
       <FeaturedProduct />
       <FeaturedCollection />

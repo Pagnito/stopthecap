@@ -1,12 +1,18 @@
 import React from "react";
 import useProduct from "../../use/useProduct";
+import router from "next/router";
 
-export default function SearchedProduct({ product }) {
+
+export default function SearchedProduct({ product, hideSearchModal }) {
   let {formatter} = useProduct();
   let image = product.images.edges[0].node.originalSrc;
-
+  let handle = product.handle;
+  let pushToProduct = () => {
+    hideSearchModal();
+    router.push("/product/" + handle);
+  };
   return (
-    <div className="p-5 w-full rounded bg-white cursor-pointer hover:pl-10 hover:border-red-500 border-4 border-white transition-all">
+    <div onClick={pushToProduct} className="p-5 w-full rounded bg-white cursor-pointer hover:pl-10 hover:border-red-500 border-4 border-white transition-all">
       <div  className={`flex justify-between xxs:flex-col md:flex-row`}>
         <div className="flex">
           <img src={image} className="w-24 h-24" />

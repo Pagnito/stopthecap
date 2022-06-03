@@ -25,7 +25,7 @@ export default function SearchModal(props) {
   const products = searchedProducts.slice(0, 10).map((product, ind) => {
     return (
       <div key={product.node.id} className={`${ind > 0 ? "mt-5" : ""}`}>
-        <SearchedProduct product={product.node} />
+        <SearchedProduct hideSearchModal={props.hideSearchModal} product={product.node} />
       </div>
     );
   });
