@@ -21,6 +21,7 @@ import mongo from "../../use/use-mongo";
 import sortArrayByKey from "../../util/sortArrayByKey";
 import filterReviewsByProduct from "../../util/filterReviewsByProduct";
 import useReview from "../../use/useReview";
+import Script from "next/script";
 
 function ProductPage(props) {
   let { calcOverview } = useReview();
@@ -47,6 +48,7 @@ function ProductPage(props) {
   let reviewOverview = useMemo(() => calcOverview(reviews || []) );
 
   useEffect(() => {
+    fbp.pageView();
     document.body.firstChild.firstChild.scrollTo(0, 0);
   }, []);
 
@@ -62,6 +64,23 @@ function ProductPage(props) {
 
   return (
     <div>
+       <Script
+        id="fb-pixel"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', ${fbp.FB_PIXEL_ID});
+          `,
+        }}
+      />
       <div className="mt-classic-header xxs:px-5 lg:px-0 ">
         <div className="flex flex-col items-center">
           <div className="flex w-2/3 justify-center items-center -mt-1">

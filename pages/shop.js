@@ -10,6 +10,7 @@ import { RiArrowDropRightLine } from "react-icons/ri";
 import { BsSquareFill, BsFillGridFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import mongo from '../use/use-mongo';
+import Script from "next/script";
 
 export default function Shop(props) {
   let filters = useSelector(({ products }) => products.shopFilters);
@@ -27,6 +28,7 @@ export default function Shop(props) {
   }, [filters]);
 
   useEffect(() => {
+    fbp.pageView();
     pageLoaded.current = true;
   }, []);
 
@@ -44,33 +46,53 @@ export default function Shop(props) {
     </div>
   );
   return (
-    <div className="min-h-screen pt-20 flex flex-col justify-start items-center">
-      <div ref={logo} className="flex w-full justify-center items-start just -mt-1">
-        <Link href="/" passHref>
-          <div>
-            <Image
-              alt="Brand Logo"
-              width={120}
-              height={120}
-              className="m-1 cursor-pointer"
-              src="/images/StopTheCapLogo-Black.png"
-              objectFit="contain"
-            />
-          </div>
-        </Link>
-      </div>
-      {/* <div className="w-full py-32 bg-shop-banner mt-10  bg-center"></div> */}
+    <>
+      <Script
+        id="fb-pixel"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', ${fbp.FB_PIXEL_ID});
+          `,
+        }}
+      />
+      <div className="min-h-screen pt-20 flex flex-col justify-start items-center">
+        <div ref={logo} className="flex w-full justify-center items-start just -mt-1">
+          <Link href="/" passHref>
+            <div>
+              <Image
+                alt="Brand Logo"
+                width={120}
+                height={120}
+                className="m-1 cursor-pointer"
+                src="/images/StopTheCapLogo-Black.png"
+                objectFit="contain"
+              />
+            </div>
+          </Link>
+        </div>
+        {/* <div className="w-full py-32 bg-shop-banner mt-10  bg-center"></div> */}
 
-      <div className="catalog-container w-full p-2 lg:p-10 flex xxs:flex-col lg:flex-row justify-center max-w-screen-2xl">
-        <div className="filters w-1/5 sticky top-20 left-5 self-start xxs:hidden lg:block">
-          <ShopFilters />
-        </div>
-        {mobileShopFilterLinks}
-        <div className="grid xxs:w-full lg:w-4/5 relative pb-20">
-          <ShopGrid />
+        <div className="catalog-container w-full p-2 lg:p-10 flex xxs:flex-col lg:flex-row justify-center max-w-screen-2xl">
+          <div className="filters w-1/5 sticky top-20 left-5 self-start xxs:hidden lg:block">
+            <ShopFilters />
+          </div>
+          {mobileShopFilterLinks}
+          <div className="grid xxs:w-full lg:w-4/5 relative pb-20">
+            <ShopGrid />
+          </div>
         </div>
       </div>
-    </div>
+    </>
+
   );
 }
 export const getStaticProps = async () => {
@@ -89,8 +111,8 @@ export const getStaticProps = async () => {
     reviews.forEach(review => {
       review._id = review._id.toString();
       let match = products.findIndex(product => product.node.handle === review.product_handle);
-      if(match > -1){
-        if(products[match].node.reviews) {
+      if (match > -1) {
+        if (products[match].node.reviews) {
           products[match].node.reviews.push(review);
         } else {
           products[match].node.reviews = [review];
@@ -111,7 +133,7 @@ export const getStaticProps = async () => {
           unfilteredShop: products,
           collections: collections.edges,
           allProducts: [],
-          searchedProducts:[],
+          searchedProducts: [],
           shopFilters: {
             price: {
               lowestPrice: 0,

@@ -3,13 +3,38 @@ import mongo from '../use/use-mongo';
 import products from "../shopify/shopify-funcs";
 import filterReviewsByProduct from "../util/filterReviewsByProduct";
 import appConfig from "../app.config";
+import * as fbp from '../util/fbpixel';
+import { useEffect } from "react";
+import Script from "next/script";
 function Body(props) {
+  useEffect(() => {
+    fbp.pageView();
+  }, [])
   return (
     <>
+      <Script
+        id="fb-pixel"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', ${fbp.FB_PIXEL_ID});
+          `,
+        }}
+      />
+
       <Home />
     </>
   );
 }
+
 
 export default Body;
 
@@ -27,7 +52,7 @@ export const getStaticProps = async () => {
       collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
       sortedColReviews = filterReviewsByProduct(collectionReviews);
       collection.products.edges = collection.products.edges.map((rec) => {
-        if(sortedColReviews[rec.node.handle]){
+        if (sortedColReviews[rec.node.handle]) {
           rec.node.reviews = sortedColReviews[rec.node.handle];
         }
         return rec;
@@ -38,7 +63,6 @@ export const getStaticProps = async () => {
     try {
       featuredProduct = await getProduct(featuredProductHandle);
     } catch (err) {
-      console.log('wtf', err)
       featuredProduct = {};
     }
 
@@ -49,7 +73,7 @@ export const getStaticProps = async () => {
             topProducts: Object.keys(collection).length > 0 ? collection : [],
             featuredProduct,
             allProducts: [],
-            searchedProducts:[]
+            searchedProducts: []
           },
           product: {
             productQuickview: {

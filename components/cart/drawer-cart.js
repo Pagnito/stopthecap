@@ -5,6 +5,8 @@ import { RiCloseFill } from "react-icons/ri";
 import { GoTrashcan } from "react-icons/go";
 import {removeCartItemAction} from '../../actions/cart/cart-actions';
 import useCart from "../../use/useCart";
+import router from 'next/router';
+import * as fbp from '../../util/fbpixel';
 
 function DrawerCart({ cart, hideCartModal }) {
   let {formatter} = useProduct();
@@ -12,6 +14,10 @@ function DrawerCart({ cart, hideCartModal }) {
   let dispatch = useDispatch();
   let totalInUsd = formatter.format(subtotal.priceV2.amount);
 
+  const pushToCheckout = () => {
+    fbp.event('init checkout', {totalInUsd});
+    router.push(cart.checkout_url);
+  }
   let cartItems = () => {
     if (cart.items.length === 0) {
       return <div className="w-full p-10 mt-10 text-zinc-500 text-sm text-center">Your Cart Is Empty.</div>;
@@ -59,11 +65,11 @@ function DrawerCart({ cart, hideCartModal }) {
               <div>{totalInUsd}</div>
             </div>
             <p className="text-xs mt-2 text-zinc-500"> Taxes will be calculated at checkout.</p>
-            <a href={cart.checkout_url}>
-              <button type="button" className="hover:bg-yellow-500 transition-colors relative bg-black text-white w-full rounded mt-5 p-3">
+            {/* <a href={cart.checkout_url}> */}
+              <button onClick={pushToCheckout} type="button" className="hover:bg-yellow-500 transition-colors relative bg-black text-white w-full rounded mt-5 p-3">
                 Check Out
               </button>
-            </a>
+            {/* </a> */}
   
           </div>
         ) : (
