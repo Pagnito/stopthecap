@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import Script from "next/script";
 function Body(props) {
   useEffect(() => {
-    fbp.pageView();
+    fbp.event('Home View', {placeholder: 'placeholder'});
   }, [])
   return (
     <>

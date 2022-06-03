@@ -10,6 +10,7 @@ import useCart from "../../use/useCart";
 import Options from "./product-card-options";
 import useReview from "../../use/useReview";
 import useProduct from "../../use/useProduct";
+import * as fbp from '../../util/fbpixel';
 
 function ProductCard(props) {
   let title = props.data.title;
@@ -45,6 +46,14 @@ function ProductCard(props) {
   };
   let onWishlist = isItOnWishlist(props.data.id);
 
+  const addToOrRemoveFromWishlist = (data) => {
+    if(onWishlist) {
+      dispatch(removeFromWishList(data.id));
+    } else {
+      fbp.event('Add To Wishlist', {title});
+      dispatch(addToWishList(data))
+    }
+  }
   return (
     <div className={`relative flex flex-col items-center ${theme === "light" ? "" : "transition-transform hover:scale-105"}`}>
       <div className={`${dimensions} flex justify-center`}>
@@ -60,7 +69,7 @@ function ProductCard(props) {
                 </div>
                 <div className="absolute flex flex-col -top-1 right-0 xxs:p-1 sm:p-3">
                   <button
-                    onClick={onWishlist ? () => dispatch(removeFromWishList(props.data.id)) : () => dispatch(addToWishList(props.data))}
+                    onClick={() => addToOrRemoveFromWishlist(props.data)}
                     className={`transition ease-in  hover:text-red-600 ${
                       onWishlist ? "text-red-600" : "text-red-400"
                     } rounded-full  text-center p-1`}

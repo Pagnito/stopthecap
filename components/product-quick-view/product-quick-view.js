@@ -10,7 +10,7 @@ import ReviewStars from "../sub-components/reviews-stars";
 import useReview from "../../use/useReview";
 import { addToCartAction } from "../../actions/cart/cart-actions";
 import { selectVariantActionQV, t } from "../../actions/product/product-actions";
-import {toggleProductQuickView} from '../../actions/app/app-actions';
+import * as fbp from '../../util/fbpixel';
 
 export default function Wishlist(props) {
   let dispatch = useDispatch();
@@ -30,6 +30,7 @@ export default function Wishlist(props) {
   let handle = viewedProduct.handle;
 
   function addToCart(variant) {
+    fbp.event('Add To Cart', title);
     dispatch(addToCartAction(variant, cart));
   }
   function selectVariant(variant) {

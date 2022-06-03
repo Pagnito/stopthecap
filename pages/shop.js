@@ -11,6 +11,7 @@ import { BsSquareFill, BsFillGridFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import mongo from '../use/use-mongo';
 import Script from "next/script";
+import * as fbp from '../util/fbpixel';
 
 export default function Shop(props) {
   let filters = useSelector(({ products }) => products.shopFilters);
@@ -28,7 +29,7 @@ export default function Shop(props) {
   }, [filters]);
 
   useEffect(() => {
-    fbp.pageView();
+    fbp.event('Shop View', {placeholder: 'placeholder'});
     pageLoaded.current = true;
   }, []);
 

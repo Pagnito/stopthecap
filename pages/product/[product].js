@@ -22,6 +22,7 @@ import sortArrayByKey from "../../util/sortArrayByKey";
 import filterReviewsByProduct from "../../util/filterReviewsByProduct";
 import useReview from "../../use/useReview";
 import Script from "next/script";
+import * as fbp from '../../util/fbpixel';
 
 function ProductPage(props) {
   let { calcOverview } = useReview();
@@ -48,7 +49,7 @@ function ProductPage(props) {
   let reviewOverview = useMemo(() => calcOverview(reviews || []) );
 
   useEffect(() => {
-    fbp.pageView();
+    fbp.event('Product View', {placeholder: 'placeholder'});
     document.body.firstChild.firstChild.scrollTo(0, 0);
   }, []);
 

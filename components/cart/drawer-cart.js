@@ -15,7 +15,7 @@ function DrawerCart({ cart, hideCartModal }) {
   let totalInUsd = formatter.format(subtotal.priceV2.amount);
 
   const pushToCheckout = () => {
-    fbp.event('init checkout', {totalInUsd});
+    fbp.event('Initiate Checkout', {items: cart.items.map(item => item.name)});
     router.push(cart.checkout_url);
   }
   let cartItems = () => {

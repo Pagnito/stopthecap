@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import QuantityPicker from "./quantity-picker";
+import * as fbp from '../../util/fbpixel';
 import {app} from "../../app.config";
 
 export default function PdpProductOptions({ product, options, selectedVariant, selectVariant, primaryOptionIndex, addToCart }) {
@@ -9,6 +10,8 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
   let [quantity, setQuantity] = useState(selectedVariant.quantityAvailable > 0 ? 1 : 0);
 
   let addToCartWithQty = () => {
+    fbp.event('Add To Cart', {title: product.title});
+
     if(selectVariant.quantityAvailable >= quantity){
       selectedVariant.variantQuantity = quantity;
       selectedVariant.name = product.title;

@@ -2,16 +2,17 @@ import React, { createRef, useEffect } from "react";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
 import { CgMenuRound } from "react-icons/cg";
 import { toggleSearch, toggleCart, toggleWishlist } from "../../actions/app/app-actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useHeader from "../../use/useHeader";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import * as fbp from '../../util/fbpixel';
 
 const ClassicHeader = ({openMobileNav}) => {
   let router = useRouter();
   let header = createRef();
   let dispatch = useDispatch();
-  let app = useSelector(({app}) => app);
+  // let app = useSelector(({app}) => app);
   let {toggleHeaderWatcher, toggleWindowScrollEvent, handleRouteChange, state, cartItemsAmount} = useHeader(router);
   let pathname = router.pathname;
 
@@ -29,7 +30,11 @@ const ClassicHeader = ({openMobileNav}) => {
       toggleWindowScrollEvent(pathname);
     };
   }, []);
-
+  
+  const openCart = () => {
+    fbp.event('Open Cart', {placeholder: 'placeholder'});
+    dispatch(toggleCart());
+  }
   return (
     <header ref={header} className={`${state.headerStyles} w-full pt-4 pb-4 fixed top-0 z-40`}>
       <div className="flex justify-between">
@@ -91,14 +96,14 @@ const ClassicHeader = ({openMobileNav}) => {
 
             <div className="mr-3 flex relative">
               {cartItemsAmount > 0 ? (
-                <div onClick={() => dispatch(toggleCart())} className="cursor-pointer absolute flex z-10 border-white border-solid border-2 justify-center items-center h-7 w-7 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-3 -top-2">
+                <div onClick={openCart} className="cursor-pointer absolute flex z-10 border-white border-solid border-2 justify-center items-center h-7 w-7 text-white line-h-.5 bg-red-500 rounded-full text-xs -right-3 -top-2">
                   {cartItemsAmount}
                 </div>
               ) : (
                 false
               )}
               <RiShoppingBagLine
-                onClick={() => dispatch(toggleCart())}
+                onClick={openCart}
                 className={`${state.headerButtonStyles} rounded-full p-2 border-2 hover:border-red-500 my-icon-style transition-colors cursor-pointer`}
                 color={state.headerIconStyles}
                 size="43px"
