@@ -6,7 +6,7 @@ import { FaTiktok } from "react-icons/fa";
 export default function MobileNav(props) {
   useEffect(() => {}, []);
   return (
-    <div className="fixed shadow-xl z-40 top-0 flex flex-col justify-center -translate-x-full animate-doors-close bg-white items-center h-screen w-full">
+    <div className="fixed shadow-xl z-50 top-0 flex flex-col justify-center -translate-x-full animate-doors-close bg-white items-center h-screen w-full">
       <img src="/images/StopTheCapLogo-Black.png" className="fixed opacity-100 w-1/3 top-20"></img>
 
       <div onClick={props.closeMobileNav} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
