@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "./layout.module.css";
 import Footer from "./footer/classic-footer";
 import ClassicHeader from "./header/classic-header";
 import CartModal from "./cart/drawer-cart";
@@ -29,7 +28,7 @@ const Layout = ({ children, app }) => {
     dispatch(setWishlist());
   }, []);
   return (
-    <div className={styles.app}>
+    <div>
       <Head>
         <title>Stop The Cap</title>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

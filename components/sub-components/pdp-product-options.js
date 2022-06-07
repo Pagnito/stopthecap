@@ -12,7 +12,7 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
   let addToCartWithQty = () => {
     fbp.event('Add To Cart', {title: product.title});
 
-    if(selectVariant.quantityAvailable >= quantity){
+    if(selectedVariant.quantityAvailable >= quantity){
       selectedVariant.variantQuantity = quantity;
       selectedVariant.name = product.title;
       addToCart(selectedVariant);
@@ -103,7 +103,7 @@ export default function PdpProductOptions({ product, options, selectedVariant, s
         <QuantityPicker setQuantity={setQuantity} variant={selectedVariant} quantity={quantity} />
         <button
           onClick={addToCartWithQty}
-          className={`${selectVariant.quantityAvailable > 0 ? 'bg-red-500 hover:bg-green-500' : 'bg-gray-500 cursor-default'} rounded transition-colors xxs:pt-5 xxs:pb-5 lg:pb-0 lg:pt-0 pl-10 pr-10 lg:ml-3 lg:mt-0 xxs:mt-5 text-white`}
+          className={`${selectedVariant.quantityAvailable > 0 ? 'bg-red-500 hover:bg-green-500' : 'bg-gray-500 cursor-default'} rounded transition-colors xxs:pt-5 xxs:pb-5 lg:pb-0 lg:pt-0 pl-10 pr-10 lg:ml-3 lg:mt-0 xxs:mt-5 text-white`}
         >
           Add To Cart
         </button>

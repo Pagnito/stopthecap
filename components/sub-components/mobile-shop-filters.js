@@ -4,7 +4,7 @@ import ShopFilters from "./shop-filters/shop-filters";
 
 export default function MobileShopFilters(props) {
   return (
-    <div className="fixed shadow-xl z-40 top-0 flex flex-col -translate-x-full animate-doors-close bg-white h-screen w-full">
+    <div className="fixed shadow-xl z-50 top-0 flex flex-col -translate-x-full animate-doors-close bg-white h-screen w-full">
       <div onClick={props.closeMobileShopFilters} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="35px" color="black" />
       </div>
