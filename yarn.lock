@@ -3041,11 +3041,6 @@
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
 
-"logrocket@^2.2.0":
-  "integrity" "sha512-YYZqYj4UjC9h992+yNt5E+h1bXCKyVjTa1UlbgK/onhLfNV/78tRqw9Ti7XBcwqOgaFsD2xrDDl+emZH36ch8g=="
-  "resolved" "https://registry.npmjs.org/logrocket/-/logrocket-2.2.0.tgz"
-  "version" "2.2.0"
-
 "loose-envify@^1.1.0", "loose-envify@^1.4.0":
   "integrity" "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q=="
   "resolved" "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
@@ -3868,11 +3863,6 @@
   "integrity" "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A=="
   "resolved" "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
   "version" "3.0.0"
-
-"shopify-buy@^2.14.0":
-  "integrity" "sha512-ehQMBQzkmm837boIUb85umpWg25EYzgDTqSv1dLabTmfTQSlhTkBJ0r1mDZnZpEoYpWbAs6cSSa5C9/NIaSSOQ=="
-  "resolved" "https://registry.npmjs.org/shopify-buy/-/shopify-buy-2.14.0.tgz"
-  "version" "2.14.0"
 
 "side-channel@^1.0.4":
   "integrity" "sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw=="

@@ -1,2 +1,2 @@
-move logic to use
+move logic out of use to logic files (using hooks in multiple places executes code multiple times that doesnt need to be executed) (palm face)
 have bulletproof error handling so site doesnt crash

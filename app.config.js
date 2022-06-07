@@ -65,7 +65,7 @@ module.exports = {
         reviews: false,
       },
       featured_collection: {
-        collection: 'ADIDAS',
+        collection: 'frontpage',
         number_of_rows: 2,
         number_of_columns: 4,
       },
