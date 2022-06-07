@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../actions/products/products-actions";
 import { useRouter } from "next/router";
 import useHeader from "../../use/useHeader";
-import SearchedProduct from "./searched-product";
-import SelfAds from "./self-ads";
+import SearchedProduct from "../sub-components/searched-product";
+import SelfAds from "../sub-components/self-ads";
 export default function SearchModal(props) {
   let [search, setSeach] = useState("");
   let dispatch = useDispatch();

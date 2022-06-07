@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
-import { toggleSearch, toggleCart, toggleWishlist } from "../../actions/app/app-actions";
+import { toggleSearch, toggleCart, toggleWishlist } from "../../../actions/app/app-actions";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 

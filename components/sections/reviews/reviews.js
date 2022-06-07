@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState } from "react";
-import Review from "../sub-components/review";
-import useReview from "../../use/useReview";
+import Review from "../../sub-components/review";
+import useReview from "../../../use/useReview";
 
 export default function Reviews({ reviews, product_id }) {
   let {searchReviews} = useReview();

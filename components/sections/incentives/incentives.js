@@ -1,5 +1,5 @@
 import React from "react";
-import { app } from "../../app.config";
+import { app } from "../../../app.config";
 
 export default function Incentives(props) {
   let activeIncentives = () => {

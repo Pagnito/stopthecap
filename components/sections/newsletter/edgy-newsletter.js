@@ -1,5 +1,5 @@
 import React from "react";
-import useNewsletter from "../../use/useNewsletter";
+import useNewsletter from "../../../use/useNewsletter";
 
 const Newsletter = (props) => {
   const { notif, email, changeEmailValue, submitEmail, submitEmailOnEnter} = useNewsletter();

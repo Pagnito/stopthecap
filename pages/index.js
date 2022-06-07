@@ -42,7 +42,6 @@ export const getStaticProps = async () => {
   let { getCollection, getProduct } = products;
   let featuredProductHandle = appConfig.app.data.featured_product.handle;
   let featuredCollection = appConfig.app.data.featured_collection.collection;
-  console.log(featuredCollection)
   try {
     let collection;
     let collectionReviews;
@@ -50,7 +49,6 @@ export const getStaticProps = async () => {
     let featuredProduct;
     try {
       collection = await getCollection(featuredCollection);
-      console.log(collection)
       collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
       sortedColReviews = filterReviewsByProduct(collectionReviews);
       collection.products.edges = collection.products.edges.map((rec) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import config from '../../../app.config';
+import config from '../../../../app.config';
 
 export default function SlideOne(/*{ data }*/) {
   let data = config.app.data.carousel.slides[0]

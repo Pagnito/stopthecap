@@ -1,12 +1,12 @@
 import React, { createRef, useEffect } from "react";
 import { RiShoppingBagLine, RiHeartLine, RiSearchLine } from "react-icons/ri";
 import { CgMenuRound } from "react-icons/cg";
-import { toggleSearch, toggleCart, toggleWishlist } from "../../actions/app/app-actions";
+import { toggleSearch, toggleCart, toggleWishlist } from "../../../actions/app/app-actions";
 import { useDispatch } from "react-redux";
-import useHeader from "../../use/useHeader";
+import useHeader from "../../../use/useHeader";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import * as fbp from '../../util/fbpixel';
+import * as fbp from '../../../util/fbpixel';
 
 const ClassicHeader = ({openMobileNav}) => {
   let router = useRouter();

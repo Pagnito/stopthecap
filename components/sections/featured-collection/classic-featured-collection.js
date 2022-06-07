@@ -1,7 +1,7 @@
 import React from "react";
-import ProductCard from "../sub-components/product-card";
+import ProductCard from "../../sub-components/product-card";
 import { connect } from "react-redux";
-import { app } from "../../app.config";
+import { app } from "../../../app.config";
 
 const FeaturedCollection = (props) => {
   let products =

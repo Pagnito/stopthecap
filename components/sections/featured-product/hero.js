@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from 'react-redux';
 import { RiCheckFill } from "react-icons/ri";
-import config from "../../app.config";
+import config from "../../../app.config";
 import { Image } from "next/image";
 import Link from "next/link";
 export default function FeaturedProduct(props) {
