@@ -2,7 +2,7 @@ import React, { createRef, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import shopify from "../shopify/shopify-funcs";
-import ShopGrid from "../components/sub-components/shop-grid";
+import ShopGrid from "../components/sections/shop-grid/shop-grid";
 import ShopFilters from "../components/sub-components/shop-filters/shop-filters";
 import { toggleMobileShopFilters } from "../actions/app/app-actions";
 import { BiSliderAlt } from "react-icons/bi";

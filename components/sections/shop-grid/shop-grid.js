@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import ProductCard from './product-card';
+import ProductCard from '../../sub-components/product-card';
  
 export default function ShopGrid(props){ 
   let products = useSelector(({products}) => products.shop);

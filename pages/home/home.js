@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 // import useInView from "react-cool-inview";
-import EdgyHeader from "../../components/header/edgy-transparent";
+import EdgyHeader from "../../components/sections/header/edgy-transparent";
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
-const Landing = dynamic(() => import('../../components/landing-carousel/slides/slide-one'));
-const Incentives = dynamic(() => import("../../components/incentives/incentives"));
-const FeaturedProduct = dynamic(() => import("../../components/featured-product/hero"));
-const FeaturedCollection = dynamic(() => import("../../components/featured-collection/classic-featured-collection"));
-const AutoPlayVideoHero = dynamic(() => import("../../components/video/auto-play"));
-const Newsletter = dynamic(() => import("../../components/newsletter/edgy-newsletter"));
+const Landing = dynamic(() => import('../../components/sections/landing-carousel/slides/slide-one'));
+const Incentives = dynamic(() => import("../../components/sections/incentives/incentives"));
+const FeaturedProduct = dynamic(() => import("../../components/sections/featured-product/hero"));
+const FeaturedCollection = dynamic(() => import("../../components/sections/featured-collection/classic-featured-collection"));
+const AutoPlayVideoHero = dynamic(() => import("../../components/sections/video/auto-play"));
+const Newsletter = dynamic(() => import("../../components/sections/newsletter/edgy-newsletter"));
 
 // import EdgyCarousel from "../../components/landing-carousel/edgy-landing-carousel";
 // import Incentives from "../../components/banner-row/incentives";
