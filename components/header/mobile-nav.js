@@ -15,33 +15,30 @@ export default function MobileNav(props) {
       </div>
       <div className="ml-3 mt-28 w-5/6 flex text-xl flex-col justify-center">
         <Link href="/" passHref>
-          <div className="w-full flex justify-between items-center">
-            <div onClick={props.closeMobileNav}>Home</div>
+          <div onClick={props.closeMobileNav} className="w-full flex justify-between items-center">
+            <div>Home</div>
             <RiArrowDropRightLine  size="40px" />
           </div>
         </Link>
         <Link href="/contact" passHref>
-          <div className="w-full flex justify-between items-center">
-
-            <div onClick={props.closeMobileNav} className="mt-4">
+          <div onClick={props.closeMobileNav} className="w-full flex justify-between items-center">
+            <div className="mt-4">
               Contact
             </div>
             <RiArrowDropRightLine size="40px" />
           </div>
         </Link>
         <Link href="/about" passHref>
-          <div className="w-full flex justify-between items-center">
-
-            <div onClick={props.closeMobileNav} className="mt-4">
+          <div onClick={props.closeMobileNav} className="w-full flex justify-between items-center">
+            <div className="mt-4">
               About
             </div>
             <RiArrowDropRightLine size="40px" />
           </div>
         </Link>
         <Link href="/shop" passHref>
-          <div className="w-full flex justify-between items-center">
-
-            <div onClick={props.closeMobileNav} className="mt-4">
+          <div onClick={props.closeMobileNav} className="w-full flex justify-between items-center">
+            <div className="mt-4">
               Shop
             </div>
             <RiArrowDropRightLine size="40px" />
