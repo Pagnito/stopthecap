@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { RiInstagramFill, RiYoutubeFill, RiArrowDropRightLine, RiCloseFill } from "react-icons/ri";
 import { FaTiktok } from "react-icons/fa";
@@ -13,7 +13,7 @@ export default function MobileNav(props) {
       <div onClick={props.closeMobileNav} className="cursor-pointer z-50 scale-0 animate-close-x absolute top-5 right-5">
         <RiCloseFill size="35px" color="black" />
       </div>
-      <div className=" mt-24 w-3/4 flex text-xl flex-col justify-center">
+      <div className=" mt-28 w-5/6 flex text-xl flex-col justify-center">
         <Link href="/" passHref>
           <div className="w-full flex justify-between items-center">
             <div onClick={props.closeMobileNav}>Home</div>
