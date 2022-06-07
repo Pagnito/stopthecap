@@ -1,7 +1,9 @@
 import React from "react";
-import { RiFacebookBoxFill, RiInstagramFill, RiYoutubeFill } from "react-icons/ri";
+import { RiInstagramFill, RiYoutubeFill } from "react-icons/ri";
 import { FaTiktok } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
 import Link from "next/link";
+
 export default function Footer(props) {
   return (
     <div className="bg-theme-blue lg:pt-20 lg:pl-20 lg:pr-20">
@@ -66,22 +68,22 @@ export default function Footer(props) {
             </ul>
           </div>
         </div>
-        <div className="flex h-32 flex-col justify-between xxs:mt-5 lg:mt-0">
-          <div className="flex">
-            <div>
-              <RiFacebookBoxFill className="mr-5 cursor-pointer" color="#38539B" size="30px" />
+        <div className="flex h-32 flex-col justify-between xxs:w-4/6 md:w-60">
+          <div className="flex w-full justify-between">
+            <div className="hover:scale-110 transition-transform cursor-pointer w-10 h-10 p-2 flex items-center justify-center rounded-full border-2 border-white">
+              <FaFacebookF color="white" size="23px" />
             </div>
-            <div>
-              <RiInstagramFill className="mr-5 cursor-pointer" color="#DF3869" size="30px" />
+            <div className="hover:scale-110 transition-transform cursor-pointer w-10 h-10 p-2 flex items-center justify-center rounded-full border-2 border-white">
+              <RiInstagramFill color="white" size="25px" />
             </div>
-            <div>
-              <RiYoutubeFill className="mr-5 cursor-pointer" color="#EF4444" size="33px" />
+            <div className="hover:scale-110 transition-transform cursor-pointer w-10 h-10 p-2 flex items-center justify-center rounded-full border-2 border-white">
+              <RiYoutubeFill color="white" size="28px" />
             </div>
-            <div>
-              <FaTiktok className="mr-5 cursor-pointer" color="white" size="25px" />
+            <div className="hover:scale-110 transition-transform cursor-pointer w-10 h-10 p-2 flex items-center justify-center rounded-full border-2 border-white">
+              <FaTiktok color="white" size="20px" />
             </div>
           </div>
-          <div className="text-white xxs:mb-10 lg:mb-0">info@stopthecap.com</div>
+          <div className="text-white xxs:mb-10 lg:mb-0 xxs:text-center md:text-left xxs:mt-10 md:mt-0">info@stopthecap.com</div>
         </div>
       </div>
 
