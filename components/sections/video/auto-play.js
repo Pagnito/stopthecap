@@ -27,7 +27,7 @@ export default function AutoPlayVideoHero(props) {
         className="fixed top-0 h-screen w-full object-cover -z-10"
       >
         <source
-          src="/videos/video-one.mp4"
+          src="/videos/rapper-video.mp4"
           type="video/mp4"
         />
       </video>

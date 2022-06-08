@@ -64,7 +64,7 @@ function ProductCard(props) {
                 <Link href={`/product/${handle}`} passHref>
                   <div className="cursor-pointer w-full absolute bottom-0 xxs:h-3/5 sm:h-4/5 z-30"></div>
                 </Link>
-                <div className="w-full pb-100% rounded-lg overflow-hidden relative">
+                <div className="w-full pb-100% rounded-lg overflow-hidden relative bg-white">
                   <Image src={image} alt={props.data.title} layout="fill" objectFit="cover" className={`rounded-lg`} />
                 </div>
                 <div className="absolute flex flex-col -top-1 right-0 xxs:p-1 sm:p-3">
