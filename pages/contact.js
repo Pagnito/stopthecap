@@ -1,20 +1,30 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { app } from "../app.config";
 import emailjs, { init } from "emailjs-com";
+import validateEmail from '../util/validateEmail';
 init("user_7TRpE1ETxxdlRHzpPATZ1");
 
 export default function Contact(props) {
   let [name, setName] = useState("");
   let [email, setEmail] = useState("");
- 
+
   let [message, setMessage] = useState("");
 
   let [nameError, setNameError] = useState("");
   let [emailError, setEmailError] = useState("");
-  let [subjectError, setSubjectError] = useState("");
   let [messageError, setMessageError] = useState("");
-  
+
   const sendEmail = () => {
+    if(name.length < 2) {
+      setName('');
+      return setNameError('Provide name longer than 2 chars');
+    } else if (!validateEmail(email)){
+      setEmail('');
+      return setEmailError('Provide a real email');
+    } else if (message.length < 10) {
+      setMessage('')
+      return setMessageError('Provide a message longer than 10 chars');
+    }
     const templateParams = {
       name: name,
       email: email,
@@ -123,11 +133,13 @@ export default function Contact(props) {
                   Full Name
                 </label>
                 <input
+                  onChange={(e) => setName(e.target.value)}
                   type="name"
                   name="name"
                   id="name"
-                  placeholder="Full Name"
-                  className="w-100 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none"
+                  value={name}
+                  placeholder={nameError ? nameError : `Full Name`}
+                  className={`${nameError && name.length === 0 ? 'placeholder:text-red-500' : ''} w-100 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none`}
                 />
               </div>
 
@@ -136,25 +148,30 @@ export default function Contact(props) {
                   Email
                 </label>
                 <input
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Email"
-                  className="w-100 mt-2 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none"
+                  value={email}
+                  placeholder={emailError ? emailError : "Email"}
+                  className={`${emailError && email.length === 0 ? 'placeholder:text-red-500' : ''} w-100 mt-2 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none`}
                 />
               </div>
 
               <div className="flex flex-col mt-2">
 
                 <textarea
+                onChange={(e) => setMessage(e.target.value)}
                   id="message"
-                  placeholder="Message"
-                  className="h-16 w-100 mt-2 py-3 px-3 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none"
+                  value={message}
+                  placeholder={messageError ? messageError : "Message"}
+                  className={`${messageError && message.length === 0 ? 'placeholder:text-red-500' : ''} h-16 w-100 mt-2 py-1 px-2 rounded bg-theme-blue border-2 border-white text-white font-semibold focus:border-indigo-500 focus:outline-none`}
                 />
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={sendEmail}
                 className="md:w-32 bg-red-500 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded mt-3 hover:bg-indigo-500 transition ease-in-out duration-300"
               >
                 Submit
@@ -164,7 +181,7 @@ export default function Contact(props) {
         </div>
       </div>
       <video width="400" autoPlay={true} muted={true} loop={true} className="fixed top-0 h-screen w-full object-cover -z-10">
-        <source src="/videos/video-two.mp4" type="video/mp4" />
+        <source src="/videos/graphic-3d.mp4" type="video/mp4" />
       </video>
     </div>
   );

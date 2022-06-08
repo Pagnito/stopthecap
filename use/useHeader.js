@@ -12,8 +12,10 @@ export default function useHeader(router) {
     headerButtonStyles:
       router.pathname === "/" || router.pathname === "/contact"
         ? "border-white bg-theme-blue text-white"
+        : router.pathname === "/about" ?
+        "border-white text-white"
         : "bg-white-tr-20 text-theme-blue border-theme-blue",
-    headerIconStyles: router.pathname === "/" || router.pathname === "/contact" ? "white" : "#180F2E",
+    headerIconStyles: router.pathname === "/" || router.pathname === "/contact" || router.pathname === "/about" ? "white" : "#180F2E",
     headerStyles: router.pathname === "/" ? "moving-header" : "moving-header moving-header-down",
   };
   let [state, setState] = useState(initState);
@@ -50,6 +52,12 @@ export default function useHeader(router) {
       if (url == "/contact") {
         setState({
           headerButtonStyles: "border-white bg-theme-blue text-white",
+          headerIconStyles: "white",
+          headerStyles: "moving-header moving-header-down",
+        });
+      } else if(url== "/about") {
+        setState({
+          headerButtonStyles: "text-white border-white",
           headerIconStyles: "white",
           headerStyles: "moving-header moving-header-down",
         });
