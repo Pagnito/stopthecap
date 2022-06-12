@@ -23,12 +23,13 @@ export default function Wishlist(props) {
   let carouselOptions = filterVariantsByOption_ColorPrimary(variants);
   let primaryOptionIndex = determinePrimaryOptionIndex(selectedVariant.selectedOptions);
   let organizedOptions = organizeOptions(variants, primaryOptionIndex);
-  let reviewOverview = calcOverview(props.reviews ? props.reviews : []);
+  let reviewOverview = calcOverview(viewedProduct.reviews ? viewedProduct.reviews : []);
   let title = viewedProduct.title;
   let price = formatter.format(selectedVariant.priceV2.amount);
   let description = viewedProduct.description;
   let handle = viewedProduct.handle;
 
+  console.log(reviewOverview, props.reviews);
   function addToCart(variant) {
     fbp.event('Add To Cart', title);
     dispatch(addToCartAction(variant, cart));

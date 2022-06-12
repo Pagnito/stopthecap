@@ -310,6 +310,7 @@ const queries = {
         handle
         productType
         tags
+        totalInventory
         compareAtPriceRange {
           minVariantPrice {
             amount
@@ -377,6 +378,7 @@ const queries = {
                   productType
                   availableForSale
                   handle
+                  totalInventory
                   variants(first: 25) {
                     edges {
                       node {
