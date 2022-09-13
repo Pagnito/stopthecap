@@ -13,9 +13,9 @@ export default function useHeader(router) {
       router.pathname === "/" || router.pathname === "/contact"
         ? "border-white bg-theme-blue text-white"
         : router.pathname === "/about" ?
-        "border-white text-white"
+        "border-theme-blue text-theme-blue"
         : "bg-white-tr-20 text-theme-blue border-theme-blue",
-    headerIconStyles: router.pathname === "/" || router.pathname === "/contact" || router.pathname === "/about" ? "white" : "#180F2E",
+    headerIconStyles: router.pathname === "/" || router.pathname === "/contact" ? "white" : "#180F2E",
     headerStyles: router.pathname === "/" ? "moving-header" : "moving-header moving-header-down",
   };
   let [state, setState] = useState(initState);
@@ -57,8 +57,8 @@ export default function useHeader(router) {
         });
       } else if(url== "/about") {
         setState({
-          headerButtonStyles: "text-white border-white",
-          headerIconStyles: "white",
+          headerButtonStyles: "text-theme-blue border-theme-blue",
+          headerIconStyles: "#180F2E",
           headerStyles: "moving-header moving-header-down",
         });
       } else {

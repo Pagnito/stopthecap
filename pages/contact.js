@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { app } from "../app.config";
 import emailjs, { init } from "emailjs-com";
 import validateEmail from '../util/validateEmail';
+import Image from "next/image";
 init("user_7TRpE1ETxxdlRHzpPATZ1");
 
 export default function Contact(props) {
@@ -15,10 +16,10 @@ export default function Contact(props) {
   let [messageError, setMessageError] = useState("");
 
   const sendEmail = () => {
-    if(name.length < 2) {
+    if (name.length < 2) {
       setName('');
       return setNameError('Provide name longer than 2 chars');
-    } else if (!validateEmail(email)){
+    } else if (!validateEmail(email)) {
       setEmail('');
       return setEmailError('Provide a real email');
     } else if (message.length < 10) {
@@ -55,7 +56,9 @@ export default function Contact(props) {
 
   return (
     <div className="relative flex items-top justify-center min-h-screen xxs:items-center sm:pt-0">
-      <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
+      <Image src="/images/fashion-three.jpg" alt="Landing Image" loading="eager" layout="fill" objectFit="cover" />
+
+      <div className="max-w-6xl mx-auto sm:px-6 lg:px-8 z-10">
         <div className="mt-8 overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="xxs:p-6 md:p-0 md:mr-2">
@@ -161,7 +164,7 @@ export default function Contact(props) {
               <div className="flex flex-col mt-2">
 
                 <textarea
-                onChange={(e) => setMessage(e.target.value)}
+                  onChange={(e) => setMessage(e.target.value)}
                   id="message"
                   value={message}
                   placeholder={messageError ? messageError : "Message"}
@@ -180,9 +183,9 @@ export default function Contact(props) {
           </div>
         </div>
       </div>
-      <video width="400" autoPlay={true} muted={true} loop={true} className="fixed top-0 h-screen w-full object-cover -z-10">
+      {/* <video width="400" autoPlay={true} muted={true} loop={true} className="fixed top-0 h-screen w-full object-cover -z-10">
         <source src="/videos/graphic-3d.mp4" type="video/mp4" />
-      </video>
+      </video> */}
     </div>
   );
 }

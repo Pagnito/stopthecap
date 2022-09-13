@@ -155,15 +155,14 @@ a, div, button {
 .h-screen-2\/3 {
   height: 66vh;
 }
-.h-screen-4\/5 {
-  height: 80vh;
-}
+
 .min-h-20 {
   min-height: 4rem;
 }
 .max-h-screen-minus-100px {
   max-height: calc(100vh - 135px);
 }
+
 /*//////////////////////////////////////////^^^ HEIGHTS ////////////////////////////////////////*/
 
 /*------------------------------------------------------------------------------------------------*/
@@ -206,13 +205,51 @@ a, div, button {
 /*//////////////////////////////////////////^^^ CLIP-PATHS ////////////////////////////////////////*/
 
 .clip-path-one {
-  clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 1.5%, 100% 0, 100% 100%, 0 100%);
 }
 .clip-path-two {
   clip-path: polygon(0 0, 100% 17%, 100% 100%, 0% 100%);
 }
 .clip-path-three {
   clip-path: polygon(0 0, 100% 0, 100% 93%, 0% 100%);
+}
+.clip-path-four {
+  clip-path: polygon(0 0, 89% 0, 100% 100%, 0 91%);
+}
+.clip-path-five {
+  clip-path: polygon(10% 0, 100% 11%, 100% 95%, 0 100%);
+}
+
+@media (min-width: 280px) {
+  .clip-path-four {
+    clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 91%);
+  }
+}
+@media (min-width: 1024px) {
+  .clip-path-four {
+    clip-path: polygon(0 0, 89% 0, 100% 100%, 0 91%);
+  }
+}
+@media (min-width: 280px) {
+  .clip-path-five {
+    clip-path: polygon(0 0, 100% 4%, 100% 97%, 0 100%);
+  }
+}
+@media (min-width: 1024px) {
+  .clip-path-five {
+    clip-path: polygon(10% 0, 100% 11%, 100% 95%, 0 100%);
+  }
+}
+
+@media (min-width: 280px) {
+  .clip-path-one {
+    clip-path: polygon(0 1.5%, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@media (min-width: 600px) {
+  .clip-path-one {
+    clip-path: polygon(0 2%, 100% 0, 100% 100%, 0 100%);
+  }
 }
 
 /*//////////////////////////////////////////^^^ CLIP-PATHS ////////////////////////////////////////*/

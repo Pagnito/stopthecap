@@ -32,6 +32,10 @@ module.exports = {
     },
 
     extend: {
+      height: () => ({
+        "screen-double": "150vh",
+        "screen-4\/5": "80vh"
+      }),
       backgroundImage: {
         'landing-slider-one': "url('/images/landing.jpg')",
         'landing-slider-two': "url('/images/me.jpg')",

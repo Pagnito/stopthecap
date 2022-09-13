@@ -6,6 +6,7 @@ let init = {
   recommendations: [],
   wishlist: [],
   wishlistSearchSource: [],
+  featuredProducts: [],
   shop: [],
   unfilteredShop: [],
   shopFilters: {

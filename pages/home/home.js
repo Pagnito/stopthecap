@@ -7,8 +7,10 @@ import EdgyHeader from "../../components/sections/header/edgy-transparent";
 // const EdgyCarousel = dynamic(() => import("../../components/landing-carousel/edgy-landing-carousel"));
 const Landing = dynamic(() => import('../../components/sections/landing-carousel/slides/slide-one'));
 const Incentives = dynamic(() => import("../../components/sections/incentives/incentives"));
-const FeaturedProduct = dynamic(() => import("../../components/sections/featured-product/hero"));
-const FeaturedCollection = dynamic(() => import("../../components/sections/featured-collection/classic-featured-collection"));
+// const FeaturedProduct = dynamic(() => import("../../components/sections/featured-product/hero"));
+// const FeaturedProductTwo = dynamic(() => import("../../components/sections/featured-product/hero-two"));
+const FeaturedProducts = dynamic(() => import("../../components/sections/featured-product/wrapper"));
+const TopProductsCollectionCards = dynamic(() => import("../../components/sections/featured-collection/classic-featured-collection"));
 const AutoPlayVideoHero = dynamic(() => import("../../components/sections/video/auto-play"));
 const Newsletter = dynamic(() => import("../../components/sections/newsletter/edgy-newsletter"));
 
@@ -28,8 +30,8 @@ function Home(props) {
       <EdgyHeader />
       <Landing />
       <Incentives />
-      <FeaturedProduct />
-      <FeaturedCollection />
+      <FeaturedProducts />
+      <TopProductsCollectionCards />
       <AutoPlayVideoHero />
       <Newsletter />
     </div>

@@ -2,8 +2,8 @@ import React from "react";
 
 export default function AutoPlayVideoHero(props) {
   props = {
-    text_one: "TESTED PRODUCTS",
-    text_two: "Check Out My Reviews Of These Products",
+    text_one: "OUR GEAR POPS",
+    text_two: "Check out some influences who love our gear.",
     text_three: "",
     button: "Learn More",
   };

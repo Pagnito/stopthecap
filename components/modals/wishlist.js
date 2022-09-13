@@ -51,7 +51,7 @@ export default function Wishlist(props) {
             <input
               onChange={(e) => searchWishlist(e.target.value)}
               placeholder="Search products..."
-              className="text-sm border-2 z-30 border-theme-blue rounded h-10 pl-3"
+              className="text-sm border-2 z-30 w-full border-theme-blue rounded h-10 pl-3"
             />
 
             <div className="absolute bg-white w-full flex items-center justify-center xxs:hidden lg:flex">

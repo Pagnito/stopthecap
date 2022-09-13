@@ -39,16 +39,18 @@ function Body(props) {
 export default Body;
 
 export const getStaticProps = async () => {
-  let { getCollection, getProduct } = products;
-  let featuredProductHandle = appConfig.app.data.featured_product.handle;
-  let featuredCollection = appConfig.app.data.featured_collection.collection;
+  let { getCollection, getCollections } = products;
+  const collections = await getCollections();
+
+  let featuredProductsHandle = appConfig.app.data.featured_products.handle;
+  let topProducts = appConfig.app.data.featured_collection.collection;
   try {
     let collection;
     let collectionReviews;
     let sortedColReviews;
-    let featuredProduct;
+    let featuredProducts;
     try {
-      collection = await getCollection(featuredCollection);
+      collection = await getCollection(topProducts);
       collectionReviews = await mongo.getReviewsForProducts(collection.products.edges.map((rec) => rec.node.handle));
       sortedColReviews = filterReviewsByProduct(collectionReviews);
       collection.products.edges = collection.products.edges.map((rec) => {
@@ -61,17 +63,17 @@ export const getStaticProps = async () => {
       collection = [];
     }
     try {
-      featuredProduct = await getProduct(featuredProductHandle);
+      featuredProducts = await getCollection(featuredProductsHandle);
     } catch (err) {
-      featuredProduct = {};
+      featuredProducts = [];
     }
-
+    console.log('hey', featuredProducts.products.edges[0])
     return {
       props: {
         initialReduxState: {
           products: {
             topProducts: Object.keys(collection).length > 0 ? collection : [],
-            featuredProduct,
+            featuredProducts: featuredProducts ? featuredProducts.products.edges : [],
             allProducts: [],
             searchedProducts: []
           },

@@ -54,7 +54,7 @@ module.exports = {
           {
             img_url: "",
             text_one: "QUALITY PRODUCTS",
-            text_two: "If we wouldn't use it, we wouldn't sell it",
+            text_two: "If we wouldn't wear it, we wouldn't sell it",
             button: "LEARN MORE",
           },
         ],
@@ -78,6 +78,9 @@ module.exports = {
         feature_one: "Variety of fabrics",
         feature_two: "Variety of fits",
         featuure_three: "less creases",
+      },
+      featured_products: {
+        handle: "frontpage",
       },
       video: {
         url: "",
