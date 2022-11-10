@@ -9,7 +9,8 @@ const Landing = dynamic(() => import('../../components/sections/landing-carousel
 const Incentives = dynamic(() => import("../../components/sections/incentives/incentives"));
 // const FeaturedProduct = dynamic(() => import("../../components/sections/featured-product/hero"));
 // const FeaturedProductTwo = dynamic(() => import("../../components/sections/featured-product/hero-two"));
-const FeaturedProducts = dynamic(() => import("../../components/sections/featured-product/wrapper"));
+const ModelDisplay = dynamic(() => import("../../components/sections/model-display/model-display"));
+// const FeaturedProducts = dynamic(() => import("../../components/sections/featured-product/wrapper"));
 const TopProductsCollectionCards = dynamic(() => import("../../components/sections/featured-collection/classic-featured-collection"));
 const AutoPlayVideoHero = dynamic(() => import("../../components/sections/video/auto-play"));
 const Newsletter = dynamic(() => import("../../components/sections/newsletter/edgy-newsletter"));
@@ -29,10 +30,12 @@ function Home(props) {
     <div className="home">
       <EdgyHeader />
       <Landing />
-      <Incentives />
-      <FeaturedProducts />
+      <ModelDisplay />
+      {/* <FeaturedProducts /> */}
       <TopProductsCollectionCards />
       <AutoPlayVideoHero />
+      <Incentives />
+
       <Newsletter />
     </div>
   );

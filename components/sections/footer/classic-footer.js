@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Footer(props) {
   return (
     <div className="bg-theme-blue lg:pt-20 lg:pl-20 lg:pr-20">
-      <div className="flex lg:flex-row xxs:flex-col-reverse xxs:items-center lg:items-start justify-between">
+      <div className="flex lg:flex-row xxs:flex-col-reverse xxs:items-center lg:items-start justify-between pt-5">
         <div className="text-white flex lg:flex-row xxs:flex-col">
           <div>
             <h1 className="text-2xl text-red-500">Info</h1>

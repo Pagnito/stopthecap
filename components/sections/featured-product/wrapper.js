@@ -9,7 +9,7 @@ export default function Wrapper() {
     return ind%2===0 ? <HeroOne product={product.node} /> : <HeroTwo product={product.node}/>
   })
   return (
-    <div className="bg-white clip-path-one">
+    <div className="bg-white clip-path-one flex flex-col items-center">
       {Heroes}
     </div>
 

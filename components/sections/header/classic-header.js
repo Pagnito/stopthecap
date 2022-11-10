@@ -76,7 +76,7 @@ const ClassicHeader = ({openMobileNav}) => {
             size="43px"
           />
         </div>
-        <div></div>
+
         <div className="sm:w-1/3">
         {/* ${app.searchVisible || app.cartVisible || app.wishlistVisible || app.quickViewVisible ? 'pr-14px' : ''} */}
           <div className={`flex justify-end align-middle xxs:pr-1 `}>

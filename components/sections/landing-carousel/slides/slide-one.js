@@ -7,7 +7,7 @@ export default function SlideOne(/*{ data }*/) {
   let data = config.app.data.carousel.slides[0]
   return (
     <div className={`top-0 w-full bg-center bg-cover h-screen flex items-center sm:justify-end xs:pr-10 xs:pl-10 relative`}>
-      <Image src="/images/fashion-one.jpg" alt="Landing Image" loading="eager" layout="fill" objectFit="cover" objectPosition='right'/>
+      <Image src="/images/fashion-ten.jpg" alt="Landing Image" loading="eager" layout="fill" objectFit="cover" objectPosition='center'/>
       <div className="p-5 mt-10 text-left text-white font-sans sm:mr-20 flex flex-col justify-start items-start">
         <div className="animate-text-one opacity-0 -translate-x-8 xxs: text-lg sm:text-2xl">{data.text_one}</div>
         <div className="animate-text-two opacity-0 -translate-x-8 font-serif xxs:text-4xl sm:text-5xl mt-4">{data.text_two}</div>

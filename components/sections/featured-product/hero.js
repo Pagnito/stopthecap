@@ -9,15 +9,15 @@ export default function FeaturedProduct({ product }) {
   let price = product.priceRange.minVariantPrice.amount;
   let { formatter } = useProduct();
   return (
-    <div className="xxs:flex-col-reverse lg:flex-row flex xxs:items-center xxs:h-screen-double lg:h-screen-4/5 z-20 w-full -mt-3">
-      <div className="flex text-left flex-col items-center xxs:w-full lg:w-2/3 h-full relative">
-        <div className="w-full h-full relative clip-path-four self-start">
+    <div style={{borderRadius: '50px'}} className="xxs:flex-col-reverse lg:flex-row flex xxs:items-center xxs:h-screen-double z-20 w-4/5 shadow-lg mt-10 overflow-hidden">
+      <div className="flex text-left flex-col items-center xxs:w-full lg:w-1/2 h-full relative">
+        <div className="w-full h-full relative self-start">
           <Image layout="fill" objectFit="cover" src="/images/fashion-four.jpg" ></Image>
         </div>
 
       </div>
-      <div className="flex justify-center items-center flex-col xxs:mt-20 md:mt-0 md:w-1/2 lg:p-32 xxs:p-10">
-        <img src={image} className="" />
+      <div className="flex justify-center items-center flex-col xxs:mt-20 md:mt-0 md:w-1/2 lg:p-32 xxs:p-10 border-box">
+        <img src={image} className="w-full" />
         <div className="text-2xl mt-1">
           {formatter.format(price)}
         </div>

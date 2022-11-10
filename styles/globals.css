@@ -241,16 +241,7 @@ a, div, button {
   }
 }
 
-@media (min-width: 280px) {
-  .clip-path-one {
-    clip-path: polygon(0 1.5%, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@media (min-width: 600px) {
-  .clip-path-one {
-    clip-path: polygon(0 2%, 100% 0, 100% 100%, 0 100%);
-  }
-}
+
 
 /*//////////////////////////////////////////^^^ CLIP-PATHS ////////////////////////////////////////*/
 
